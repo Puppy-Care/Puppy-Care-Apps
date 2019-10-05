@@ -12,7 +12,7 @@ var Viaje = require('./models/viaje');
 
 var Encomienda = require('./models/encomienda');
 
-mongoose.connect('mongodb://localhost:27017/curso_mean2', (err, res) => {
+mongoose.connect('mongodb://localhost:27017/puppy-care', (err, res) => {
     if (err) {
         throw err;
 
