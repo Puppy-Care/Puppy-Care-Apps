@@ -1,0 +1,7 @@
+{
+  "name": "APPMOVILCLIENTE",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

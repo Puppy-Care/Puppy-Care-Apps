@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar color="colorapp">
+    <button *ngIf="identity" ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title style="text-align: center;">Contáctanos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-image: url('assets/imgs/Registro.png')" class="getstarContactos">
+  <br>
+  <br>
+  <ion-list>
+    <button ion-item class="btn-cb" (click)="llama()">
+      <img src="assets/imgs/contactoTcel.png" style="width: 17% ;padding-right: 5%"> 0984411190
+    </button>
+    <button ion-item class="btn-cb">
+      <img src="assets/imgs/contactoTC.png" style="width: 17% ;padding-right: 5%"> (03) 2-968-758 / (03) 2 968-980)
+    </button>
+
+    <button onclick="location.href='https://www.facebook.com/profile.php?id=100009185337931';" ion-item class="btn-cb">
+      <img src="assets/imgs/contactoFace.png" style="width: 17% ;padding-right: 5%"> Facebook
+      
+    </button>
+    <button  onclick="location.href='http://www.montecarlotransvip.com';" ion-item class="btn-cb" >
+      <img src="assets/imgs/contactoPagina.png" style="width: 17% ;padding-right: 5%"> Pagina Web
+    </button>
+    <button   (click)="enviarEmail()" ion-item class="btn-cb">
+      <img   src="assets/imgs/contactoCorreo.png" style="width: 17% ;padding-right: 5%"> E-mail
+    </button>
+  </ion-list>
+</ion-content>

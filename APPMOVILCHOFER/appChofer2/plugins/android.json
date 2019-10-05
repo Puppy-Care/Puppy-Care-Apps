@@ -1,0 +1,30 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "ec.com.chofer.businessdeveloperaa"
+    },
+    "cordova-plugin-ionic-keyboard": {
+      "PACKAGE_NAME": "ec.com.chofer.businessdeveloperaa"
+    },
+    "cordova-plugin-ionic-webview": {
+      "PACKAGE_NAME": "ec.com.chofer.businessdeveloperaa"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "ec.com.chofer.businessdeveloperaa"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "ec.com.chofer.businessdeveloperaa"
+    },
+    "mx.ferreyra.callnumber": {
+      "PACKAGE_NAME": "ec.com.chofer.businessdeveloperaa"
+    }
+  },
+  "dependent_plugins": {}
+}

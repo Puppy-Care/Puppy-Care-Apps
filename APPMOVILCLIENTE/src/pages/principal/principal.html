@@ -1,0 +1,229 @@
+<ion-header>
+  <ion-navbar hideBackButton color="colorapp">
+    <button ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+
+    <!-- esto es android ////////////// -->
+    <ion-title>
+      Menú Principal
+      <button (click)="solicitudes()" style="background: transparent; left:0; right:0; max-width:11%; float: right; margin-right: 5%; display: block; max-height:100%;">
+        <ion-icon item-left>
+          <img src="assets/imgs/calendar.png">
+        </ion-icon>
+      </button>
+
+      <button (click)="historial()" style="background: transparent; left:0; right:0; max-width:11%; float: right; margin-right: 5%; display: block; max-height:100%;">
+        <ion-icon item-left>
+          <img src="assets/imgs/notification.png">
+        </ion-icon>
+      </button>
+    </ion-title>
+
+    <!-- es es ios  ////////////// -->
+    <!-- <ion-title style="padding-right: 0%;"><label left >Menú Principal</label>
+      <button (click)="solicitudes()" style="background: transparent; left:0; right:0; max-width:2%; float: right; margin-right: 15%; display: block; max-height:100%;">
+          <ion-icon name="calendar" style="cursor:pointer; font-size: 140%; color:rgb(255, 255, 255);"></ion-icon>
+      </button>
+
+      <button (click)="historial()" style="background: transparent; left:0; right:0; max-width:2%; float: right; margin-right: 15%; display: block; max-height:100%;">
+        <ion-icon name="notifications" style="cursor:pointer; font-size: 150%; color:rgb(255, 255, 255);"></ion-icon>
+      </button>
+    </ion-title> -->
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-image: url('assets/imgs/fondo2.png')" class="getstarPrincipal">
+  <br>
+  <form #myForm="ngForm" novalidate class="form_princi">
+
+    <div id="page_principal" *ngIf="menuprincipal">
+      <div id="hijo">
+        <ion-item class="css-btn" *ngIf="VarViaje">
+          <div id="icon-item" *ngIf="VarViaje" value="VIAJES" (click)="activaV()">
+            <ion-icon name="ios-car" style="cursor:pointer; font-size: 780%; color:#4266ae; "></ion-icon>
+          </div>
+          <input type="button" class="btn1" *ngIf="VarViaje" value="VIAJES" (click)="activaV()">
+        </ion-item>
+
+        <ion-item class="css-btn" *ngIf="VarEnc">
+          <div id="icon-item" *ngIf="VarEnc" value="ENCOMIENDAS" (click)="activaE()">
+            <ion-icon name="cube" style="cursor:pointer; font-size: 680%; color: #4266ae;"></ion-icon>
+          </div>
+          <input type="button" class="btn1" *ngIf="VarEnc" value="ENCOMIENDAS" (click)="activaE()">
+        </ion-item>
+      </div>
+    </div>
+
+    <!-- VIAJES -->
+    <ion-list class="Lista_Menu_Viaje">
+      <div class="list_1" *ngIf="bander">
+        <ion-label class="title_menu">Rutas:</ion-label>
+        
+        <ion-item class="css-itemSelec">
+          <ion-select required class="css-select" placeholder="Seleccione la Ruta" #rutaE="ngModel" [(ngModel)]="RutasExpress" name="rutaE"
+            (ionChange)="activarExpress();">
+            <ion-label>Rutas</ion-label>
+            <ion-option (ionSelect)="clickMensaje(ruta.ruta);" value="{{ ruta.ruta }}" *ngFor="let ruta of viaje">{{ ruta.ruta }}</ion-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      <hr *ngIf="bander" />
+
+      <div class="list_Exp" *ngIf="bander_1">
+        <ion-label class="title_menu">Ruta Express:</ion-label>
+        <ion-item class="css-text">
+          <ion-input placeholder="Origen" #rutaEO="ngModel" [(ngModel)]="RutaOrigen" name="rutaEO" required></ion-input>
+        </ion-item>
+        <ion-item class="css-text">
+          <ion-input placeholder="Destino" #rutaED="ngModel" [(ngModel)]="RutaDestino" name="rutaED" required></ion-input>
+        </ion-item>
+      </div>
+      <hr *ngIf="bander_1" />
+
+      <div class="list_2" *ngIf="bander2">
+        <ion-label class="title_menu">Horarios:</ion-label>
+        <ion-item class="css-itemSelec">
+          <ion-select class="css-select" placeholder="Seleccione el Horario" #horarioE="ngModel" [(ngModel)]="horario" name="horarioE"
+            (ionChange)="activarExpress();" required>
+            <ion-label>Horarios</ion-label>
+            <ion-option value="04:00">04:00 AM</ion-option>
+            <ion-option value="05:00">05:00 AM</ion-option>
+            <ion-option value="06:00">06:00 AM</ion-option>
+            <ion-option value="09:00">09:00 AM</ion-option>
+            <ion-option value="12:00">12:00 PM</ion-option>
+            <ion-option value="15:00">03:00 PM</ion-option>
+            <ion-option value="18:00">06:00 PM</ion-option>
+            <ion-option value="20:00">08:00 PM</ion-option>
+            <ion-option value="Express">Express</ion-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      <hr *ngIf="bander2" />
+
+      <div class="list_Exp" *ngIf="bander2_1">
+        <ion-label class="title_menu">Horario Express:</ion-label>
+        <ion-item class="css-itemSelec css-datetime">
+          <ion-datetime required placeholder="Seleccione el Horario" displayFormat="hh:mm A" #dateE="ngModel" [(ngModel)]="horarioExpress"
+            name="dateE"></ion-datetime>
+        </ion-item>
+      </div>
+      <hr *ngIf="bander2_1" />
+
+      <div class="list_3" *ngIf="bander3">
+        <ion-label class="title_menu">Fecha Salida:</ion-label>
+        <div class="picker">
+          <my-date-picker required placeholder="Fecha Salida" [options]="myDatePickerOptions" name="mydate" #mydate="ngModel" [(ngModel)]="fecha_salida"
+            required></my-date-picker>
+        </div>
+      </div>
+      <hr *ngIf="bander3" />
+
+      <div *ngIf="bander_6">
+        <div class="list_Exp">
+          <ion-label class="title_menu">Maletas:</ion-label>
+          <ion-item class="css-itemSelec">
+            <ion-input on-tap="maletas();" placeholder="N° Maletas" type="number" #maleta="ngModel" [(ngModel)]="num_maleta" name="maleta"
+              required> </ion-input>
+          </ion-item>
+        </div>
+        <div [hidden]="aparecer" class="list_Exp1">
+          <ion-item class="mensaje" style="font-size: 11px; box-sizing: content-box;">
+            <div class="nuevosize"> Recuerda: Se permite llevar una maleta por persona. Las maletas extras tienen un recargo de $5,00 c/u.</div>
+          </ion-item>
+        </div>
+      </div>
+      <hr *ngIf="bander_6" />
+
+      <div class="DetalleEnc" *ngIf="bander_7V">
+        <ion-label class="title_menu">Información Adicional:</ion-label>
+        <ion-item class="css-TextArea">
+          <ion-textarea required rows="8" class="textare" #informacion="ngModel" [(ngModel)]="inf_adicional" name="informacion" placeholder="Detalle toda la información adicional que usted desee proporcionar."></ion-textarea>
+        </ion-item>
+      </div>
+
+      <br *ngIf="solicita">
+
+      <button *ngIf="solicita" class="rutasGeol" style="background: transparent;" (click)="irUbicacionInicio();">
+        <img src="assets/imgs/solicitar.png" style=" margin: 0; padding: 0;">
+      </button>
+      <br *ngIf="solicita">
+    </ion-list>
+
+
+
+    <!-- ENCOMIENDAS -->
+    <ion-list class="Lista_Menu_Enc">
+
+      <div class="list_1" *ngIf="banderE">
+        <ion-label class="title_menu">Rutas:</ion-label>
+        <ion-item class="css-itemSelec">
+          <ion-select class="css-select" placeholder="Seleccione la Ruta" #rutaE1="ngModel" [(ngModel)]="RutasExpress1" name="rutaE1">
+            <ion-label>Rutas</ion-label>
+            <ion-option value="{{ ruta.ruta }}" *ngFor="let ruta of viajeE">{{ ruta.ruta }}</ion-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      <hr *ngIf="banderE" />
+
+      <div class="list_2" *ngIf="bander2E">
+        <ion-label class="title_menu">Horarios:</ion-label>
+        <ion-item class="css-itemSelec">
+          <ion-select class="css-select" placeholder="Seleccione el Horario" #horario1="ngModel" [(ngModel)]="horarioE" name="horario1">
+            <ion-label>Horarios</ion-label>
+            <ion-option value="04:00">04:00 AM</ion-option>
+            <ion-option value="05:00">05:00 AM</ion-option>
+            <ion-option value="06:00">06:00 AM</ion-option>
+            <ion-option value="09:00">09:00 AM</ion-option>
+            <ion-option value="12:00">12:00 PM</ion-option>
+            <ion-option value="15:00">03:00 PM</ion-option>
+            <ion-option value="18:00">06:00 PM</ion-option>
+            <ion-option value="20:00">08:00 PM</ion-option>
+          </ion-select>
+        </ion-item>
+      </div>
+      <hr *ngIf="bander2E" />
+
+      <div class="list_3" *ngIf="bander3E">
+        <ion-label class="title_menu">Fecha Salida:</ion-label>
+        <div class="picker">
+          <my-date-picker required placeholder="Fecha Salida" [options]="myDatePickerOptions" #mydateE="ngModel" [(ngModel)]="fecha_salidaE"
+            name="mydateE" required></my-date-picker>
+        </div>
+      </div>
+      <hr *ngIf="bander3E" />
+
+      <div class="list_E" *ngIf="bander_1E">
+        <ion-label class="title_menu">Destinatario:</ion-label>
+        <ion-item class="css-itemSelec">
+          <ion-input placeholder="Nombres Completos" #dest="ngModel" [(ngModel)]="destinatario" name="dest" required></ion-input>
+        </ion-item>
+      </div>
+      <hr *ngIf="bander_1E" />
+
+      <div class="list_E" *ngIf="bander_98">
+        <ion-label class="title_menu">Tamaño (Centimetros):</ion-label>
+        <ion-item>
+          <ion-input type="number" class="tamal uno" placeholder="Largo (cm)" #largo="ngModel" [(ngModel)]="largo1" name="largo" required></ion-input>
+          <ion-input type="number" class="tamal uno" placeholder="Ancho (cm)" #ancho="ngModel" [(ngModel)]="ancho1" name="ancho" required></ion-input>
+          <ion-input type="number" class="tamal" placeholder="Alto (cm)" #alto="ngModel" [(ngModel)]="alto1" name="alto" required></ion-input>
+        </ion-item>
+      </div>
+      <hr *ngIf="bander_98" />
+
+      <div class="DetalleEnc" *ngIf="bander_5E">
+        <ion-label class="title_menu">Detalle su paquete:</ion-label>
+        <ion-item class="css-TextArea">
+          <ion-textarea rows="8" class="textare" name="DetalleEnc" [(ngModel)]="detalleEnc" #DetalleEnc="ngModel" placeholder="Detalle toda la información acerca del paquete que desea enviar. Es obligatorio que usted especifique el tamaño del paquete."></ion-textarea>
+        </ion-item>
+      </div>
+      <!-- <hr *ngIf="bander_5E" /> -->
+
+      <br *ngIf="solicitaE">
+      <button *ngIf="solicitaE" class="rutasGeol" style="background: transparent;" (click)="irUbicacionInicioEncomienda()">
+        <img src="assets/imgs/solicitar.png" style="margin: 0; padding: 0;">
+      </button>
+      <br *ngIf="solicitaE">
+    </ion-list>
+  </form>
+</ion-content>

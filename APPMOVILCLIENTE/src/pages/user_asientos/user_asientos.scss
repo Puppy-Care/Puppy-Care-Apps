@@ -1,0 +1,79 @@
+.customLoader {
+  .alert-head{
+    margin: 0;
+    padding-bottom: 0;
+  }
+  .alert-sub-title{
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .alert-message{
+    padding-top: 10px;
+  }
+} 
+
+.getstarAsientos {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#Parte_1 {
+  padding: 15%;
+  padding-top: 10%;
+  padding-bottom: 0;
+}
+
+#Parte_3 {
+  padding: 15%;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+//-----------------------ASIENTOS FRONTAL ------------------------------
+.btn_parte1_1 {
+  margin-right: 9%;
+}
+
+.btn_parte1_2 {
+  margin-left: 9%;
+}
+
+.btn_parte1_1,
+.btn_parte1_2 {
+  margin-top: 4%;
+  background: transparent;
+  width: 16%;
+  border: 0;
+}
+
+//-----------------------ASIENTOS TRASEROS ------------------------------
+.btn_parte2_1,
+.btn_parte2_2,
+.btn_parte2_3 {
+  margin-top: 4%;
+  margin-bottom: 4%;
+  background: transparent;
+  width: 16%;
+}
+
+.btn_parte1_1:focus,
+.btn_parte1_2:focus,
+.btn_parte2_1:focus,
+.btn_parte2_2:focus,
+.btn_parte2_3:focus {
+  outline: none;
+}
+
+.btnContinuar {
+  margin: auto;
+  display: block;
+  max-width: 100%;
+  width: 100%;
+}
+
+#Parte_4 {
+  margin-top: 9%;
+}

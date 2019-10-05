@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-navbar hideBackButton color="colorapp">
+
+    <ion-buttons left>
+      <button class="back-button disable-hover bar-button bar-button-md back-button-md bar-button-default bar-button-default-md show-back-button"
+        (click)="goBack();" style="padding: 0;">
+        <ion-icon style="font-size: 170%; color:rgb(255, 255, 255);" name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <!-- android //////////////////////////////////////// -->
+    <ion-title style="padding-right: 0%;"><label left >Notificaciones</label>
+      <button (click)="aparecerEncomienda()" style="background: transparent; left:0; right:0; max-width:2%; float: right; margin-right: 15%; display: block; max-height:100%;">
+          <ion-icon name="cube" style="cursor:pointer; font-size: 100%; color:rgb(255, 255, 255);"></ion-icon>
+      </button>
+
+      <button (click)="aparecerViaje()" style="background: transparent; left:0; right:0; max-width:2%; float: right; margin-right: 15%; display: block; max-height:100%;">
+        <ion-icon name="ios-car" style="cursor:pointer; font-size: 110%; color:rgb(255, 255, 255);"></ion-icon>
+      </button>
+    </ion-title>
+
+    <!-- IOS //////////////////////////////////////////// -->
+    <!-- <ion-title style="padding-right: 0; padding-left: 20px;"><label left>Notificaciones</label>
+      <button (click)="aparecerEncomienda()" style="background: transparent; left:0; right:0; max-width:10%; float: right; margin-right: 10%; display: block; max-height:100%;">
+        <ion-icon name="cube" style="cursor:pointer; font-size: 130%; color:rgb(255, 255, 255);"></ion-icon>
+      </button>
+
+      <button (click)="aparecerViaje()" style="background: transparent; left:0; right:0; max-width:50%; float: right; margin-right: 5%; display: block; max-height:100%;">
+        <ion-icon name="ios-car" style="cursor:pointer; font-size: 140%; color:rgb(255, 255, 255);"></ion-icon>
+      </button>
+    </ion-title> -->
+    
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-image: url('assets/imgs/Registro.png')" class="getstarContactos">
+  <div id="solicituViaje" *ngIf="viaje">
+    <br>
+    <div style="text-align: center;">
+      <h3>
+        <font style="font-size: 90%">NOTIFICACIONES RECIBIDAS</font>
+      </h3>
+      <h3>
+        <font style="font-size: 90%">Viajes</font>
+      </h3>
+    </div>
+    <hr>
+    <div style="text-align: left;">
+      <h4>
+        <font>&nbsp;Notificaciones</font>
+      </h4>
+    </div>
+    <ion-list>
+      <ion-item *ngFor=" let listado of  vectorViajes">
+        <ion-thumbnail item-start>
+          <ion-icon name="ios-car" style="cursor:pointer; font-size: 400%; color: #4266AE;   margin-left: auto;margin-right: auto; display: block; margin-top: 10px;"></ion-icon>
+
+        </ion-thumbnail>
+        <p>
+          <b>Ruta: </b> {{listado.ruta}}</p>
+        <p>
+          <b>Fecha de Salida: </b> {{listado.fech_salida}}</p>
+        <p>
+          <b>Horario: </b> {{listado.horario}}</p>
+
+        <p>
+          <b>Recibida: </b> {{listado.fech_solicitud}}</p>
+        <button ion-button clear item-end (click)="irDetalles(listado)">Ver</button>
+      </ion-item>
+    </ion-list>
+  </div>
+
+
+  <div id="solicituEncomienda" *ngIf="encomienda">
+    <br>
+    <div style="text-align: center;">
+      <h3>
+        <font style="font-size: 90%">NOTIFICACIONES RECIBIDAS</font>
+      </h3>
+      <h3>
+        <font style="font-size: 90%">Encomiendas</font>
+      </h3>
+    </div>
+    <hr>
+    <div style="text-align: left;">
+      <h4>
+        <font>&nbsp;Notificaciones</font>
+      </h4>
+    </div>
+    <ion-list>
+      <ion-item *ngFor=" let listado of  vectorEncomiendas">
+        <ion-thumbnail item-start>
+          <ion-icon name="cube" style="cursor:pointer; font-size: 350%; color: #4266AE;   margin-left: auto;margin-right: auto; display: block; margin-top: 10px;"></ion-icon>
+
+        </ion-thumbnail>
+        <p>
+          <b>Ruta: </b> {{listado.ruta}}</p>
+        <p>
+          <b>Fecha de Salida: </b> {{listado.fech_salida}}</p>
+        <p>
+          <b>Horario: </b> {{listado.horario}}</p>
+        <p>
+          <b>Recibida: </b> {{listado.fech_solicitud}}</p>
+        <button ion-button clear item-end (click)="irDetallesEnc(listado)">Ver</button>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>
