@@ -1,0 +1,1715 @@
+import { Component, OnInit } from "@angular/core";
+import { GLOBAL } from "../../../services/global";
+import { UserService } from "../../../services/user.services";
+import { NotificacionesService } from "../../../services/notificaciones.services";
+import { MessageService } from '../../../services/message.services';
+
+import { Secretaria } from "../../../models/secretaria";
+import { Chofer } from "../../../models/chofer";
+
+//import { Socket } from "ng-socket-io";
+
+//import * as $ from 'jquery';
+//import { renderComponent } from "@angular/core/src/render3";
+//import {Popup} from "ng2-opd-popup";
+
+@Component({
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.css"]
+})
+export class HomeComponent implements OnInit {
+
+
+  public notViaje;
+  public notEnc;
+  public sockett;
+  public url;
+  public url2;
+  public buscar;
+  public listadoChoferes;
+  public listadoSecretarias;
+  public listadoTaxis;
+  public listados;
+  public listadoC = true;
+  public listadoS = true;
+  public listadoT = true;
+  public datosChoferes;
+  public datosSecretarias;
+  public datosTaxis;
+
+  ctitle = 'app';
+  public IngreseUsuario = false;
+  public ReporteClientes = false;
+  public ModificarUsuario = false;
+  public IngreseChofer = false;
+  public ModificarChofer = false;
+
+  public ReporteUno = false;
+  public ReporteDos = false;
+  public ReporteTres = false;
+  public primera = "Home";
+  public segunda = "";
+  public secretaria_register: Secretaria;
+  public chofer_register: Chofer;
+  
+  public loading = false;
+  public imagen = true;
+  public textBox = true;
+  public txtHide = true;
+  public txtAparece = true;
+  public verViajesTotales = false;
+  public verEncomiendasTotales = false;
+
+  public detalleSolicitudViaje = false;
+  public detalleSolicitudEncomienda = false;
+
+  /* VALIDACION DE LOS CAMPOS DE LOS FORMULARIOS */
+  // public cedulaVal = false;
+  public vContrasenaSecre: String;
+  public vContrasenaChofer: String;
+
+  //reportes de los viajes realizados 
+  public viajesRealizados = false;
+  public viajesRealizadosDetalles = false;
+  public encomiendasRealizadas = false;
+  public encomiendasRealizadasDetalles = false;
+
+
+  //////////////////
+  public textBoxContra = true;
+  public textBoxContraC = true;
+
+
+  public tipoUsuario = 'password';
+  public tipoUsuarioM = 'password';
+  public tipoUsuarioC = 'password';
+  public tipoChofer = 'password';
+
+  public clase_ojoUsuario = 'fa fa-eye fa-lg';
+  public clase_ojoUsuarioM = 'fa fa-eye fa-lg';
+  public clase_ojoUsuarioC = 'fa fa-eye fa-lg';
+  public clase_ojoChofer = 'fa fa-eye fa-lg';
+
+  public estadoClaveChofer;
+  public estadoClaveUsuario;
+  public contrasenaNew;
+  public contrasenaNewUser;
+
+  /////////////////////////////////************************  notificaciones  ********************************** */
+  public notificationBeta;
+  public contador: any = 0;
+  public smsLlenos;
+  messages = [];    //variable que almacena las notificaciones que llegan
+  messagesViajeLLeno = [];    //variable que almacena las notificaciones que llegan
+  messagesEnco;
+  public messagesConvertidos;
+  myObject;
+  myObject1;
+  prueba;
+
+  public cont = 0;
+
+  public mensajeerrormodals;
+  public mensajecorrectomodals;
+  public hola1 = true;
+  constructor(private _userService: UserService, private _messageService: MessageService, private _notificacionesService: NotificacionesService) {
+
+    this.mensajeerrormodals = "hola";
+
+    this.secretaria_register = new Secretaria("", "", "", "", "", "", "", "", "");
+    this.chofer_register = new Chofer("", "", "", "", "", "", "", "", "", "", "");
+    
+    this.url = GLOBAL.url;
+    this.contador = 1;
+ 
+
+    this.estadoClaveChofer = "0";
+    this.estadoClaveUsuario = "0";
+
+    var banderaVE = localStorage.getItem("banderaViajeEncom");
+    localStorage.removeItem("banderaViajeEncom");
+    console.log('MI BANDERA VE >>> ', banderaVE);
+    if (banderaVE == null) { }
+    if (banderaVE == "viaje") {
+      this._notificacionesService.getSolicitudViaje(this._userService.getToken(), "0").subscribe(
+        response => {
+          this.messages = response.solicitudviajes;
+          console.log("*****************************************");
+          console.log("ESTE ES MI VECTOR DE MENSAJES DEL IF", this.messages);
+          console.log("*****************************************");
+          let ct = 0;
+          this.messages.forEach(() => {
+            ct = ct + 1;
+            console.log('estoy en el sensual foreach');
+          });
+          console.log('valor de mi contador >>> ', ct);
+          this.notViaje = ct;
+          //this.obtenerSolicitudesViajes();
+          this.apareceNotificacionViaje();
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+    if (banderaVE == "encomienda") {
+      this._notificacionesService.getSolicitudEnco(this._userService.getToken(), "0").subscribe(
+        response => {
+          console.log("hola" + response.solicitudviajes);
+          this.messagesEnco = response.solicitudencomiendas;
+          console.log("esrte es el mensaje con las encomeindas", this.messages);
+          let ct = 0;
+          this.messagesEnco.forEach(() => {
+            ct = ct + 1;
+            console.log('estoy en el sensual foreach');
+          });
+          console.log('valor de mi contador >>> ', ct);
+          this.notEnc = ct;
+          this.apareceNotificacionEncomienda();
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
+  hola() //  esta funcion  debe cargar el json  con todos los datos del usuario y enviarlos por la notificacion
+  {
+    console.log("entre  a la funcioin hola");
+    let message = { text: "jola  juuapo danni", receiver: "5b4639dfa2c64a651860dcd8" };
+
+    this._messageService.addMessage(this._userService.getToken(), message).subscribe(
+      response => {
+        console.log("hola" + response.message);
+
+      },
+      error => {
+        console.log(error);
+      }
+    )
+
+
+    //console.log("hola tefo");
+
+
+  }
+
+  //animacion del ojo de la contrasenia
+  myFunctionUsuario() {
+    if (this.tipoUsuario === 'text') {
+      this.tipoUsuario = 'password';
+      this.clase_ojoUsuario = 'fa fa-eye fa-lg';
+    } else {
+      this.tipoUsuario = 'text';
+      this.clase_ojoUsuario = 'fa fa-eye-slash fa-lg';
+    }
+  }
+  habilitarContrasenaU() {
+
+    if (this.tipoUsuarioM === 'text') {
+      this.tipoUsuarioM = 'password';
+      this.clase_ojoUsuarioM = 'fa fa-eye fa-lg';
+      this.textBoxContra = true;
+      this.estadoClaveUsuario = '0';
+    } else {
+      this.tipoUsuarioM = 'text';
+      this.clase_ojoUsuarioM = 'fa fa-eye-slash fa-lg';
+      this.textBoxContra = false;
+      this.estadoClaveUsuario = '1';
+    }
+    console.log('estadoClaveContrasenaUsuario......', this.estadoClaveUsuario);
+  }
+  habilitarContrasenaC() {
+
+    if (this.tipoUsuarioC === 'text') {
+      this.tipoUsuarioC = 'password';
+      this.clase_ojoUsuarioC = 'fa fa-eye fa-lg';
+      this.textBoxContraC = true;
+      this.estadoClaveChofer = '0';
+    } else {
+      this.tipoUsuarioC = 'text';
+      this.clase_ojoUsuarioC = 'fa fa-eye-slash fa-lg';
+      this.textBoxContraC = false;
+      this.estadoClaveChofer = '1';
+    }
+    console.log('estadoClaveContrasenaChofer......', this.estadoClaveChofer);
+  }
+  myFunctionChofer() {
+    if (this.tipoChofer === 'text') {
+      this.tipoChofer = 'password';
+      this.clase_ojoChofer = 'fa fa-eye fa-lg';
+    } else {
+      this.tipoChofer = 'text';
+      this.clase_ojoChofer = 'fa fa-eye-slash fa-lg';
+    }
+  }
+
+
+
+  public ngOnInit() {
+
+    this.estadoClaveChofer = '0';
+    console.log('estadoClaveChofer/////', this.estadoClaveChofer);
+    this.estadoClaveUsuario = "0";
+    console.log('estadoClaveUsuario/////', this.estadoClaveUsuario);
+    /*this.socket.on("new notification", function (data) {
+      this.notificationBeta = JSON.stringify(data);
+      console.log("notificacion de mi aplicacion movil: ", JSON.stringify(data));
+      console.log("notificacion de beta: ", this.notificationBeta);
+      //this.messages.push();
+     /* this.message.push( JSON.stringify(data));
+      console.log('este es mi message...',this.message);*/
+    //  this.render(data);
+    /*   });
+       this.url2 = '../assets/img/IngresarChofer.png';
+   */
+  
+
+    this.url2 = '../assets/img/IngresarChofer.png';
+    // this.socket.fromEvent<any>("message").map(data => data.msg );
+  }
+
+
+  habilitar() {
+    this.textBox = !this.textBox;
+    this.txtHide = true;
+    this.txtAparece = false;
+  }
+
+  deshabilitar() {
+    this.textBox = !this.textBox;
+    this.txtHide = !this.txtHide;
+    this.txtAparece = !this.txtAparece;
+  }
+
+
+
+  apareceIngreseUsuario() {
+
+    this.ReporteClientes = false;
+    this.listadoC = false;
+    this.listadoS = false;
+    this.listadoT = false;
+    this.primera = "Usuario";
+    this.segunda = "Nuevo";
+   
+    this.IngreseUsuario = true;
+    this.ModificarUsuario = false;
+    this.IngreseChofer = false;
+    this.ModificarChofer = false;
+    this.ReporteTres = false;
+    this.ReporteDos = false;
+    this.ReporteUno = false;
+    this.imagen = false;
+    this.detalleSolicitudViaje = false;
+    this.detalleSolicitudEncomienda = false;
+    this.verViajesTotales = false;
+    this.verEncomiendasTotales = false;
+    this.viajesRealizados = false;
+    this.viajesRealizadosDetalles = false;
+    this.encomiendasRealizadas = false;
+    this.encomiendasRealizadasDetalles = false;
+  }
+
+  apareceIngresarChofer() {
+
+    this.ReporteClientes = false;
+    this.listadoC = false;
+    this.listadoS = false;
+    this.listadoT = false;
+   
+    this.IngreseUsuario = false;
+    this.ModificarUsuario = false;
+    this.IngreseChofer = true;
+    this.ModificarChofer = false;
+    this.ReporteTres = false;
+    this.ReporteDos = false;
+    this.ReporteUno = false;
+    this.primera = "Chofer";
+    this.segunda = "Nuevo";
+    this.imagen = false;
+    this.detalleSolicitudViaje = false;
+    this.detalleSolicitudEncomienda = false;
+    this.verViajesTotales = false;
+    this.verEncomiendasTotales = false;
+    this.viajesRealizados = false;
+    this.viajesRealizadosDetalles = false;
+    this.encomiendasRealizadas = false;
+    this.encomiendasRealizadasDetalles = false;
+    this.url2 = '../assets/img/IngresarChofer.png';
+  }
+
+  aparecerReporteClientes() {
+    this.ReporteClientes = true;
+    this.listadoC = false;
+    this.listadoS = false;
+    this.listadoT = false;
+   
+    this.ModificarChofer = false;
+    this.IngreseUsuario = false;
+    this.ModificarUsuario = false;
+    this.IngreseChofer = false;
+    this.ReporteTres = false;
+    this.ReporteDos = false;
+    this.ReporteUno = false;
+    this.primera = "Cliente";
+    this.segunda = "Listar clientes";
+    this.imagen = false;
+    this.detalleSolicitudViaje = false;
+    this.detalleSolicitudEncomienda = false;
+    this.verViajesTotales = false;
+    this.verEncomiendasTotales = false;
+    this.viajesRealizados = false;
+    this.viajesRealizadosDetalles = false;
+    this.encomiendasRealizadas = false;
+    this.encomiendasRealizadasDetalles = false;
+    this.url2 = "../assets/img/IngresarAuto.png";
+  }
+
+  
+
+  aparecerReporteUno() {
+
+    this.ReporteClientes = false;
+    this.listadoC = false;
+    this.listadoS = false;
+    this.listadoT = false;
+    //reporte de viajes pendientes
+    this.ReporteTres = false;
+    this.ReporteDos = false;
+    this.ReporteUno = true;
+    this.IngreseUsuario = false;
+    this.ModificarUsuario = false;
+    this.IngreseChofer = false;
+    this.ModificarChofer = false;
+    this.primera = "Reporte";
+    this.segunda = "Viajes Pendientes";
+    this.imagen = false;
+    this.detalleSolicitudViaje = false;
+    this.verViajesTotales = false;
+    this.verEncomiendasTotales = false;
+    this.detalleSolicitudEncomienda = false;
+    this.viajesRealizados = false;
+    this.viajesRealizadosDetalles = false;
+    this.encomiendasRealizadas = false;
+    this.encomiendasRealizadasDetalles = false;
+  }
+
+  aparecerReporteDos() {
+
+    this.ReporteClientes = false;
+    this.listadoC = false;
+    this.listadoS = false;
+    this.listadoT = false;
+    // reporte de viajes en curso
+    this.ReporteTres = false;
+    this.ReporteDos = true;
+    this.ReporteUno = false;
+
+    this.IngreseUsuario = false;
+    this.ModificarUsuario = false;
+    this.IngreseChofer = false;
+    this.ModificarChofer = false;
+    this.primera = "Reporte";
+    this.segunda = "Viajes En Curso";
+    this.imagen = false;
+    this.detalleSolicitudViaje = false;
+    this.detalleSolicitudEncomienda = false;
+    this.verViajesTotales = false;
+    this.verEncomiendasTotales = false;
+    this.viajesRealizados = false;
+    this.viajesRealizadosDetalles = false;
+    this.encomiendasRealizadas = false;
+    this.encomiendasRealizadasDetalles = false;
+  }
+
+  aparecerReporteTres() {
+
+    this.ReporteClientes = false;
+    this.listadoC = false;
+    this.listadoS = false;
+    this.listadoT = false;
+    this.ReporteTres = true;
+    this.ReporteDos = false;
+    this.ReporteUno = false;
+    
+    this.IngreseUsuario = false;
+    this.ModificarUsuario = false;
+    this.IngreseChofer = false;
+    this.ModificarChofer = false;
+    this.primera = "Reporte";
+    this.segunda = "Viajes Exitosos";
+    this.imagen = false;
+    this.detalleSolicitudViaje = false;
+    this.detalleSolicitudEncomienda = false;
+    this.verViajesTotales = false;
+    this.verEncomiendasTotales = false;
+    this.viajesRealizados = false;
+    this.viajesRealizadosDetalles = false;
+    this.encomiendasRealizadas = false;
+    this.encomiendasRealizadasDetalles = false;
+  }
+
+  apareceDetalleViaje() {
+
+    this.ReporteClientes = false;
+    this.listadoC = false;
+    this.listadoS = false;
+    this.listadoT = false;
+    this.ReporteTres = false;
+    this.ReporteDos = false;
+    this.ReporteUno = false;
+    
+    this.IngreseUsuario = false;
+    this.ModificarUsuario = false;
+    this.IngreseChofer = false;
+    this.ModificarChofer = false;
+    this.primera = "Alerta";
+    this.segunda = "Viajes";
+    this.imagen = false;
+    this.detalleSolicitudViaje = true;
+    this.detalleSolicitudEncomienda = false;
+    this.verViajesTotales = false;
+    this.verEncomiendasTotales = false;
+    this.viajesRealizados = false;
+    this.viajesRealizadosDetalles = false;
+    this.encomiendasRealizadas = false;
+    this.encomiendasRealizadasDetalles = false;
+  }
+  apareceDetalleEncomienda() {
+
+    this.ReporteClientes = false;
+    this.listadoC = false;
+    this.listadoS = false;
+    this.listadoT = false;
+    this.ReporteTres = false;
+    this.ReporteDos = false;
+    this.ReporteUno = false;
+
+    this.IngreseUsuario = false;
+    this.ModificarUsuario = false;
+    this.IngreseChofer = false;
+    this.ModificarChofer = false;
+    this.primera = "Alerta";
+    this.segunda = "Encomiendas";
+    this.imagen = false;
+    this.detalleSolicitudViaje = false;
+    this.detalleSolicitudEncomienda = true;
+    this.verViajesTotales = false;
+    this.verEncomiendasTotales = false;
+    this.viajesRealizados = false;
+    this.viajesRealizadosDetalles = false;
+    this.encomiendasRealizadas = false;
+    this.encomiendasRealizadasDetalles = false;
+  }
+
+
+  //metodo para aparecer todas las notificaciones de los viajes
+  apareceNotificacionViaje() {
+
+    this.ReporteClientes = false;
+    console.log('aparecenotificaionViaje');
+    this.organizarViajes();
+    this.listadoC = false;
+    this.listadoS = false;
+    this.listadoT = false;
+   
+    this.IngreseUsuario = false;
+    this.ModificarUsuario = false;
+    this.verViajesTotales = true;
+    this.verEncomiendasTotales = false;
+    this.IngreseChofer = false;
+    this.ModificarChofer = false;
+    this.ReporteTres = false;
+    this.ReporteDos = false;
+    this.ReporteUno = false;
+    this.primera = "Viajes";
+    this.segunda = "Totales";
+    this.imagen = false;
+    this.detalleSolicitudViaje = false;
+    this.detalleSolicitudEncomienda = false;
+    this.viajesRealizados = false;
+    this.viajesRealizadosDetalles = false;
+    this.encomiendasRealizadas = false;
+    this.encomiendasRealizadasDetalles = false;
+    this.url2 = '../assets/img/IngresarChofer.png';
+  }
+  //metodo para aparecer todas las notificaciones de las encomiendas 
+  apareceNotificacionEncomienda() {
+
+    this.ReporteClientes = false;
+    console.log('aparecenotificaionEncomienda');
+    this.organizarEncomiendas();
+    this.listadoC = false;
+    this.listadoS = false;
+    this.listadoT = false;
+
+    this.IngreseUsuario = false;
+    this.ModificarUsuario = false;
+    this.verViajesTotales = false;
+    this.verEncomiendasTotales = true;
+    this.IngreseChofer = false;
+    this.ModificarChofer = false;
+    this.ReporteTres = false;
+    this.ReporteDos = false;
+    this.ReporteUno = false;
+    this.primera = "Encomiendas";
+    this.segunda = "Totales";
+    this.imagen = false;
+    this.detalleSolicitudViaje = false;
+    this.detalleSolicitudEncomienda = false;
+    this.viajesRealizados = false;
+    this.viajesRealizadosDetalles = false;
+    this.encomiendasRealizadas = false;
+    this.encomiendasRealizadasDetalles = false;
+    this.url2 = '../assets/img/IngresarChofer.png';
+  }
+
+  busquedaChofer() {
+    this.loading = true;
+    this._userService.buscarChoferes(this.buscar).subscribe(
+      response => {
+        //console.log("satisfactoriamente");
+
+        this.listadoChoferes = response.choferes;
+        if (this.listadoChoferes == "") {
+          this.listadoC = false;
+        } else {
+          this.listadoC = true;
+        }
+        // console.log(this.listadoChoferes);
+        this.loading = false;
+      },
+      error => {
+        var errorMessage = <any>error;
+        if (errorMessage) {
+          console.log(errorMessage);
+          try {
+            var body = JSON.parse(error._body);
+            errorMessage = body.message;
+          } catch {
+            errorMessage = "No hay conexión intentelo más tarde";
+            this.loading = false;
+            document.getElementById("openModalError").click();
+          }
+          // this.loading =false;
+        }
+        // this.loading =false;
+      }
+
+    );
+  }
+
+  busquedaSecretarias() {
+    this.loading = true;
+    this._userService.buscarSecretarias(this.buscar).subscribe(
+      response => {
+        //console.log("satisfactoriamente");
+        // console.log(response);
+        console.log('secretarias antes  OBJETO>>>>>', response);
+        this.listadoSecretarias = response.secretarias;
+        console.log('secretarias despues ARRAY >>>>>', this.listadoSecretarias);
+        if (this.listadoSecretarias == "") {
+          this.listadoS = false;
+        } else {
+          this.listadoS = true;
+        }
+        //console.log(this.listadoSecretarias);
+        this.loading = false;
+      },
+      error => {
+        var errorMessage = <any>error;
+        if (errorMessage) {
+          console.log(errorMessage);
+          try {
+            var body = JSON.parse(error._body);
+            errorMessage = body.message;
+          } catch {
+            errorMessage = "No hay conexión intentelo más tarde";
+            this.loading = false;
+            document.getElementById("openModalError").click();
+          }
+          // this.loading =false;
+        }
+        // this.loading =false;
+      }
+
+    );
+  }
+
+  busquedaTaxis() {
+    this.loading = true;
+    this._userService.buscarTaxis(this.buscar).subscribe(
+      response => {
+        //console.log("satisfactoriamente");
+        this.listadoTaxis = response.taxis;
+        if (this.listadoTaxis == "") {
+          this.listadoT = false;
+        } else {
+          this.listadoT = true;
+        }
+        //console.log(response);
+        this.loading = false;
+      },
+      error => {
+        var errorMessage = <any>error;
+        if (errorMessage) {
+          console.log(errorMessage);
+          try {
+            var body = JSON.parse(error._body);
+            errorMessage = body.message;
+          } catch {
+            errorMessage = "No hay conexión intentelo más tarde";
+            this.loading = false;
+            document.getElementById("openModalError").click();
+          }
+          // this.loading =false;
+        }
+        // this.loading =false;
+      }
+
+    );
+  }
+
+  busqueda() {
+
+    this.ReporteClientes = false;
+    this.ReporteTres = false;
+    this.ReporteDos = false;
+    this.ReporteUno = false;
+    
+    this.IngreseUsuario = false;
+    this.ModificarUsuario = false;
+    this.IngreseChofer = false;
+    this.ModificarChofer = false;
+    this.primera = "Busqueda";
+    this.segunda = "Listado";
+    this.imagen = false;
+    this.listados = true;
+    this.detalleSolicitudViaje = false;
+    this.detalleSolicitudEncomienda = false;
+    this.verViajesTotales = false;
+    this.verEncomiendasTotales = false;
+    this.viajesRealizados = false;
+    this.viajesRealizadosDetalles = false;
+    this.encomiendasRealizadas = false;
+    this.encomiendasRealizadasDetalles = false;
+    this.busquedaChofer();
+    this.busquedaSecretarias();
+    this.busquedaTaxis();
+  }
+
+
+
+
+  mostrarDatosSecretarias(datosSecretarias) {
+
+    this.ReporteClientes = false;
+    this.contrasenaNewUser = "";
+    this.primera = "Usuario";
+    this.segunda = "Modificar";
+   
+    this.IngreseUsuario = false;
+    this.verViajesTotales = false;
+    this.verEncomiendasTotales = false;
+    this.IngreseChofer = false;
+    this.ModificarChofer = false;
+    this.ReporteTres = false;
+    this.ReporteDos = false;
+    this.ReporteUno = false;
+    this.imagen = false;
+    this.detalleSolicitudViaje = false;
+    this.detalleSolicitudEncomienda = false;
+    this.textBox = true;
+    this.txtHide = false;
+    this.txtAparece = true;
+    this.ModificarUsuario = true;
+    this.listados = false;
+    this.viajesRealizados = false;
+    this.viajesRealizadosDetalles = false;
+    this.encomiendasRealizadas = false;
+    this.encomiendasRealizadasDetalles = false;
+    this.datosSecretarias = datosSecretarias;
+    console.log("hola tefo2" + this.datosSecretarias.nombre);
+  }
+
+
+  mostrarDatosChofer(datosChoferes) {
+
+    this.ReporteClientes = false;
+    this.textBox = true;
+    this.txtHide = false;
+    this.txtAparece = true;
+    this.ModificarChofer = true;
+    this.listados = false;
+    this.datosChoferes = datosChoferes;
+
+    this.verViajesTotales = false;
+    this.verEncomiendasTotales = false;
+    this.IngreseUsuario = false;
+    this.ModificarUsuario = false;
+    this.IngreseChofer = false;
+    this.ReporteTres = false;
+    this.ReporteDos = false;
+    this.ReporteUno = false;
+    this.primera = "Chofer";
+    this.segunda = "Modificar";
+    this.imagen = false;
+    this.detalleSolicitudViaje = false;
+    this.detalleSolicitudEncomienda = false;
+    this.viajesRealizados = false;
+    this.viajesRealizadosDetalles = false;
+    this.encomiendasRealizadas = false;
+    this.encomiendasRealizadasDetalles = false;
+
+    if (this.datosChoferes.image == undefined) {
+      this.url2 = '../assets/img/IngresarChofer.png';
+
+    } else {
+      this.url2 = this.url + 'get-image-chofer/' + this.datosChoferes.image;
+      console.log("este es la iamgen" + this.datosChoferes.image);
+    }
+
+  }
+
+  mostarDatosTaxi(datosTaxis) {
+
+    this.ReporteClientes = false;
+    this.textBox = true;
+    this.txtHide = false;
+    this.txtAparece = true;
+ 
+    this.listados = false;
+    this.datosTaxis = datosTaxis;
+    this.verViajesTotales = false;
+    this.verEncomiendasTotales = false;
+    
+    this.IngreseUsuario = false;
+    this.ModificarUsuario = false;
+    this.IngreseChofer = false;
+    this.ModificarChofer = false;
+    this.ReporteTres = false;
+    this.ReporteDos = false;
+    this.ReporteUno = false;
+    this.primera = "Auto";
+    this.segunda = "Modificar";
+    this.imagen = false;
+    this.detalleSolicitudViaje = false;
+    this.detalleSolicitudEncomienda = false;
+    this.viajesRealizados = false;
+    this.viajesRealizadosDetalles = false;
+    this.encomiendasRealizadas = false;
+    this.encomiendasRealizadasDetalles = false;
+
+    if (this.datosTaxis.image == undefined) {
+      this.url2 = "../assets/img/imagenEditTaxi.png";
+      console.log('iamgen Indefinidas');
+    } else {
+      this.url2 = this.url + 'get-image-taxi/' + this.datosTaxis.image;
+      console.log("esto e slo de ahora" + this.datosTaxis.image);
+    }
+  }
+
+
+  onRegisterSecretaria() {
+    this.loading = true;
+    this.secretaria_register.estado = '0';
+    this._userService.registerSecretaria(this.secretaria_register).subscribe(
+      response => {
+        this.mensajecorrectomodals = "Los datos de la secretaria se han guardado satisfactoriamente.";
+        console.log("satisfactoriamente");
+        this.loading = false;
+        document.getElementById("openModalCorrecto").click();
+        this.limpiar(1);
+      },
+      error => {
+        var errorMessage = <any>error;
+        if (errorMessage) {
+          this.mensajeerrormodals = JSON.parse(errorMessage._body).message;
+          document.getElementById("openModalError").click();
+          try {
+            var body = JSON.parse(error._body);
+            errorMessage = body.message;
+          } catch {
+            errorMessage = "No hay conexión intentelo más tarde";
+            this.loading = false;
+            document.getElementById("openModalError").click();
+          }
+          this.loading = false;
+        }
+      }
+    );
+  }
+
+  onRegisterChofer() {
+    this.loading = true;
+    this.chofer_register.estado = '0';
+    this._userService.registerChofer(this.chofer_register).subscribe(
+      response => {
+        this.loading = false;
+        if (!this.filesToUpload) {
+        } else {
+          console.log("nombre de archivo" + this.filesToUpload[0].name);
+          this.makeFileRequest(this.url + 'upload-image-chofer/' + response.chofer._id, [], this.filesToUpload).then(
+
+            (result: any) => {
+              this.chofer_register.image = result.image;
+            }
+          );
+        }
+        this.mensajecorrectomodals = "Los datos del chofer se han guardado satisfactoriamente.";
+        document.getElementById("openModalCorrecto").click();
+        this.limpiar(2);
+      },
+      err => {
+        let errorMessage = <any>err;
+        if (errorMessage) {
+          this.mensajeerrormodals = JSON.parse(errorMessage._body).message;
+          document.getElementById("openModalError").click();
+          console.log("error de existencia" + errorMessage);
+          try {
+            let body = JSON.parse(err._body);
+            errorMessage = body.message;
+          } catch {
+            errorMessage = "No hay conexión intentelo más tarde";
+            this.loading = false;
+            document.getElementById("openModalError").click();
+          }
+          this.loading = false;
+          //console.log(errorMessage);
+        }
+      }
+    );
+  }
+
+
+
+  onUpdateSecretarias(estado) {
+    console.log('mi contra con ******>>>>', this.contrasenaNewUser);
+    this.datosSecretarias.estado = estado;
+    this.loading = true;
+
+    if (this.contrasenaNewUser != null || this.contrasenaNewUser != '') {
+      this.estadoClaveUsuario = '1';
+      console.log('estadoclaveusuario si es diferente null ""', this.estadoClaveUsuario);
+    }
+
+    if (this.contrasenaNewUser == null || this.contrasenaNewUser == '') {
+      this.estadoClaveUsuario = '0';
+      console.log('estadoclaveusuario 0000000 ""', this.estadoClaveUsuario);
+    }
+
+    if (this.estadoClaveUsuario == '1') {
+      console.log('Estado clave usuario vane', this.contrasenaNewUser);
+      this.datosSecretarias.contrasena = this.contrasenaNewUser;
+    }
+
+    this._userService.update_secretarias(this.datosSecretarias, this.estadoClaveUsuario).subscribe(
+      response => {
+        this.mensajecorrectomodals = "Los Secretaria se ha eliminado correctamente"; // esto puso el tefo chumadod
+        console.log("satisfactoriamenteUpdate");
+        this.loading = false;
+
+        if (estado == '0') {
+          this.mensajecorrectomodals = "Los datos del secretario/a se han modificado satisfactoriamente.";
+          document.getElementById("openModalCorrecto").click();
+        } else {
+          this.mensajecorrectomodals = "La cuenta del secretario/a ha sido eliminada.";
+          document.getElementById("openModalCorrecto").click();
+        }
+      },
+      error => {
+        var errorMessage = <any>error;
+        if (errorMessage) {
+          console.log(errorMessage);
+          try {
+            var body = JSON.parse(error._body);
+            errorMessage = body.message;
+          } catch {
+            errorMessage = "No hay conexión intentelo más tarde";
+            this.loading = false;
+            document.getElementById("openModalError").click();
+          }
+
+          // this.loading =false;
+        }
+      }
+    );
+  }
+
+
+  onUpdateChoferes(estado) {
+    this.datosChoferes.estado = estado;
+    this.loading = true;
+    console.log('me esta viniendo esto .....', this.datosChoferes);
+
+    if (this.contrasenaNew != null || this.contrasenaNew != '') {
+      this.estadoClaveChofer = '1';
+      console.log('estadoclaveusuario si es diferente null ""', this.estadoClaveChofer);
+    }
+
+    if (this.contrasenaNew == null || this.contrasenaNew == '') {
+      this.estadoClaveChofer = '0';
+      console.log('estadoclaveusuario 0000000 ""', this.estadoClaveChofer);
+    }
+
+    if (this.estadoClaveChofer == '1') {
+      this.datosChoferes.contrasena = this.contrasenaNew;
+    }
+
+    this._userService.update_Choferes(this.datosChoferes, this.estadoClaveChofer).subscribe(
+      response => {
+        console.log("satisfactoriamenteUpdate");
+        this.loading = false;
+        if (!this.filesToUpload) {
+        } else {
+          console.log("id del chofer a actualizar" + this.datosChoferes._id);
+          this.makeFileRequest(this.url + 'upload-image-chofer/' + this.datosChoferes._id, [], this.filesToUpload).then(
+
+            (result: any) => {
+              this.chofer_register.image = result.image;//  aqui s epone en caso que se trabaje con identyti
+
+            }
+          );
+        }
+        if (estado == '0') {
+          this.mensajecorrectomodals = "Los datos del Chofer se han modificado satisfactoriamente.";
+          document.getElementById("openModalCorrecto").click();
+        } else {
+          this.mensajecorrectomodals = "La cuenta del Chofer ha sido eliminada.";
+          document.getElementById("openModalCorrectoEliminar").click();
+        }
+      },
+      error => {
+        var errorMessage = <any>error;
+        if (errorMessage) {
+          console.log(errorMessage);
+
+          try {
+            var body = JSON.parse(error._body);
+            errorMessage = body.message;
+          } catch {
+            errorMessage = "No hay conexión intentelo más tarde";
+
+            this.loading = false;
+            document.getElementById("openModalError").click();
+          }
+
+          // this.loading =false;
+        }
+      }
+    );
+  }
+
+
+
+  limpiar(valor) {
+    if (valor == '1') {
+      this.hola1 = true;
+      this.secretaria_register = new Secretaria("", "", "", "", "", "", "", "", "");
+    }
+    if (valor == '2') {
+      this.chofer_register = new Chofer("", "", "", "", "", "", "", "", "", "", "");
+      this.url2 = "../assets/img/IngresarChofer.png";
+    }
+
+  
+  }
+
+  logout() {
+    this._userService.logout();
+  }
+
+  public filesToUpload: Array<File>;
+
+  readUrl(event: any) {
+
+    this.filesToUpload = <Array<File>>event.target.files;
+
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = (event: any) => {
+        this.url2 = event.target.result;
+      }
+
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+
+
+  makeFileRequest(url: string, params: Array<string>, files: Array<File>) {
+    // var token = this.tpken;
+    return new Promise(function (resolve, reject) {
+      var fromData: any = new FormData();
+      var xhr = new XMLHttpRequest();
+
+      for (var i = 0; i < files.length; i++) {
+        fromData.append('image', files[i], files[i].name)
+      }
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            resolve(JSON.parse(xhr.response));
+          } else {
+            reject(xhr.response);
+          }
+        }
+      }
+
+      xhr.open('POST', url, true);
+      // xhr.setRequestHeader('Authorization', token);
+      xhr.send(fromData);
+    });
+  }
+
+  mostrarNotificacion(NotificacionIndividual) {
+
+
+    localStorage.setItem("notIndiv", JSON.stringify(NotificacionIndividual));
+    console.log('ID DE MI NOTIFICACION INDIVIDUAL>>>>>', NotificacionIndividual);
+    var tipo = NotificacionIndividual.tipo;
+
+    console.log("Esto es la notificacion Individual INDIVIDUAL", NotificacionIndividual);
+
+    if (tipo == "Viaje") {
+      //json a guardar de viaje
+      var jViaje = {
+        j_sockett: NotificacionIndividual.socketId,
+        j_tipo: NotificacionIndividual.tipo,
+        j_id: NotificacionIndividual.user,
+        j_ruta: NotificacionIndividual.ruta,
+        j_horario: NotificacionIndividual.horario,
+        j_fechaSalida: NotificacionIndividual.fechaSalida,
+        j_num_maleta: NotificacionIndividual.num_maleta,
+        j_informacion: NotificacionIndividual.informacion,
+        j_latitud_salida: NotificacionIndividual.latitud_salida,
+        j_longitud_salida: NotificacionIndividual.longitud_salida,
+        j_latitud_llegada: NotificacionIndividual.latitud_llegada,
+        j_longitud_llegada: NotificacionIndividual.longitud_llegada,
+        //nuevos asientos
+        j_p1: NotificacionIndividual.p1,
+        j_p2: NotificacionIndividual.p2,
+        j_p3: NotificacionIndividual.p3,
+        j_p4: NotificacionIndividual.p4,
+        //nuevos asientos
+        j_cedula: NotificacionIndividual.user.cedula,
+        j_nombre: NotificacionIndividual.user.nombre,
+        j_apellido: NotificacionIndividual.user.apellido,
+        j_correo: NotificacionIndividual.user.correo,
+        j_celular: NotificacionIndividual.user.tel_celular,
+        j_convencional: NotificacionIndividual.user.tel_convencional
+      };
+      localStorage.setItem("viaje", JSON.stringify(jViaje));
+      console.log('********* mi localsoteage viaje>>>>> ', jViaje);
+      this.apareceDetalleViaje();
+    } else {
+      if (tipo == 'Encomienda') {
+        //json a guardar de encomienda
+        var jEncomienda = {
+          j_sockett: NotificacionIndividual.socketId,
+          j_tipo: NotificacionIndividual.tipo,
+          j_id: NotificacionIndividual.user,
+          j_ruta: NotificacionIndividual.ruta,
+          j_horario: NotificacionIndividual.horario,
+          j_fechaSalida: NotificacionIndividual.fechaSalida,
+          j_latitud_salida: NotificacionIndividual.latitud_salida,
+          j_longitud_salida: NotificacionIndividual.longitud_salida,
+          j_latitud_llegada: NotificacionIndividual.latitud_llegada,
+          j_longitud_llegada: NotificacionIndividual.longitud_llegada,
+          j_detalle_paquete: NotificacionIndividual.detalle_paquete,
+          j_destinatario: NotificacionIndividual.destinatario,
+          j_cedula: NotificacionIndividual.user.cedula,
+          j_nombre: NotificacionIndividual.user.nombre,
+          j_apellido: NotificacionIndividual.user.apellido,
+          j_correo: NotificacionIndividual.user.correo,
+          j_celular: NotificacionIndividual.user.tel_celular,
+          j_convencional: NotificacionIndividual.user.tel_convencional
+        };
+        localStorage.setItem("encomienda", JSON.stringify(jEncomienda));
+        console.log('mi localsoteage encomienda>>>>> ', jEncomienda);
+        this.apareceDetalleEncomienda();
+      }
+    }
+  }
+
+
+
+  obtenerSolicitudesViajes() {
+
+    this._notificacionesService.getSolicitudViaje(this._userService.getToken(), "0").subscribe(
+      response => {
+        console.log("hola" + response.solicitudviajes);
+        this.messages = response.solicitudviajes;
+
+        console.log("*****************************************");
+        console.log(" ----- ESTE ES MI VECTOR DE MENSAJES DESDE LA DATABASE", this.messages);
+        console.log("*****************************************");
+        this.ordenar(this.messages);
+        console.log("*****************************************");
+        console.log(" ----- ESTE ES MI VECTOR DE MENSAJES LLAMADO A ORDENAR", this.messages);
+        console.log("*****************************************");
+
+        let ct = 0;
+
+        this.messages.forEach(() => {
+          ct = ct + 1;
+          console.log('estoy en el sensual foreach');
+        });
+        console.log('valor de mi contador >>> ', ct);
+        this.notViaje = ct;
+
+
+      },
+      error => {
+        console.log(error);
+      }
+    );
+    // aqui se obtiene las  solicitudes de Encomeidnas
+  }
+
+  public RiobambaQuito4 = false;
+  public RiobambaQuito5 = false;
+  public RiobambaQuito6 = false;
+  public RiobambaQuito9 = false;
+  public RiobambaQuito12 = false;
+  public RiobambaQuito15 = false;
+  public RiobambaQuito18 = false;
+  public RiobambaQuito20 = false;
+  public QuitoRiobamba4 = false;
+  public QuitoRiobamba5 = false;
+  public QuitoRiobamba6 = false;
+  public QuitoRiobamba9 = false;
+  public QuitoRiobamba12 = false;
+  public QuitoRiobamba15 = false;
+  public QuitoRiobamba18 = false;
+  public QuitoRiobamba20 = false;
+  public rqa4 = false;
+  public rqa5 = false;
+  public rqa6 = false;
+  public rqa9 = false;
+  public rqa12 = false;
+  public rqa15 = false;
+  public rqa18 = false;
+  public rqa20 = false;
+  public aqr4 = false;
+  public aqr5 = false;
+  public aqr6 = false;
+  public aqr9 = false;
+  public aqr12 = false;
+  public aqr15 = false;
+  public aqr18 = false;
+  public aqr20 = false;
+  public express = false;
+  ///////////////////////////////////////////
+  public RiobambaQuitoEnc4 = false;
+  public RiobambaQuitoEnc5 = false;
+  public RiobambaQuitoEnc6 = false;
+  public RiobambaQuitoEnc9 = false;
+  public RiobambaQuitoEnc12 = false;
+  public RiobambaQuitoEnc15 = false;
+  public RiobambaQuitoEnc18 = false;
+  public RiobambaQuitoEnc20 = false;
+  public QuitoRiobambaEnc4 = false;
+  public QuitoRiobambaEnc5 = false;
+  public QuitoRiobambaEnc6 = false;
+  public QuitoRiobambaEnc9 = false;
+  public QuitoRiobambaEnc12 = false;
+  public QuitoRiobambaEnc15 = false;
+  public QuitoRiobambaEnc18 = false;
+  public QuitoRiobambaEnc20 = false;
+  public rqaEnc4 = false;
+  public rqaEnc5 = false;
+  public rqaEnc6 = false;
+  public rqaEnc9 = false;
+  public rqaEnc12 = false;
+  public rqaEnc15 = false;
+  public rqaEnc18 = false;
+  public rqaEnc20 = false;
+  public aqrEnc4 = false;
+  public aqrEnc5 = false;
+  public aqrEnc6 = false;
+  public aqrEnc9 = false;
+  public aqrEnc12 = false;
+  public aqrEnc15 = false;
+  public aqrEnc18 = false;
+  public aqrEnc20 = false;
+
+
+
+  organizarViajes() {
+    let ct = 0;
+
+    this.messages.forEach(() => {
+      ct = ct + 1;
+      console.log('estoy en el sensual foreach');
+    });
+    console.log('valor de mi contador >>> ', ct);
+    this.notViaje = ct;
+
+    console.log('*******MI VECTOR ANTES DE ORDENAR POR FECHA >>>>>>>>>', this.messages);
+    this.ordenar(this.messages);
+    console.log('*******MI VECTOR DESPUES DE ORDENAR POR FECHA >>>>>>>>>', this.messages);
+
+    for (let i = 0; i < ct; i++) {
+      if (this.messages[i].ruta == 'Riobamba - Quito' && this.messages[i].horario == '04:00') {
+        this.RiobambaQuito4 = true;
+      }
+      if (this.messages[i].ruta == 'Riobamba - Quito' && this.messages[i].horario == '05:00') {
+        this.RiobambaQuito5 = true;
+      }
+      if (this.messages[i].ruta == 'Riobamba - Quito' && this.messages[i].horario == '06:00') {
+        this.RiobambaQuito6 = true;
+      }
+      if (this.messages[i].ruta == 'Riobamba - Quito' && this.messages[i].horario == '09:00') {
+        this.RiobambaQuito9 = true;
+      }
+      if (this.messages[i].ruta == 'Riobamba - Quito' && this.messages[i].horario == '12:00') {
+        this.RiobambaQuito12 = true;
+      }
+      if (this.messages[i].ruta == 'Riobamba - Quito' && this.messages[i].horario == '15:00') {
+        this.RiobambaQuito15 = true;
+      }
+      if (this.messages[i].ruta == 'Riobamba - Quito' && this.messages[i].horario == '18:00') {
+        this.RiobambaQuito18 = true;
+      }
+      if (this.messages[i].ruta == 'Riobamba - Quito' && this.messages[i].horario == '20:00') {
+        this.RiobambaQuito20 = true;
+      }
+      /////////////////////////////////////
+      if (this.messages[i].ruta == 'Quito - Riobamba' && this.messages[i].horario == '04:00') {
+        this.QuitoRiobamba4 = true;
+      }
+      if (this.messages[i].ruta == 'Quito - Riobamba' && this.messages[i].horario == '05:00') {
+        this.QuitoRiobamba5 = true;
+      }
+      if (this.messages[i].ruta == 'Quito - Riobamba' && this.messages[i].horario == '06:00') {
+        this.QuitoRiobamba6 = true;
+      }
+      if (this.messages[i].ruta == 'Quito - Riobamba' && this.messages[i].horario == '09:00') {
+        this.QuitoRiobamba9 = true;
+      }
+      if (this.messages[i].ruta == 'Quito - Riobamba' && this.messages[i].horario == '12:00') {
+        this.QuitoRiobamba12 = true;
+      }
+      if (this.messages[i].ruta == 'Quito - Riobamba' && this.messages[i].horario == '15:00') {
+        this.QuitoRiobamba15 = true;
+      }
+      if (this.messages[i].ruta == 'Quito - Riobamba' && this.messages[i].horario == '18:00') {
+        this.QuitoRiobamba18 = true;
+      }
+      if (this.messages[i].ruta == 'Quito - Riobamba' && this.messages[i].horario == '20:00') {
+        this.QuitoRiobamba20 = true;
+      }
+      /////////////////////////////////////
+      if (this.messages[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messages[i].horario == '04:00') {
+        this.rqa4 = true;
+      }
+      if (this.messages[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messages[i].horario == '05:00') {
+        this.rqa5 = true;
+      }
+      if (this.messages[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messages[i].horario == '06:00') {
+        this.rqa6 = true;
+      }
+      if (this.messages[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messages[i].horario == '09:00') {
+        this.rqa9 = true;
+      }
+      if (this.messages[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messages[i].horario == '12:00') {
+        this.rqa12 = true;
+      }
+      if (this.messages[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messages[i].horario == '15:00') {
+        this.rqa15 = true;
+      }
+      if (this.messages[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messages[i].horario == '18:00') {
+        this.rqa18 = true;
+      }
+      if (this.messages[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messages[i].horario == '20:00') {
+        this.rqa20 = true;
+      }
+      /////////////////////////////////////
+      if (this.messages[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messages[i].horario == '04:00') {
+        this.aqr4 = true;
+      }
+      if (this.messages[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messages[i].horario == '05:00') {
+        this.aqr5 = true;
+      }
+      if (this.messages[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messages[i].horario == '06:00') {
+        this.aqr6 = true;
+      }
+      if (this.messages[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messages[i].horario == '09:00') {
+        this.aqr9 = true;
+      }
+      if (this.messages[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messages[i].horario == '12:00') {
+        this.aqr12 = true;
+      }
+      if (this.messages[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messages[i].horario == '15:00') {
+        this.aqr15 = true;
+      }
+      if (this.messages[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messages[i].horario == '18:00') {
+        this.aqr18 = true;
+      }
+      if (this.messages[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messages[i].horario == '20:00') {
+        this.aqr20 = true;
+      }
+      if ((this.messages[i].ruta != 'Riobamba - Quito' && this.messages[i].ruta != 'Quito - Riobamba' && this.messages[i].ruta != 'Riobamba-Quito-Aeropuerto UIO' && this.messages[i].ruta != 'Aeropuerto UIO-Quito-Riobamba') || (this.messages[i].horario != '04:00' && this.messages[i].horario != '05:00' && this.messages[i].horario != '06:00' && this.messages[i].horario != '09:00' && this.messages[i].horario != '12:00' && this.messages[i].horario != '15:00' && this.messages[i].horario != '18:00' && this.messages[i].horario != '20:00') || (this.messages[i].ruta != 'Riobamba - Quito' && this.messages[i].ruta != 'Quito - Riobamba' && this.messages[i].ruta != 'Riobamba-Quito-Aeropuerto UIO' && this.messages[i].ruta != 'Aeropuerto UIO-Quito-Riobamba') || (this.messages[i].horario != '04:00' && this.messages[i].horario != '05:00' && this.messages[i].horario != '06:00' && this.messages[i].horario != '09:00' && this.messages[i].horario != '12:00' && this.messages[i].horario != '15:00' && this.messages[i].horario != '18:00' && this.messages[i].horario != '20:00') || (this.messages[i].ruta != 'Riobamba - Quito' && this.messages[i].ruta != 'Quito - Riobamba' && this.messages[i].ruta != 'Riobamba-Quito-Aeropuerto UIO' && this.messages[i].ruta != 'Aeropuerto UIO-Quito-Riobamba') || (this.messages[i].horario != '04:00' && this.messages[i].horario != '05:00' && this.messages[i].horario != '06:00' && this.messages[i].horario != '09:00' && this.messages[i].horario != '12:00' && this.messages[i].horario != '15:00' && this.messages[i].horario != '18:00' && this.messages[i].horario != '20:00') || (this.messages[i].ruta != 'Riobamba - Quito' && this.messages[i].ruta != 'Quito - Riobamba' && this.messages[i].ruta != 'Riobamba-Quito-Aeropuerto UIO' && this.messages[i].ruta != 'Aeropuerto UIO-Quito-Riobamba') || (this.messages[i].horario != '04:00' && this.messages[i].horario != '05:00' && this.messages[i].horario != '06:00' && this.messages[i].horario != '09:00' && this.messages[i].horario != '12:00' && this.messages[i].horario != '15:00' && this.messages[i].horario != '18:00' && this.messages[i].horario != '20:00') || (this.messages[i].ruta != 'Riobamba - Quito' && this.messages[i].ruta != 'Quito - Riobamba' && this.messages[i].ruta != 'Riobamba-Quito-Aeropuerto UIO' && this.messages[i].ruta != 'Aeropuerto UIO-Quito-Riobamba') || (this.messages[i].horario != '04:00' && this.messages[i].horario != '05:00' && this.messages[i].horario != '06:00' && this.messages[i].horario != '09:00' && this.messages[i].horario != '12:00' && this.messages[i].horario != '15:00' && this.messages[i].horario != '18:00' && this.messages[i].horario != '20:00') || (this.messages[i].ruta != 'Riobamba - Quito' && this.messages[i].ruta != 'Quito - Riobamba' && this.messages[i].ruta != 'Riobamba-Quito-Aeropuerto UIO' && this.messages[i].ruta != 'Aeropuerto UIO-Quito-Riobamba') || (this.messages[i].horario != '04:00' && this.messages[i].horario != '05:00' && this.messages[i].horario != '06:00' && this.messages[i].horario != '09:00' && this.messages[i].horario != '12:00' && this.messages[i].horario != '15:00' && this.messages[i].horario != '18:00' && this.messages[i].horario != '20:00')) {
+        this.express = true;
+      }
+      //console.log('VECTOR ENLA POSICION [' + i + ']  >>> ', this.messages[i].ruta);
+    }
+
+
+
+  }
+
+
+  obtenerSolicitudesEncomiendas() {
+    this._notificacionesService.getSolicitudEnco(this._userService.getToken(), "0").subscribe(
+      response => {
+        console.log("hola" + response.solicitudviajes);
+        this.messagesEnco = response.solicitudencomiendas;
+
+        console.log("*****************************************");
+        console.log(" ----- ESTE ES MI VECTOR DE MENSAJES DESDE LA DATABASE", this.messagesEnco);
+        console.log("*****************************************");
+        this.ordenarEnco(this.messagesEnco);
+        console.log("*****************************************");
+        console.log(" ----- ESTE ES MI VECTOR DE MENSAJES LLAMADO A ORDENAR", this.messagesEnco);
+        console.log("*****************************************");
+
+        console.log("esrte es el mensaje con las encomeindas", this.messagesEnco);
+
+        let ct = 0;
+
+        this.messagesEnco.forEach(() => {
+          ct = ct + 1;
+          console.log('estoy en el sensual foreach');
+        });
+        console.log('valor de mi contador >>> ', ct);
+        this.notEnc = ct;
+
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+  }
+
+
+
+  organizarEncomiendas() {
+    let ct = 0;
+
+    this.messagesEnco.forEach(() => {
+      ct = ct + 1;
+      console.log('estoy en el sensual foreach');
+    });
+    console.log('valor de mi contador >>> ', ct, this.messagesEnco);
+    this.notViaje = ct;
+
+    this.ordenar(this.messagesEnco);
+
+    for (let i = 0; i < ct; i++) {
+      if (this.messagesEnco[i].ruta == 'Riobamba - Quito' && this.messagesEnco[i].horario == '04:00') {
+        this.RiobambaQuitoEnc4 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Riobamba - Quito' && this.messagesEnco[i].horario == '05:00') {
+        this.RiobambaQuitoEnc5 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Riobamba - Quito' && this.messagesEnco[i].horario == '06:00') {
+        this.RiobambaQuitoEnc6 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Riobamba - Quito' && this.messagesEnco[i].horario == '09:00') {
+        this.RiobambaQuitoEnc9 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Riobamba - Quito' && this.messagesEnco[i].horario == '12:00') {
+        this.RiobambaQuitoEnc12 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Riobamba - Quito' && this.messagesEnco[i].horario == '15:00') {
+        this.RiobambaQuitoEnc15 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Riobamba - Quito' && this.messagesEnco[i].horario == '18:00') {
+        this.RiobambaQuitoEnc18 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Riobamba - Quito' && this.messagesEnco[i].horario == '20:00') {
+        this.RiobambaQuitoEnc20 = true;
+      }
+      /////////////////////////////////////
+      if (this.messagesEnco[i].ruta == 'Quito - Riobamba' && this.messagesEnco[i].horario == '04:00') {
+        this.QuitoRiobambaEnc4 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Quito - Riobamba' && this.messagesEnco[i].horario == '05:00') {
+        this.QuitoRiobambaEnc5 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Quito - Riobamba' && this.messagesEnco[i].horario == '06:00') {
+        this.QuitoRiobambaEnc6 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Quito - Riobamba' && this.messagesEnco[i].horario == '09:00') {
+        this.QuitoRiobambaEnc9 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Quito - Riobamba' && this.messagesEnco[i].horario == '12:00') {
+        this.QuitoRiobambaEnc12 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Quito - Riobamba' && this.messagesEnco[i].horario == '15:00') {
+        this.QuitoRiobambaEnc15 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Quito - Riobamba' && this.messagesEnco[i].horario == '18:00') {
+        this.QuitoRiobambaEnc18 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Quito - Riobamba' && this.messagesEnco[i].horario == '20:00') {
+        this.QuitoRiobambaEnc20 = true;
+      }
+      /////////////////////////////////////
+      if (this.messagesEnco[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messagesEnco[i].horario == '04:00') {
+        this.rqaEnc4 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messagesEnco[i].horario == '05:00') {
+        this.rqaEnc5 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messagesEnco[i].horario == '06:00') {
+        this.rqaEnc6 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messagesEnco[i].horario == '09:00') {
+        this.rqaEnc9 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messagesEnco[i].horario == '12:00') {
+        this.rqaEnc12 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messagesEnco[i].horario == '15:00') {
+        this.rqaEnc15 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messagesEnco[i].horario == '18:00') {
+        this.rqaEnc18 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messagesEnco[i].horario == '20:00') {
+        this.rqaEnc20 = true;
+      }
+      /////////////////////////////////////
+      if (this.messagesEnco[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messagesEnco[i].horario == '04:00') {
+        this.aqrEnc4 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messagesEnco[i].horario == '05:00') {
+        this.aqrEnc5 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messagesEnco[i].horario == '06:00') {
+        this.aqrEnc6 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messagesEnco[i].horario == '09:00') {
+        this.aqrEnc9 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messagesEnco[i].horario == '12:00') {
+        this.aqrEnc12 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messagesEnco[i].horario == '15:00') {
+        this.aqrEnc15 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messagesEnco[i].horario == '18:00') {
+        this.aqrEnc18 = true;
+      }
+      if (this.messagesEnco[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messagesEnco[i].horario == '20:00') {
+        this.aqrEnc20 = true;
+      }
+      //console.log('VECTOR ENLA POSICION [' + i + ']  >>> ', this.messagesEnco[i].ruta);
+    }
+  }
+
+
+
+  aceptarBoton(notIndividual) {
+    var jIndividual = JSON.stringify(notIndividual);
+    console.log("BOTON ACEPTAR", jIndividual);
+
+    this._notificacionesService.updateConjuntoSolicitudViaje(this._userService.getToken(), jIndividual).subscribe(
+      response => {
+        console.log("veamo si llega viaje lleno update", response.solicitudviaje);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+    console.log("este es el id en primera instancia", notIndividual);
+    
+
+  }
+
+
+
+
+
+
+
+
+
+
+  cancelarBoton() {
+    console.log("BOTON CANCELAR");
+  }
+
+
+  ordenar(vector1) {
+
+    let vector = vector1;
+
+    console.log('<<<<<< MI VECTOR ANTES DE LA ORDENADA >>>>>>', vector);
+    this.cont = 0;
+    vector.forEach(() => {
+      this.cont += 1;
+    });
+    console.log(this.cont);
+    for (let k = 0; k < this.cont - 1; k++) {
+      //console.log('mi FOR', vector[k]);
+      for (let f = 0; f < (this.cont - 1) - k; f++) {
+        // console.log('mi FOR', vector[f]);
+        if (vector[f].fechaSalida.localeCompare(vector[f + 1].fechaSalida) > 0) {
+          let aux;
+          aux = vector[f];
+          vector[f] = vector[f + 1];
+          vector[f + 1] = aux;
+        }
+      }
+    }
+    console.log("<<<<<< MI VECTOR DESPUES DE LA ORDENADA >>>>>>", vector);
+    this.messages = vector;
+  }
+
+  ordenarEnco(vector1) {
+
+    let vector = vector1;
+
+    console.log('<<<<<< MI VECTOR ANTES DE LA ORDENADA >>>>>>', vector);
+    this.cont = 0;
+    vector.forEach(() => {
+      this.cont += 1;
+    });
+    console.log(this.cont);
+    for (let k = 0; k < this.cont - 1; k++) {
+      //console.log('mi FOR', vector[k]);
+      for (let f = 0; f < (this.cont - 1) - k; f++) {
+        // console.log('mi FOR', vector[f]);
+        if (vector[f].fechaSalida.localeCompare(vector[f + 1].fechaSalida) > 0) {
+          let aux;
+          aux = vector[f];
+          vector[f] = vector[f + 1];
+          vector[f + 1] = aux;
+        }
+      }
+    }
+    console.log("<<<<<< MI VECTOR DESPUES DE LA ORDENADA >>>>>>", vector);
+    this.messagesEnco = vector;
+  }
+
+  aparecerViajesRealizados() {
+
+    this.ReporteClientes = false;
+    this.viajesRealizados = true;
+    this.viajesRealizadosDetalles = false;
+    this.encomiendasRealizadas = false;
+    this.encomiendasRealizadasDetalles = false;
+    this.listadoC = false;
+    this.listadoS = false;
+    this.listadoT = false;
+    this.ReporteTres = false;
+    this.ReporteDos = false;
+    this.ReporteUno = false;
+  
+    this.IngreseUsuario = false;
+    this.ModificarUsuario = false;
+    this.IngreseChofer = false;
+    this.ModificarChofer = false;
+    this.primera = "Reporte";
+    this.segunda = "Viajes Realizados";
+    this.imagen = false;
+    this.detalleSolicitudViaje = false;
+    this.verViajesTotales = false;
+    this.verEncomiendasTotales = false;
+    this.detalleSolicitudEncomienda = false;
+  }
+  aparecerViajesRealizadosDetalles() {
+
+    this.ReporteClientes = false;
+    this.viajesRealizados = false;
+    this.viajesRealizadosDetalles = true;
+    this.encomiendasRealizadas = false;
+    this.encomiendasRealizadasDetalles = false;
+    this.listadoC = false;
+    this.listadoS = false;
+    this.listadoT = false;
+    this.ReporteTres = false;
+    this.ReporteDos = false;
+    this.ReporteUno = false;
+   
+    this.IngreseUsuario = false;
+    this.ModificarUsuario = false;
+    this.IngreseChofer = false;
+    this.ModificarChofer = false;
+    this.primera = "Viajes Realizados";
+    this.segunda = "Detalles";
+    this.imagen = false;
+    this.detalleSolicitudViaje = false;
+    this.verViajesTotales = false;
+    this.verEncomiendasTotales = false;
+    this.detalleSolicitudEncomienda = false;
+  }
+  aparecerEncomiendasRealizadas() {
+
+    this.ReporteClientes = false;
+    this.viajesRealizados = false;
+    this.viajesRealizadosDetalles = false;
+    this.encomiendasRealizadas = true;
+    this.encomiendasRealizadasDetalles = false;
+    this.listadoC = false;
+    this.listadoS = false;
+    this.listadoT = false;
+    this.ReporteTres = false;
+    this.ReporteDos = false;
+    this.ReporteUno = false;
+   
+    this.IngreseUsuario = false;
+    this.ModificarUsuario = false;
+    this.IngreseChofer = false;
+    this.ModificarChofer = false;
+    this.primera = "Consulta";
+    this.segunda = "Pagos Por días";
+    this.imagen = false;
+    this.detalleSolicitudViaje = false;
+    this.verViajesTotales = false;
+    this.verEncomiendasTotales = false;
+    this.detalleSolicitudEncomienda = false;
+  }
+  aparecerEncomiendasRealizadasDetalles() {
+
+    this.ReporteClientes = false;
+    this.viajesRealizados = false;
+    this.viajesRealizadosDetalles = false;
+    this.encomiendasRealizadas = false;
+    this.encomiendasRealizadasDetalles = true;
+    this.listadoC = false;
+    this.listadoS = false;
+    this.listadoT = false;
+    this.ReporteTres = false;
+    this.ReporteDos = false;
+    this.ReporteUno = false;
+   
+    this.IngreseUsuario = false;
+    this.ModificarUsuario = false;
+    this.IngreseChofer = false;
+    this.ModificarChofer = false;
+    this.primera = "Encomiendas Realizadas";
+    this.segunda = "Detalles";
+    this.imagen = false;
+    this.detalleSolicitudViaje = false;
+    this.verViajesTotales = false;
+    this.verEncomiendasTotales = false;
+    this.detalleSolicitudEncomienda = false;
+  }
+
+  recargar() {
+    location.reload(true);
+  }
+
+}
+

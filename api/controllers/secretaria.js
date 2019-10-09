@@ -100,7 +100,7 @@ function saveSecretaria(req, res) {
 
                             });//  save es un metodo de mongoose
                         } else {
-                            res.status(200).send({ message: 'Introduce la contraseña ' });
+                            res.status(200).send({ message: 'Faltan parametros por llenar' });
                         }
                     });
 
