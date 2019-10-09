@@ -9,14 +9,9 @@ var app = express();
 
 
 //cargar Rutas
-/*var administrador_rutes = require('./routes/administrador');
-var docente_rutes = require('./routes/docente');
-var estudiante_rutes = require('./routes/estudiante');
-var curso_rutes = require('./routes/curso');
-var matricula_rutes = require('./routes/matricula');
-var materia_rutes = require('./routes/materia');
-var nota_rutes = require('./routes/nota');
-var insumo_rutes = require('./routes/insumo');*/
+var user_routes = require('./routes/user');
+
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); //convertir a json als peticiones
@@ -32,14 +27,7 @@ app.use((req, res, next) => {
 });
 
 // rutas base
-/*app.use('/api', administrador_rutes);
-app.use('/api', docente_rutes);
-app.use('/api', estudiante_rutes);
-app.use('/api', curso_rutes);
-app.use('/api', matricula_rutes);
-app.use('/api', materia_rutes);
-app.use('/api', nota_rutes);
-app.use('/api', insumo_rutes);*/
+app.use('/api', user_routes);
 
 
 
