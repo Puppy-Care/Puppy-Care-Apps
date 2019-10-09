@@ -10,7 +10,7 @@ var app = express();
 
 //cargar Rutas
 var user_routes = require('./routes/user');
-
+var chofer_routes=require('./routes/chofer');
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,8 +28,7 @@ app.use((req, res, next) => {
 
 // rutas base
 app.use('/api', user_routes);
-
-
+app.use('/api', chofer_routes);
 
 
 
