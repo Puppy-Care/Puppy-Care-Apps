@@ -64,16 +64,6 @@ export class UserService {
   }
 
 
-  buscarTaxis(buscar) {
-    let json = JSON.stringify(buscar);
-    let params = json;
-    //console.log(params);
-    let headers = new Headers({ "Content-type": "application/json", "Authorization": this.getToken() });
-    return this._http.get(this.url + "taxis/" + buscar, { headers: headers })
-      .map(res => res.json());
-
-  }
-
 
 
   registerSecretaria(user_to_register) {
@@ -98,15 +88,6 @@ export class UserService {
       .map(res => res.json());
   }
 
-  registerTaxi(taxi_to_register) {
-    let json = JSON.stringify(taxi_to_register);
-    let params = json;
-    console.log(params);
-    let headers = new Headers({ "Content-type": "application/json", "Authorization": this.getToken() });
-    return this._http
-      .post(this.url + "registerTaxi", params, { headers: headers })
-      .map(res => res.json());
-  }
 
 
 
@@ -133,15 +114,7 @@ export class UserService {
       .map(res => res.json());
   }
 
-  update_Taxis(taxis_to_update) {
-    let json = JSON.stringify(taxis_to_update);
-    let params = json;
-    console.log(params);
-    let headers = new Headers({ "Content-type": "application/json", "Authorization": this.getToken() });
-    return this._http
-      .put(this.url + "update-taxi/" + taxis_to_update._id, params, { headers: headers })
-      .map(res => res.json());
-  }
+
 
 
 
@@ -177,8 +150,7 @@ export class UserService {
 
   getAllUsers()
   {
-   
-    
+      
     //console.log(params);
     let headers = new Headers({ "Content-type": "application/json", "Authorization": this.getToken() });
     return this._http.get(this.url + "allusers/" , { headers: headers })

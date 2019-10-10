@@ -1,13 +1,18 @@
 .rows1 {
-  background-image: url('../../../assets/img/portada.png');
-  /*     background-color: #343a40!important;
- */
+  background-image: url('../../../assets/img/finalogo.png');
+
   background-color: white;
   background-size: cover;
   background-position: right center;
+  width: 60%; 
+  height: 50vh;
+   margin-left: 20%
 }
 
-
+#nuestroinput
+{
+display: none
+}
 
 .fileContainer [type=file] {
 

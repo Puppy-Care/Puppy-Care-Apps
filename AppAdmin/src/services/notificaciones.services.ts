@@ -28,13 +28,7 @@ export class NotificacionesService {
 
     }
 
-    getSolicitudEnco(token, estado) {
-        let headers = new Headers({ "Content-type": "application/json", "Authorization": token });
-        return this._http.get(this.url + "getSolitudesEncomienda/" + estado, { headers: headers })
-            .map(res => res.json());
-
-
-    }
+    
 
     updateSolicitudViaje(token, jViaje) {
         //cambiando estado
@@ -47,15 +41,6 @@ export class NotificacionesService {
 
     }
 
-    updateSolicitudEncomienda(token, jEncomienda) {
-        //cambiando estado
-        jEncomienda.estado = "1";
-        let json = JSON.stringify(jEncomienda);
-        let params = json;
-        let headers = new Headers({ "Content-type": "application/json", "Authorization": token });
-        return this._http.put(this.url + "update-SolicitudesEncomiendas/" + jEncomienda._id, params, { headers: headers })
-            .map(res => res.json());
-    }
 
 
     updateConjuntoSolicitudViaje(token, objetoBusqueda) {

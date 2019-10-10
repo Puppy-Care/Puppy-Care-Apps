@@ -7,27 +7,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Montecarlo VIP</title>
+  <title>Patitas</title>
 </head>
 
 <div class="my-container">
   <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
 </div>
 
-<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<body class="fixed-nav sticky-footer" id="page-top">
 
   <!-- Navigation-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" (click)="recargar()">Montecarlo VIP</a>
+  <nav class="navbar navbar-expand-lg  fixed-top " style="background-color:#D79357"  id="mainNav">
+    <i><a style="color: #070707" (click)="recargar()">Patitas</a></i>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-      aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="fa fa-bars"></span>
+  </button>
+    <div  class="collapse navbar-collapse" id="navbarResponsive">
+      <ul style="background-color:#D79357" class="navbar-nav navbar-sidenav" id="exampleAccordion">
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Ingreso de nuevos Usuarios">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#nvusuario" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-user"></i>
+          <a  class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#nvusuario" style="text-decoration: none; color: black" data-parent="#exampleAccordion">
+            <i  class="fa fa-fw fa-user"></i>
             <span class="nav-link-text">Usuario</span>
           </a>
           <ul class="sidenav-second-level collapse" id="nvusuario">
@@ -38,7 +38,7 @@
         </li>
 
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Ingreso de nuevos Choferes">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#nvChofer" data-parent="#exampleAccordion">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#nvChofer" style="text-decoration: none; color: black"  data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-users"></i>
             <span class="nav-link-text"> Chofer</span>
           </a>
@@ -51,8 +51,8 @@
 
        
 
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Clientes de MontecarloTransVip">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#listarClientes" data-parent="#exampleAccordion">
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Clientes">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#listarClientes"style="text-decoration: none; color: black"  data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-address-book"></i>
             <span class="nav-link-text"> Cliente</span>
           </a>
@@ -62,23 +62,6 @@
             </li>
           </ul>
         </li>
-        <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reporte">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#nvreporte" data-parent="#exampleAccordion">
-            <i class="fa fa-fw fa-file-text"></i>
-            <span class="nav-link-text">Reporte</span>
-          </a>
-          <ul class="sidenav-second-level collapse" id="nvreporte">
-            <li>
-              <a href="#" (click)="aparecerReporteUno()">V. Pendientes</a>
-            </li>
-            <li>
-              <a href="#" (click)="aparecerReporteDos()">V. en Curso</a>
-            </li>
-            <li>
-              <a href="#" (click)="aparecerReporteTres()">V. Exitos</a>
-            </li>
-          </ul>
-        </li> -->
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Buscador de viajes y encomiendas en una fecha">
           <a class="nav-link" data-toggle="collapse" data-parent="#exampleAccordion" (click)="aparecerViajesRealizados()">
             <i class="fa fa-fw fa-suitcase"></i>
@@ -93,59 +76,10 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav sidenav-toggler">
-        <li class="nav-item">
-          <a class="nav-link text-center" id="sidenavToggler">
-          </a>
-        </li>
-      </ul>
+      
       <ul class="navbar-nav ml-auto">
-        <!-- ====================================================                     Notificaciones  MENSAJES VIAJES LLENOS ============================================-->
-        <!-- ====================================================                     Notificaciones  MENSAJES VIAJES LLENOS ============================================-->
-        <li class="nav-item dropdown">
-          <a title="Visualizar viajes llenos" (click)="viajelleno()" class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-fw fa-envelope"></i>
-            <span class="d-lg-none">Mensajes
-              <span class="badge badge-pill badge-primary">{{smsLlenos}} Nuevos</span>
-            </span>
-            <span class="indicator text-primary d-none d-lg-block">
-              <i class="fa fa-fw fa-circle">{{smsLlenos}}</i>
-            </span>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="messagesDropdown">
-            <h6 class="dropdown-header">Habilitar viajes llenos:</h6>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" *ngFor=" let listado of  messagesViajeLLeno">
-              <strong>
-                <h5 style="text-align: center">{{listado.ruta}}</h5>
-              </strong>
-              <span class="small float-right text-muted">
-                <h6>{{listado.horario}}</h6>
-              </span>
-              <div class="dropdown-message small">
-                <h6>{{listado.fech_salida}}</h6>
-              </div>
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-md-6" style=" display: flex; justify-content: center;">
-                    <button type="button" class="btn btn-outline-success" (click)="aceptarBoton(listado)">
-                      <i class="fa fa-check"></i>
-                    </button>
-                  </div>
-                  <div class="col-md-6" style=" display: flex; justify-content: center;">
-                    <button type="button" class="btn btn-outline-danger" (click)="cancelarBoton()">
-                      <i class="fa fa-times"></i>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="dropdown-divider"></div>
-            </a>
-
-          </div>
-        </li>
-
+   
+       
         <!-- ====================================================                     Notificaciones  VIAJES ============================================-->
         <!-- ====================================================                     Notificaciones  VIAJES ============================================-->
         <li class="nav-item dropdown">
@@ -183,40 +117,7 @@
         </li>
         <!-- ====================================================                     Notificaciones  ENCOMIENDAS============================================-->
         <!-- ====================================================                     Notificaciones  ENCOMIENDAS============================================-->
-        <li class="nav-item dropdown">
-          <a title="Nuevas Solicitudes de encomiendas" (click)=" obtenerSolicitudesEncomiendas()" class="nav-link dropdown-toggle mr-lg-2"
-            id="alertsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-            <i class="fa fa-fw fa-cube"></i>
-
-            <span class="d-lg-none">Notificaciones Encomiendas
-              <span class="badge badge-pill badge-warning">{{notEnc}} Nuevas</span>
-            </span>
-
-            <span class="indicator text-warning d-none d-lg-block">
-              <i class="fa fa-fw fa-circle">{{notEnc}}</i>
-            </span>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="alertsDropdown">
-            <h6 class="dropdown-header">
-              <a (click)="apareceNotificacionEncomienda()">Ver todas las solicitudes de encomiendas ...</a>
-            </h6>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" (click)="mostrarNotificacion(listado)" *ngFor=" let listado of  messagesEnco">
-              <span class="text-success">
-                <strong>
-                  <i class="fa fa-long-arrow-up fa-fw"></i>{{listado.tipo}}</strong>
-              </span>
-              <div class="dropdown-message small">{{listado.ruta}}</div>
-              <div class="dropdown-message small">{{listado.horario}}</div>
-              <div class="dropdown-message small">{{listado.fechaSalida}}
-              </div>
-              <div class="dropdown-divider"></div>
-            </a>
-            <a class="dropdown-item small" (click)="apareceNotificacionEncomienda()">Ver todas las solicitudes de
-              encomiendas</a>
-          </div>
-        </li>
+        
         <li class="nav-item">
           <form class="form-inline my-2 my-lg-0 mr-lg-2">
             <div class="input-group">
@@ -243,21 +144,19 @@
   <div class="content-wrapper" style="height: 100%; overflow: auto;">
     <div class="container-fluid">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="#">Montecarlo_VIP</a>
-        </li>
-        <li class="breadcrumb-item active" style="width: 5%;   ">
-          <input style="border: none; padding:0%; width: 70%; margin: 0; background-color:transparent" disabled type="text"
+       
+        <li class="breadcrumb-item active ">
+          <input style="border: none;  background-color:transparent" disabled type="text"
             #primeras="ngModel" name="primeras" [(ngModel)]="primera">
         </li>
-        <li class="breadcrumb-item active" style="width: 15%;">
-          <input style="border: none; padding:0%; width: 70%; margin: 0; background-color:transparent" disabled type="text"
+        <li class="breadcrumb-item active">
+          <input style="border: none; background-color:transparent" disabled type="text"
             #primeras="ngModel" name="primeras" [(ngModel)]="segunda">
         </li>
       </ol>
 
       <!-- Division Principal-->
-      <div class="rows1" style="width: 80%; height: 70vh; margin-left: 5%" *ngIf="imagen"> </div>
+      <div class="rows1" *ngIf="imagen"> </div>
 
       <!--Listado -->
 
@@ -339,45 +238,6 @@
           </table>
         </div>
 
-        <!-- ====================================================                                Listado Taxis ============================================-->
-        <!-- ====================================================                                Listado Taxis ============================================-->
-        <div *ngIf="listadoT" class="container">
-          <div class="row">
-            <div class="col-md-12" style="text-align: center; color: #2863a9">
-              <h3>LISTADO TAXIS
-              </h3>
-            </div>
-            <div class="col-md-12">
-              <hr style="background-color: #e9ecef; width: 50%;">
-            </div>
-          </div>
-          <table class="table  text-center">
-            <thead>
-              <tr style="background-color: #343a40; align-content: center">
-                <th style="color: white" scope="col">#</th>
-                <th style="color: white" scope="col">Placa</th>
-                <th style="color: white" scope="col">Regimen</th>
-                <th style="color: white" scope="col">Cooperativa</th>
-                <th style="color: white" scope="col">Modelo</th>
-                <th style="color: white" scope="col">Marca</th>
-                <th style="color: white" scope="col">Opciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor=" let listado of  listadoTaxis">
-                <th scope="row">1</th>
-                <td style="font-size: 130%">{{listado.placa}}</td>
-                <td style="font-size: 130%">{{listado.numero_regimen}}</td>
-                <td style="font-size: 130%">{{listado.nombre_coop }}</td>
-                <td style="font-size: 130%">{{listado.modelo }}</td>
-                <td style="font-size: 130%">{{listado.marca }}</td>
-                <td>
-                  <input class="btn btn-primary " type="button" value="ver" (click)="mostarDatosTaxi(listado)">
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
       </div>
 
       <!-- ====================================================                     Formulario de INGRESAR usuario ============================================-->
@@ -386,7 +246,7 @@
         <form #IngreseUsuario="ngForm" (ngSubmit)="onRegisterSecretaria()" *ngIf="IngreseUsuario" novalidate>
           <div class="row">
             <div class="col-lg-12">
-              <img src="../assets/img/IngresarUser.png" style="display: block; margin-left: 40%; width: 18%;  height:22%; border-radius:50%">
+              <img src="../assets/img/IngresarUser.png" style="display: block; margin-left: 40%; width: 18%;   border-radius:50%">
             </div>
           </div>
           <br>
@@ -469,7 +329,7 @@
           </div>
           <div class="row">
             <div class="col-md-12" style="text-align: center;">
-              <button type="submit" class="btn btn-primary" [disabled]="!IngreseUsuario.form.valid">Guardar Usuario
+              <button type="submit" class="btn btn-primary" [disabled]="!IngreseUsuario.form.valid">Guardar Datos
               </button>
             </div>
           </div>
@@ -482,7 +342,7 @@
         <form #ModificarUsuario="ngForm" *ngIf="ModificarUsuario">
           <div class="row">
             <div class="col-lg-12">
-              <img src="../assets/img/ModificaruSer.png" style="display: block; margin-left: 40%; width: 18%;  height:22%; border-radius:50%">
+              <img src="../assets/img/ModificaruSer.png" style="display: block; margin-left: 40%; width: 18%;  border-radius:50%">
               <br>
             </div>
           </div>
@@ -588,13 +448,14 @@
         <form #IngreseChofer="ngForm" (ngSubmit)="onRegisterChofer()" *ngIf="IngreseChofer">
           <div class="row">
             <div class="col-lg-12">
-              <img [src]="url2" style="display: block; margin-left: 40%; width: 18%;  height:22%; border-radius:50%">
+              <img [src]="url2" style="display: block; margin-left: 40%; width: 18%;  border-radius:50%">
               <label class=" form-control fileContainer" style="width: 7%; height: 10%; border: none;margin-left: 50%; margin-top: -7%;">
                 <i class="fa fa-camera fa-2x" style="color:white; "></i>
                 <input type='file' id="nuestroinput" class="btn btn-primary" (change)="readUrl($event)" />
               </label>
             </div>
           </div>
+          <br>
           <br>
           <div class="row">
             <div class="col-lg-6">
@@ -701,7 +562,7 @@
         <form #ModificarChofer="ngForm" *ngIf="ModificarChofer">
           <div class="row">
             <div class="col-lg-12">
-              <img [src]="url2" style="display: block; margin-left: 40%; width: 18%;  height:22%; border-radius:50%">
+              <img [src]="url2" style="display: block; margin-left: 40%; width: 18%;  border-radius:50%">
 
               <label class=" form-control fileContainer" style="width: 7%; height: 10%; border: none;margin-left: 50%; margin-top: -7%;">
                 <i class="fa fa-camera fa-2x" style="color:white; "></i>

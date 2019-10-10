@@ -23,20 +23,20 @@ export class HomeComponent implements OnInit {
 
   public notViaje;
   public notEnc;
-  public sockett;
+
   public url;
   public url2;
   public buscar;
   public listadoChoferes;
   public listadoSecretarias;
-  public listadoTaxis;
+
   public listados;
   public listadoC = true;
   public listadoS = true;
-  public listadoT = true;
+ 
   public datosChoferes;
   public datosSecretarias;
-  public datosTaxis;
+
 
   ctitle = 'app';
   public IngreseUsuario = false;
@@ -59,10 +59,10 @@ export class HomeComponent implements OnInit {
   public txtHide = true;
   public txtAparece = true;
   public verViajesTotales = false;
-  public verEncomiendasTotales = false;
+  
 
   public detalleSolicitudViaje = false;
-  public detalleSolicitudEncomienda = false;
+
 
   /* VALIDACION DE LOS CAMPOS DE LOS FORMULARIOS */
   // public cedulaVal = false;
@@ -72,8 +72,6 @@ export class HomeComponent implements OnInit {
   //reportes de los viajes realizados 
   public viajesRealizados = false;
   public viajesRealizadosDetalles = false;
-  public encomiendasRealizadas = false;
-  public encomiendasRealizadasDetalles = false;
 
 
   //////////////////
@@ -102,8 +100,8 @@ export class HomeComponent implements OnInit {
   public smsLlenos;
   messages = [];    //variable que almacena las notificaciones que llegan
   messagesViajeLLeno = [];    //variable que almacena las notificaciones que llegan
-  messagesEnco;
-  public messagesConvertidos;
+
+  
   myObject;
   myObject1;
   prueba;
@@ -153,26 +151,7 @@ export class HomeComponent implements OnInit {
         }
       );
     }
-    if (banderaVE == "encomienda") {
-      this._notificacionesService.getSolicitudEnco(this._userService.getToken(), "0").subscribe(
-        response => {
-          console.log("hola" + response.solicitudviajes);
-          this.messagesEnco = response.solicitudencomiendas;
-          console.log("esrte es el mensaje con las encomeindas", this.messages);
-          let ct = 0;
-          this.messagesEnco.forEach(() => {
-            ct = ct + 1;
-            console.log('estoy en el sensual foreach');
-          });
-          console.log('valor de mi contador >>> ', ct);
-          this.notEnc = ct;
-          this.apareceNotificacionEncomienda();
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
+   
   }
 
   hola() //  esta funcion  debe cargar el json  con todos los datos del usuario y enviarlos por la notificacion
@@ -254,21 +233,8 @@ export class HomeComponent implements OnInit {
     console.log('estadoClaveChofer/////', this.estadoClaveChofer);
     this.estadoClaveUsuario = "0";
     console.log('estadoClaveUsuario/////', this.estadoClaveUsuario);
-    /*this.socket.on("new notification", function (data) {
-      this.notificationBeta = JSON.stringify(data);
-      console.log("notificacion de mi aplicacion movil: ", JSON.stringify(data));
-      console.log("notificacion de beta: ", this.notificationBeta);
-      //this.messages.push();
-     /* this.message.push( JSON.stringify(data));
-      console.log('este es mi message...',this.message);*/
-    //  this.render(data);
-    /*   });
-       this.url2 = '../assets/img/IngresarChofer.png';
-   */
-  
-
     this.url2 = '../assets/img/IngresarChofer.png';
-    // this.socket.fromEvent<any>("message").map(data => data.msg );
+  
   }
 
 
@@ -291,7 +257,7 @@ export class HomeComponent implements OnInit {
     this.ReporteClientes = false;
     this.listadoC = false;
     this.listadoS = false;
-    this.listadoT = false;
+   
     this.primera = "Usuario";
     this.segunda = "Nuevo";
    
@@ -304,13 +270,12 @@ export class HomeComponent implements OnInit {
     this.ReporteUno = false;
     this.imagen = false;
     this.detalleSolicitudViaje = false;
-    this.detalleSolicitudEncomienda = false;
+    
     this.verViajesTotales = false;
-    this.verEncomiendasTotales = false;
+
     this.viajesRealizados = false;
     this.viajesRealizadosDetalles = false;
-    this.encomiendasRealizadas = false;
-    this.encomiendasRealizadasDetalles = false;
+   
   }
 
   apareceIngresarChofer() {
@@ -318,7 +283,7 @@ export class HomeComponent implements OnInit {
     this.ReporteClientes = false;
     this.listadoC = false;
     this.listadoS = false;
-    this.listadoT = false;
+   
    
     this.IngreseUsuario = false;
     this.ModificarUsuario = false;
@@ -331,13 +296,12 @@ export class HomeComponent implements OnInit {
     this.segunda = "Nuevo";
     this.imagen = false;
     this.detalleSolicitudViaje = false;
-    this.detalleSolicitudEncomienda = false;
+   
     this.verViajesTotales = false;
-    this.verEncomiendasTotales = false;
+
     this.viajesRealizados = false;
     this.viajesRealizadosDetalles = false;
-    this.encomiendasRealizadas = false;
-    this.encomiendasRealizadasDetalles = false;
+    
     this.url2 = '../assets/img/IngresarChofer.png';
   }
 
@@ -345,7 +309,7 @@ export class HomeComponent implements OnInit {
     this.ReporteClientes = true;
     this.listadoC = false;
     this.listadoS = false;
-    this.listadoT = false;
+ 
    
     this.ModificarChofer = false;
     this.IngreseUsuario = false;
@@ -358,13 +322,12 @@ export class HomeComponent implements OnInit {
     this.segunda = "Listar clientes";
     this.imagen = false;
     this.detalleSolicitudViaje = false;
-    this.detalleSolicitudEncomienda = false;
+   
     this.verViajesTotales = false;
-    this.verEncomiendasTotales = false;
+
     this.viajesRealizados = false;
     this.viajesRealizadosDetalles = false;
-    this.encomiendasRealizadas = false;
-    this.encomiendasRealizadasDetalles = false;
+  
     this.url2 = "../assets/img/IngresarAuto.png";
   }
 
@@ -375,7 +338,7 @@ export class HomeComponent implements OnInit {
     this.ReporteClientes = false;
     this.listadoC = false;
     this.listadoS = false;
-    this.listadoT = false;
+    
     //reporte de viajes pendientes
     this.ReporteTres = false;
     this.ReporteDos = false;
@@ -389,12 +352,10 @@ export class HomeComponent implements OnInit {
     this.imagen = false;
     this.detalleSolicitudViaje = false;
     this.verViajesTotales = false;
-    this.verEncomiendasTotales = false;
-    this.detalleSolicitudEncomienda = false;
+    
     this.viajesRealizados = false;
     this.viajesRealizadosDetalles = false;
-    this.encomiendasRealizadas = false;
-    this.encomiendasRealizadasDetalles = false;
+   
   }
 
   aparecerReporteDos() {
@@ -402,7 +363,7 @@ export class HomeComponent implements OnInit {
     this.ReporteClientes = false;
     this.listadoC = false;
     this.listadoS = false;
-    this.listadoT = false;
+  
     // reporte de viajes en curso
     this.ReporteTres = false;
     this.ReporteDos = true;
@@ -416,13 +377,12 @@ export class HomeComponent implements OnInit {
     this.segunda = "Viajes En Curso";
     this.imagen = false;
     this.detalleSolicitudViaje = false;
-    this.detalleSolicitudEncomienda = false;
+   
     this.verViajesTotales = false;
-    this.verEncomiendasTotales = false;
+  
     this.viajesRealizados = false;
     this.viajesRealizadosDetalles = false;
-    this.encomiendasRealizadas = false;
-    this.encomiendasRealizadasDetalles = false;
+
   }
 
   aparecerReporteTres() {
@@ -430,7 +390,7 @@ export class HomeComponent implements OnInit {
     this.ReporteClientes = false;
     this.listadoC = false;
     this.listadoS = false;
-    this.listadoT = false;
+
     this.ReporteTres = true;
     this.ReporteDos = false;
     this.ReporteUno = false;
@@ -443,13 +403,12 @@ export class HomeComponent implements OnInit {
     this.segunda = "Viajes Exitosos";
     this.imagen = false;
     this.detalleSolicitudViaje = false;
-    this.detalleSolicitudEncomienda = false;
+    
     this.verViajesTotales = false;
-    this.verEncomiendasTotales = false;
+    
     this.viajesRealizados = false;
     this.viajesRealizadosDetalles = false;
-    this.encomiendasRealizadas = false;
-    this.encomiendasRealizadasDetalles = false;
+
   }
 
   apareceDetalleViaje() {
@@ -457,7 +416,7 @@ export class HomeComponent implements OnInit {
     this.ReporteClientes = false;
     this.listadoC = false;
     this.listadoS = false;
-    this.listadoT = false;
+  
     this.ReporteTres = false;
     this.ReporteDos = false;
     this.ReporteUno = false;
@@ -470,20 +429,19 @@ export class HomeComponent implements OnInit {
     this.segunda = "Viajes";
     this.imagen = false;
     this.detalleSolicitudViaje = true;
-    this.detalleSolicitudEncomienda = false;
+  
     this.verViajesTotales = false;
-    this.verEncomiendasTotales = false;
+   
     this.viajesRealizados = false;
     this.viajesRealizadosDetalles = false;
-    this.encomiendasRealizadas = false;
-    this.encomiendasRealizadasDetalles = false;
+  
   }
   apareceDetalleEncomienda() {
 
     this.ReporteClientes = false;
     this.listadoC = false;
     this.listadoS = false;
-    this.listadoT = false;
+    
     this.ReporteTres = false;
     this.ReporteDos = false;
     this.ReporteUno = false;
@@ -496,13 +454,12 @@ export class HomeComponent implements OnInit {
     this.segunda = "Encomiendas";
     this.imagen = false;
     this.detalleSolicitudViaje = false;
-    this.detalleSolicitudEncomienda = true;
+   
     this.verViajesTotales = false;
-    this.verEncomiendasTotales = false;
+  
     this.viajesRealizados = false;
     this.viajesRealizadosDetalles = false;
-    this.encomiendasRealizadas = false;
-    this.encomiendasRealizadasDetalles = false;
+   
   }
 
 
@@ -514,12 +471,12 @@ export class HomeComponent implements OnInit {
     this.organizarViajes();
     this.listadoC = false;
     this.listadoS = false;
-    this.listadoT = false;
+
    
     this.IngreseUsuario = false;
     this.ModificarUsuario = false;
     this.verViajesTotales = true;
-    this.verEncomiendasTotales = false;
+  
     this.IngreseChofer = false;
     this.ModificarChofer = false;
     this.ReporteTres = false;
@@ -529,43 +486,14 @@ export class HomeComponent implements OnInit {
     this.segunda = "Totales";
     this.imagen = false;
     this.detalleSolicitudViaje = false;
-    this.detalleSolicitudEncomienda = false;
+   
     this.viajesRealizados = false;
     this.viajesRealizadosDetalles = false;
-    this.encomiendasRealizadas = false;
-    this.encomiendasRealizadasDetalles = false;
+
     this.url2 = '../assets/img/IngresarChofer.png';
   }
   //metodo para aparecer todas las notificaciones de las encomiendas 
-  apareceNotificacionEncomienda() {
-
-    this.ReporteClientes = false;
-    console.log('aparecenotificaionEncomienda');
-    this.organizarEncomiendas();
-    this.listadoC = false;
-    this.listadoS = false;
-    this.listadoT = false;
-
-    this.IngreseUsuario = false;
-    this.ModificarUsuario = false;
-    this.verViajesTotales = false;
-    this.verEncomiendasTotales = true;
-    this.IngreseChofer = false;
-    this.ModificarChofer = false;
-    this.ReporteTres = false;
-    this.ReporteDos = false;
-    this.ReporteUno = false;
-    this.primera = "Encomiendas";
-    this.segunda = "Totales";
-    this.imagen = false;
-    this.detalleSolicitudViaje = false;
-    this.detalleSolicitudEncomienda = false;
-    this.viajesRealizados = false;
-    this.viajesRealizadosDetalles = false;
-    this.encomiendasRealizadas = false;
-    this.encomiendasRealizadasDetalles = false;
-    this.url2 = '../assets/img/IngresarChofer.png';
-  }
+  
 
   busquedaChofer() {
     this.loading = true;
@@ -639,39 +567,7 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  busquedaTaxis() {
-    this.loading = true;
-    this._userService.buscarTaxis(this.buscar).subscribe(
-      response => {
-        //console.log("satisfactoriamente");
-        this.listadoTaxis = response.taxis;
-        if (this.listadoTaxis == "") {
-          this.listadoT = false;
-        } else {
-          this.listadoT = true;
-        }
-        //console.log(response);
-        this.loading = false;
-      },
-      error => {
-        var errorMessage = <any>error;
-        if (errorMessage) {
-          console.log(errorMessage);
-          try {
-            var body = JSON.parse(error._body);
-            errorMessage = body.message;
-          } catch {
-            errorMessage = "No hay conexión intentelo más tarde";
-            this.loading = false;
-            document.getElementById("openModalError").click();
-          }
-          // this.loading =false;
-        }
-        // this.loading =false;
-      }
-
-    );
-  }
+  
 
   busqueda() {
 
@@ -689,16 +585,15 @@ export class HomeComponent implements OnInit {
     this.imagen = false;
     this.listados = true;
     this.detalleSolicitudViaje = false;
-    this.detalleSolicitudEncomienda = false;
+   
     this.verViajesTotales = false;
-    this.verEncomiendasTotales = false;
+   
     this.viajesRealizados = false;
     this.viajesRealizadosDetalles = false;
-    this.encomiendasRealizadas = false;
-    this.encomiendasRealizadasDetalles = false;
+
     this.busquedaChofer();
     this.busquedaSecretarias();
-    this.busquedaTaxis();
+  
   }
 
 
@@ -713,7 +608,7 @@ export class HomeComponent implements OnInit {
    
     this.IngreseUsuario = false;
     this.verViajesTotales = false;
-    this.verEncomiendasTotales = false;
+    
     this.IngreseChofer = false;
     this.ModificarChofer = false;
     this.ReporteTres = false;
@@ -721,7 +616,7 @@ export class HomeComponent implements OnInit {
     this.ReporteUno = false;
     this.imagen = false;
     this.detalleSolicitudViaje = false;
-    this.detalleSolicitudEncomienda = false;
+  
     this.textBox = true;
     this.txtHide = false;
     this.txtAparece = true;
@@ -729,8 +624,7 @@ export class HomeComponent implements OnInit {
     this.listados = false;
     this.viajesRealizados = false;
     this.viajesRealizadosDetalles = false;
-    this.encomiendasRealizadas = false;
-    this.encomiendasRealizadasDetalles = false;
+
     this.datosSecretarias = datosSecretarias;
     console.log("hola tefo2" + this.datosSecretarias.nombre);
   }
@@ -747,7 +641,7 @@ export class HomeComponent implements OnInit {
     this.datosChoferes = datosChoferes;
 
     this.verViajesTotales = false;
-    this.verEncomiendasTotales = false;
+    
     this.IngreseUsuario = false;
     this.ModificarUsuario = false;
     this.IngreseChofer = false;
@@ -758,11 +652,11 @@ export class HomeComponent implements OnInit {
     this.segunda = "Modificar";
     this.imagen = false;
     this.detalleSolicitudViaje = false;
-    this.detalleSolicitudEncomienda = false;
+  
     this.viajesRealizados = false;
     this.viajesRealizadosDetalles = false;
-    this.encomiendasRealizadas = false;
-    this.encomiendasRealizadasDetalles = false;
+  
+
 
     if (this.datosChoferes.image == undefined) {
       this.url2 = '../assets/img/IngresarChofer.png';
@@ -774,43 +668,6 @@ export class HomeComponent implements OnInit {
 
   }
 
-  mostarDatosTaxi(datosTaxis) {
-
-    this.ReporteClientes = false;
-    this.textBox = true;
-    this.txtHide = false;
-    this.txtAparece = true;
- 
-    this.listados = false;
-    this.datosTaxis = datosTaxis;
-    this.verViajesTotales = false;
-    this.verEncomiendasTotales = false;
-    
-    this.IngreseUsuario = false;
-    this.ModificarUsuario = false;
-    this.IngreseChofer = false;
-    this.ModificarChofer = false;
-    this.ReporteTres = false;
-    this.ReporteDos = false;
-    this.ReporteUno = false;
-    this.primera = "Auto";
-    this.segunda = "Modificar";
-    this.imagen = false;
-    this.detalleSolicitudViaje = false;
-    this.detalleSolicitudEncomienda = false;
-    this.viajesRealizados = false;
-    this.viajesRealizadosDetalles = false;
-    this.encomiendasRealizadas = false;
-    this.encomiendasRealizadasDetalles = false;
-
-    if (this.datosTaxis.image == undefined) {
-      this.url2 = "../assets/img/imagenEditTaxi.png";
-      console.log('iamgen Indefinidas');
-    } else {
-      this.url2 = this.url + 'get-image-taxi/' + this.datosTaxis.image;
-      console.log("esto e slo de ahora" + this.datosTaxis.image);
-    }
-  }
 
 
   onRegisterSecretaria() {
@@ -1033,6 +890,7 @@ export class HomeComponent implements OnInit {
 
       reader.onload = (event: any) => {
         this.url2 = event.target.result;
+       
       }
 
       reader.readAsDataURL(event.target.files[0]);
@@ -1365,156 +1223,9 @@ export class HomeComponent implements OnInit {
   }
 
 
-  obtenerSolicitudesEncomiendas() {
-    this._notificacionesService.getSolicitudEnco(this._userService.getToken(), "0").subscribe(
-      response => {
-        console.log("hola" + response.solicitudviajes);
-        this.messagesEnco = response.solicitudencomiendas;
-
-        console.log("*****************************************");
-        console.log(" ----- ESTE ES MI VECTOR DE MENSAJES DESDE LA DATABASE", this.messagesEnco);
-        console.log("*****************************************");
-        this.ordenarEnco(this.messagesEnco);
-        console.log("*****************************************");
-        console.log(" ----- ESTE ES MI VECTOR DE MENSAJES LLAMADO A ORDENAR", this.messagesEnco);
-        console.log("*****************************************");
-
-        console.log("esrte es el mensaje con las encomeindas", this.messagesEnco);
-
-        let ct = 0;
-
-        this.messagesEnco.forEach(() => {
-          ct = ct + 1;
-          console.log('estoy en el sensual foreach');
-        });
-        console.log('valor de mi contador >>> ', ct);
-        this.notEnc = ct;
-
-      },
-      error => {
-        console.log(error);
-      }
-    );
-
-  }
 
 
 
-  organizarEncomiendas() {
-    let ct = 0;
-
-    this.messagesEnco.forEach(() => {
-      ct = ct + 1;
-      console.log('estoy en el sensual foreach');
-    });
-    console.log('valor de mi contador >>> ', ct, this.messagesEnco);
-    this.notViaje = ct;
-
-    this.ordenar(this.messagesEnco);
-
-    for (let i = 0; i < ct; i++) {
-      if (this.messagesEnco[i].ruta == 'Riobamba - Quito' && this.messagesEnco[i].horario == '04:00') {
-        this.RiobambaQuitoEnc4 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Riobamba - Quito' && this.messagesEnco[i].horario == '05:00') {
-        this.RiobambaQuitoEnc5 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Riobamba - Quito' && this.messagesEnco[i].horario == '06:00') {
-        this.RiobambaQuitoEnc6 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Riobamba - Quito' && this.messagesEnco[i].horario == '09:00') {
-        this.RiobambaQuitoEnc9 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Riobamba - Quito' && this.messagesEnco[i].horario == '12:00') {
-        this.RiobambaQuitoEnc12 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Riobamba - Quito' && this.messagesEnco[i].horario == '15:00') {
-        this.RiobambaQuitoEnc15 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Riobamba - Quito' && this.messagesEnco[i].horario == '18:00') {
-        this.RiobambaQuitoEnc18 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Riobamba - Quito' && this.messagesEnco[i].horario == '20:00') {
-        this.RiobambaQuitoEnc20 = true;
-      }
-      /////////////////////////////////////
-      if (this.messagesEnco[i].ruta == 'Quito - Riobamba' && this.messagesEnco[i].horario == '04:00') {
-        this.QuitoRiobambaEnc4 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Quito - Riobamba' && this.messagesEnco[i].horario == '05:00') {
-        this.QuitoRiobambaEnc5 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Quito - Riobamba' && this.messagesEnco[i].horario == '06:00') {
-        this.QuitoRiobambaEnc6 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Quito - Riobamba' && this.messagesEnco[i].horario == '09:00') {
-        this.QuitoRiobambaEnc9 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Quito - Riobamba' && this.messagesEnco[i].horario == '12:00') {
-        this.QuitoRiobambaEnc12 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Quito - Riobamba' && this.messagesEnco[i].horario == '15:00') {
-        this.QuitoRiobambaEnc15 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Quito - Riobamba' && this.messagesEnco[i].horario == '18:00') {
-        this.QuitoRiobambaEnc18 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Quito - Riobamba' && this.messagesEnco[i].horario == '20:00') {
-        this.QuitoRiobambaEnc20 = true;
-      }
-      /////////////////////////////////////
-      if (this.messagesEnco[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messagesEnco[i].horario == '04:00') {
-        this.rqaEnc4 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messagesEnco[i].horario == '05:00') {
-        this.rqaEnc5 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messagesEnco[i].horario == '06:00') {
-        this.rqaEnc6 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messagesEnco[i].horario == '09:00') {
-        this.rqaEnc9 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messagesEnco[i].horario == '12:00') {
-        this.rqaEnc12 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messagesEnco[i].horario == '15:00') {
-        this.rqaEnc15 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messagesEnco[i].horario == '18:00') {
-        this.rqaEnc18 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Riobamba-Quito-Aeropuerto UIO' && this.messagesEnco[i].horario == '20:00') {
-        this.rqaEnc20 = true;
-      }
-      /////////////////////////////////////
-      if (this.messagesEnco[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messagesEnco[i].horario == '04:00') {
-        this.aqrEnc4 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messagesEnco[i].horario == '05:00') {
-        this.aqrEnc5 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messagesEnco[i].horario == '06:00') {
-        this.aqrEnc6 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messagesEnco[i].horario == '09:00') {
-        this.aqrEnc9 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messagesEnco[i].horario == '12:00') {
-        this.aqrEnc12 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messagesEnco[i].horario == '15:00') {
-        this.aqrEnc15 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messagesEnco[i].horario == '18:00') {
-        this.aqrEnc18 = true;
-      }
-      if (this.messagesEnco[i].ruta == 'Aeropuerto UIO-Quito-Riobamba' && this.messagesEnco[i].horario == '20:00') {
-        this.aqrEnc20 = true;
-      }
-      //console.log('VECTOR ENLA POSICION [' + i + ']  >>> ', this.messagesEnco[i].ruta);
-    }
-  }
 
 
 
@@ -1576,42 +1287,17 @@ export class HomeComponent implements OnInit {
     this.messages = vector;
   }
 
-  ordenarEnco(vector1) {
 
-    let vector = vector1;
-
-    console.log('<<<<<< MI VECTOR ANTES DE LA ORDENADA >>>>>>', vector);
-    this.cont = 0;
-    vector.forEach(() => {
-      this.cont += 1;
-    });
-    console.log(this.cont);
-    for (let k = 0; k < this.cont - 1; k++) {
-      //console.log('mi FOR', vector[k]);
-      for (let f = 0; f < (this.cont - 1) - k; f++) {
-        // console.log('mi FOR', vector[f]);
-        if (vector[f].fechaSalida.localeCompare(vector[f + 1].fechaSalida) > 0) {
-          let aux;
-          aux = vector[f];
-          vector[f] = vector[f + 1];
-          vector[f + 1] = aux;
-        }
-      }
-    }
-    console.log("<<<<<< MI VECTOR DESPUES DE LA ORDENADA >>>>>>", vector);
-    this.messagesEnco = vector;
-  }
 
   aparecerViajesRealizados() {
 
     this.ReporteClientes = false;
     this.viajesRealizados = true;
     this.viajesRealizadosDetalles = false;
-    this.encomiendasRealizadas = false;
-    this.encomiendasRealizadasDetalles = false;
+    
     this.listadoC = false;
     this.listadoS = false;
-    this.listadoT = false;
+   
     this.ReporteTres = false;
     this.ReporteDos = false;
     this.ReporteUno = false;
@@ -1625,19 +1311,17 @@ export class HomeComponent implements OnInit {
     this.imagen = false;
     this.detalleSolicitudViaje = false;
     this.verViajesTotales = false;
-    this.verEncomiendasTotales = false;
-    this.detalleSolicitudEncomienda = false;
+   
   }
   aparecerViajesRealizadosDetalles() {
 
     this.ReporteClientes = false;
     this.viajesRealizados = false;
     this.viajesRealizadosDetalles = true;
-    this.encomiendasRealizadas = false;
-    this.encomiendasRealizadasDetalles = false;
+   
     this.listadoC = false;
     this.listadoS = false;
-    this.listadoT = false;
+
     this.ReporteTres = false;
     this.ReporteDos = false;
     this.ReporteUno = false;
@@ -1651,19 +1335,17 @@ export class HomeComponent implements OnInit {
     this.imagen = false;
     this.detalleSolicitudViaje = false;
     this.verViajesTotales = false;
-    this.verEncomiendasTotales = false;
-    this.detalleSolicitudEncomienda = false;
+   
   }
   aparecerEncomiendasRealizadas() {
 
     this.ReporteClientes = false;
     this.viajesRealizados = false;
     this.viajesRealizadosDetalles = false;
-    this.encomiendasRealizadas = true;
-    this.encomiendasRealizadasDetalles = false;
+    
     this.listadoC = false;
     this.listadoS = false;
-    this.listadoT = false;
+
     this.ReporteTres = false;
     this.ReporteDos = false;
     this.ReporteUno = false;
@@ -1677,34 +1359,7 @@ export class HomeComponent implements OnInit {
     this.imagen = false;
     this.detalleSolicitudViaje = false;
     this.verViajesTotales = false;
-    this.verEncomiendasTotales = false;
-    this.detalleSolicitudEncomienda = false;
-  }
-  aparecerEncomiendasRealizadasDetalles() {
-
-    this.ReporteClientes = false;
-    this.viajesRealizados = false;
-    this.viajesRealizadosDetalles = false;
-    this.encomiendasRealizadas = false;
-    this.encomiendasRealizadasDetalles = true;
-    this.listadoC = false;
-    this.listadoS = false;
-    this.listadoT = false;
-    this.ReporteTres = false;
-    this.ReporteDos = false;
-    this.ReporteUno = false;
-   
-    this.IngreseUsuario = false;
-    this.ModificarUsuario = false;
-    this.IngreseChofer = false;
-    this.ModificarChofer = false;
-    this.primera = "Encomiendas Realizadas";
-    this.segunda = "Detalles";
-    this.imagen = false;
-    this.detalleSolicitudViaje = false;
-    this.verViajesTotales = false;
-    this.verEncomiendasTotales = false;
-    this.detalleSolicitudEncomienda = false;
+ 
   }
 
   recargar() {
