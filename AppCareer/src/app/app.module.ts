@@ -8,11 +8,16 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { PrincipalPage } from '../pages/principal/principal';
+//import { DetallesPage } from '../pages/detalles/detalles';
 import { ChoferService } from './services/chofer.service';
+import { CallNumber } from '@ionic-native/call-number';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage, 
+    PrincipalPage,
+   // DetallesPage,
   ],
   imports: [
     BrowserModule,
@@ -22,12 +27,15 @@ import { ChoferService } from './services/chofer.service';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    PrincipalPage,
+  //  DetallesPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     ChoferService,
+    CallNumber,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

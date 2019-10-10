@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ChoferService } from './services/chofer.service';
 import { HomePage } from '../pages/home/home';
+import { PrincipalPage } from "../pages/principal/principal";
 @Component({
   templateUrl: 'app.html'
 })
@@ -21,14 +22,14 @@ export class MyApp implements OnInit {
       splashScreen.hide();
     });
     if (_choferService.getIdentity()) {
-      //this.rootPage = PrincipalPage;
+      this.rootPage = PrincipalPage;
     } else {
       this.rootPage = HomePage;
     }
   }
   ngOnInit() {
     this.pages = [
-     // { titulo: 'Menú Principal', component: PrincipalPage, icon: 'inicio.png' }
+      { titulo: 'Menú Principal', component: PrincipalPage, icon: 'inicio.png' }
       //{ titulo: 'Mi Cuenta', component: MiCuenta, icon: 'contactoCorreo.png' },
       //{ titulo: 'Encuéntranos', component: Encuentranos, icon: 'encuentranos.png' },
       //{ titulo: 'Contáctenos', component: ContactosPage, icon: 'contactoTC.png' }

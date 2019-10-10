@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { NavController, LoadingController, AlertController, MenuController } from "ionic-angular";
 
 import { ChoferService } from "../../app/services/chofer.service";
-//import { PrincipalPage } from "../principal/principal";
+import { PrincipalPage } from "../principal/principal";
 
 @Component({
   selector: 'page-home',
@@ -79,7 +79,7 @@ export class HomePage implements OnInit {
               } else {
                 localStorage.setItem("TokenC", token);
                 setTimeout(() => {
-                 // this.navCtrl.push(PrincipalPage);
+                 this.navCtrl.push(PrincipalPage);
                 }, 3000);
               }
             },
