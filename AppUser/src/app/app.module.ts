@@ -17,7 +17,7 @@ import { NotificacionesService } from './services/notificaciones.services';
 
 //plugin de la geolicalizacion
 import { Geolocation } from '@ionic-native/geolocation';
-
+import { AgmCoreModule } from '@agm/core';
 //validacion de campos
 import { FormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ng2-validation';
@@ -37,6 +37,10 @@ import { MyDatePickerModule } from 'mydatepicker';
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBpvyrZXYTUxsVOnNQQS9zNCxN9Ti9azP0',
+      libraries: ["places"]
+    }),
     FormsModule,
     CustomFormsModule,
     MyDatePickerModule
