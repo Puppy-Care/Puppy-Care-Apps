@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar hideBackButton color="colorapp">
+    <button ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+
+    <!-- es es ios  ////////////// -->
+    <ion-title style="padding-right: 0%;"><label left>Menú Principal</label>
+      <button (click)="solicitudes()"
+        style="background: transparent; left:0; right:0; max-width:2%; float: right; margin-right: 15%; display: block; max-height:100%;">
+        <ion-icon name="calendar" style="cursor:pointer; font-size: 140%; color:rgb(255, 255, 255);"></ion-icon>
+      </button>
+
+      <button (click)="historial()"
+        style="background: transparent; left:0; right:0; max-width:2%; float: right; margin-right: 15%; display: block; max-height:100%;">
+        <ion-icon name="notifications" style="cursor:pointer; font-size: 150%; color:rgb(255, 255, 255);"></ion-icon>
+      </button>
+    </ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-image: url('assets/imgs/fondo2.png')" class="getstarPrincipal">
+  <br>
+  <form #myForm="ngForm" novalidate class="form_princi">
+   
+    <!-- ESTE ES EL PEDIDO PATITA -->
+      <div id="page_principal" *ngIf="menuprincipal">
+          <div id="hijo">
+            <ion-item class="css-btn" *ngIf="VarPatita">
+              <div id="icon-item" *ngIf="VarPatita" value="VIAJES" (click)="activaV()">
+                <ion-icon style="cursor:pointer; font-size: 780%;">
+                    <img src="assets/imgs/patita.png" style=" margin: 0; padding: 0;">
+                </ion-icon>
+              </div>
+              <input type="button" class="btn1" *ngIf="VarPatita" value="SOLICITAR" (click)="activaV()">
+            </ion-item>
+
+          </div>
+        </div>
+
+
+
+  </form>
+</ion-content>
