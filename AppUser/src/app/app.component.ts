@@ -28,7 +28,7 @@ export class MyApp {
       splashScreen.hide();
     });
     if (_userService.getIdentity()) {
-      //this.rootPage = PrincipalPage;
+      this.rootPage = PrincipalPage;
     } else {
       this.rootPage = HomePage;
     }

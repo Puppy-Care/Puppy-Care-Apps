@@ -141,7 +141,7 @@ function loginUser(req, res) {
 
                     } else {
                         res.status(404).send({
-                            message: 'El Usuario no ha podido Autenticarse.'
+                            message: 'El Usuario no ha podido Autenticarse, usuario o contraseña incorrectos.'
                         });
 
                     }
