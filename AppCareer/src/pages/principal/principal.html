@@ -1,53 +1,58 @@
-<ion-header>
+<ion-header collapse="condense">
   <ion-navbar hideBackButton color="appcolr">
+      <ion-toolbar>  
     <button ion-button menuToggle icon-only>
       <ion-icon name='menu'></ion-icon>
     </button>
 
-    <!-- ANDROID ////////////////////////////////////////////////// -->
+    <!-- ANDROID ////////////////////////////////////////////////// -
     <ion-title>
-      Menú Principal
+      Menú Principal-->
 
-    <!-- CALENDARIO -->
+    <!-- CALENDARIO 
     <button (click)="historial('1','calendario')" style="background: transparent; left:0; right:0; max-width:12%; float: right; margin-right: 3%; display: block; max-height:100%;">
         <ion-icon item-left>
           <img src="assets/imgs/calendar.png">
         </ion-icon>
-      </button>
+      </button> -->
 
-    <!-- CAMPANA -->
+    <!-- CAMPANA 
     <button (click)="historial('0','campana')" style="background: transparent; left:0; right:0; max-width:12%; float: right; margin-right: 3%; display: block; max-height:100%;">
         <ion-icon item-left>
           <img src="assets/imgs/notification.png">
         </ion-icon>
-      </button>
+      </button>-->
 
-    <!-- RELOJ -->
+    <!-- RELOJ 
     <button (click)="historial('0','reloj')" style="background: transparent; left:0; right:0; max-width:12%; float: right; margin-right: 3%; display: block; max-height:100%;">
         <ion-icon item-left>
           <img src="assets/imgs/today.png">
         </ion-icon>
       </button>
-    </ion-title>
+    </ion-title>-->
 
     <!-- IOS ////////////////////////////////////////////////// -->
-    <!-- <ion-title style="padding-right: 0%;"><label left>Menú Principal</label> -->
+    
+    <ion-title ><label >Menú Principal</label></ion-title>   
       <!-- CALENDARIO -->
-      <!-- <button (click)="historial('1','calendario')" style="background: transparent; left:0; right:0; max-width:2%; float: right; margin-right: 5%; display: block; max-height:100%;">
+      <button (click)="historial('1','calendario')" style="background: transparent; left:0; right:0; max-width:2%; float: right; margin-right: 5%; display: block; max-height:100%;">
         <ion-icon name="calendar" style="cursor:pointer; font-size: 140%; color:rgb(255, 255, 255);"></ion-icon>
-      </button> -->
-
+      </button>
+    
+  
+   
       <!-- CAMPANA -->
-      <!-- <button (click)="historial('0','campana')" style="background: transparent; left:0; right:0; max-width:2%; float: right; margin-right: 5%; display: block; max-height:100%;">
+       <button (click)="historial('0','campana')" style="background: transparent; left:0; right:0; max-width:2%; float: right; margin-right: 5%; display: block; max-height:100%;">
         <ion-icon name="notifications" style="cursor:pointer; font-size: 150%; color:rgb(255, 255, 255);"></ion-icon>
-      </button> -->
-
+      </button> 
+ 
+   
       <!-- RELOJ -->
-      <!-- <button (click)="historial('0','reloj')" style="background: transparent; left:0; right:0; max-width:10%; float: right; margin-right: 5%; display: block; max-height:100%;">
+       <button (click)="historial('0','reloj')" style="background: transparent; left:0; right:0; max-width:10%; float: right; margin-right: 0%; display: block; max-height:100%;">
         <ion-icon name="alarm" style="cursor:pointer; font-size: 130%; color:rgb(255, 255, 255);"></ion-icon>
       </button>
-    </ion-title> -->
-
+    </ion-toolbar>  
+ 
   </ion-navbar>
 </ion-header>
 
@@ -117,7 +122,7 @@
   <div style="align-content: center; text-align: center;" *ngIf="portada">
     <img src="../../assets/imgs/principalchofer.png" />
     <ion-card-content>
-      <p>
+      <p  style="font-size: 180%">
         Hola, Bienvenido {{datosChoferInt.nombre}} {{datosChoferInt.apellido}}
       </p>
     </ion-card-content>

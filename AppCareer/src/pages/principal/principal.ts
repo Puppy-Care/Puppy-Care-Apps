@@ -78,18 +78,21 @@ export class PrincipalPage {
       this.objAnimacion.tipoMostrar = tipoMostrar;
       console.log('campana');
       this.listarNotificacionesCampana(estadoListar);
+      this.verViajes();
     }
     if (tipoMostrar == 'reloj') {
       this.objAnimacion.estadoListar = estadoListar;
       this.objAnimacion.tipoMostrar = tipoMostrar;
       console.log('reloj');
       this.listarNotificacionesReloj(estadoListar);
+      this.verViajes();
     }
     if (tipoMostrar == 'calendario') {
       this.objAnimacion.estadoListar = estadoListar;
       this.objAnimacion.tipoMostrar = tipoMostrar;
       console.log('calendario');
       this.listarNotificacionesCalendario(estadoListar);
+      this.verViajes();
     }
     this.mostrarContenidoDinamico(tipoMostrar);
   }
@@ -102,13 +105,6 @@ export class PrincipalPage {
         this.darvuelta();
       }
     }, (err) => { console.log("Existen Complicaciones, intente más tarde", err) });
-    //campana encomiendas
-    this._choferservice.getMessagesMioEncoChofer(this._choferservice.getToken(), estadoListar).subscribe(response => {
-      if (response.messagess[0] != undefined) {
-        this.vectorEncomiendas = response.messagess;
-        this.darvueltaencomienda();
-      }
-    }, (err) => { console.log("Existen COmplicaciones Intente mas tarde", err) });
   }
 
   listarNotificacionesReloj(estadoListar) {
@@ -119,12 +115,7 @@ export class PrincipalPage {
       }
     }, (err) => { console.log("Existen Complicaciones, intente más tarde", err) });
 
-    // encomiendas para hoy
-    this._choferservice.getReceivedMessagesEncoChoferHoy(this._choferservice.getToken(), estadoListar).subscribe(response => {
-      if (response.messagess[0] != undefined) {
-        this.vectorEncomiendas = response.messagess;
-      }
-    }, (err) => { console.log("Existen Complicaciones, intente más tarde", err) });
+   
   }
 
   listarNotificacionesCalendario(estadoListar) {
@@ -134,12 +125,7 @@ export class PrincipalPage {
         this.vectorViajes = response.messagess;
       }
     }, (err) => { console.log("Existen Complicaciones, intente más tarde", err) });
-    //calendario
-    this._choferservice.getMessagesMioEncoChofer(this._choferservice.getToken(), estadoListar).subscribe(response => {
-      if (response.messagess[0] != undefined) {
-        this.vectorEncomiendas = response.messagess;
-      }
-    }, (err) => { console.log("Existen Complicaciones, intente más tarde", err) });
+   
   }
 
   darvuelta() {
@@ -158,21 +144,7 @@ export class PrincipalPage {
     this.c = 0;
   }
 
-  darvueltaencomienda() {
-    this.aux;
-    this.vectorEncomiendas.forEach(() => {
-      this.c += 1;
-    });
-    this.medio = (this.c) / 2;
-    this.up = (this.c) - 1;
-    for (var i = 0; i < this.medio; i++) {
-      this.aux = this.vectorEncomiendas[i];
-      this.vectorEncomiendas[i] = this.vectorEncomiendas[this.up];
-      this.vectorEncomiendas[this.up] = this.aux;
-      this.up--;
-    }
-    this.c = 0;
-  }
+
 
   ordenar(vector) {
     this.cont = 0;
@@ -229,15 +201,6 @@ export class PrincipalPage {
     this.contenidoDinamicoEncomienda = false;
   }
 
-  verEncomiendas() {
-    this.objAnimacion.boton = "encomienda";
-    this.clrBotonViaje = "appcolr";
-    this.clrBotonEncomienda = "btnPresionado";
-    this.checkmarkViaje = "none";
-    this.checkmarkEncomienda = "checkmark";
-    this.contenidoDinamicoViaje = false;
-    this.contenidoDinamicoEncomienda = true;
-  }
 
   irDetalles(NotificacionIndividual, tipoEnviar) {
 
@@ -259,32 +222,20 @@ export class PrincipalPage {
         this.verViajes();
         localStorage.removeItem('opcionesAnimacion');
       }
-      if (jsonAnimacion.estadoListar == "0" && jsonAnimacion.tipoMostrar == "campana" && jsonAnimacion.boton == "encomienda") {
-        this.historial('0', 'campana');
-        this.verEncomiendas();
-        localStorage.removeItem('opcionesAnimacion');
-      }
+     
       if (jsonAnimacion.estadoListar == "1" && jsonAnimacion.tipoMostrar == "calendario" && jsonAnimacion.boton == "viaje") {
         this.historial('1', 'calendario');
         this.verViajes();
         localStorage.removeItem('opcionesAnimacion');
       }
-      if (jsonAnimacion.estadoListar == "1" && jsonAnimacion.tipoMostrar == "calendario" && jsonAnimacion.boton == "encomienda") {
-        this.historial('1', 'calendario');
-        this.verEncomiendas();
-        localStorage.removeItem('opcionesAnimacion');
-      }
+      
       if (jsonAnimacion.estadoListar == "0" && jsonAnimacion.tipoMostrar == "reloj" && jsonAnimacion.boton == "viaje") {
         this.historial('0', 'reloj');
         this.verViajes();
         localStorage.removeItem('opcionesAnimacion');
       }
-      if (jsonAnimacion.estadoListar == "0" && jsonAnimacion.tipoMostrar == "reloj" && jsonAnimacion.boton == "encomienda") {
-        this.historial('0', 'reloj');
-        this.verEncomiendas();
-        localStorage.removeItem('opcionesAnimacion');
-      }
-    } else { }
+      
+    }
   }
 
   irFinalizar(NotificacionIndividual, tipoEnviar) {
@@ -294,12 +245,7 @@ export class PrincipalPage {
       this._choferservice.FinalizarUpdateMessageChofer(this._choferservice.getToken(), NotificacionIndividual).subscribe(response => {
         this.navCtrl.push(PrincipalPage);
       }, (err) => { console.log("Existen Complicaciones, intente más tarde", err) });
-    } else {
-      if (tipoEnviar == 'encomienda') {
-        this._choferservice.FinalizarUpdateMessageEncoChofer(this._choferservice.getToken(), NotificacionIndividual).subscribe(response => {
-          this.navCtrl.push(PrincipalPage);
-        }, (err) => { console.log("Existen Complicaciones, intente más tarde", err) });
-      }
+    
     }
 
   }

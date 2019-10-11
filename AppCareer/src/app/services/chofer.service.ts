@@ -66,14 +66,7 @@ export class ChoferService {
       .map(res => res.json());
   }
   
-  getMessagesMioEncoChofer(token, estadoListar) {
-    console.log("estado del listar antes de mandar", estadoListar);
-    console.log("Entre mensajes mio chiofer");
-    let headers = new Headers({ "Content-type": "application/json", "Authorization": token });
-    return this._http.get(this.url + "getReceivedMessagesEncoChofer/" + estadoListar, { headers: headers })
-      .map(res => res.json());
-  }
-
+  
 
   getMessagesMioChoferHoy(token, estadoListar) {
     console.log("estado del listar antes de mandar", estadoListar);
@@ -85,13 +78,7 @@ export class ChoferService {
   }
 
 
-  getReceivedMessagesEncoChoferHoy(token, estadoListar) {
-    console.log("estado del listar antes de mandar", estadoListar);
-    console.log("Entre mensajes mio chiofer Enco");
-    let headers = new Headers({ "Content-type": "application/json", "Authorization": token });
-    return this._http.get(this.url + "getReceivedMessagesEncoChoferHoy/" + estadoListar, { headers: headers })
-      .map(res => res.json());
-  }
+ 
 
 
   FinalizarUpdateMessageChofer(token, objFinalizado)
@@ -106,15 +93,7 @@ export class ChoferService {
 
 
   
-  FinalizarUpdateMessageEncoChofer(token, objFinalizado)
-  {
-    objFinalizado.estado="1";
-    let params = objFinalizado;
-    console.log("objeto finalizado", objFinalizado._id);   
-    let headers = new Headers({ "Content-type": "application/json","Authorization":token });
-    return this._http.put(this.url +"updateMessageEncoChofer/"+objFinalizado._id, params, { headers: headers })
-      .map(res => res.json());
-  }
+  
 
 
 }
