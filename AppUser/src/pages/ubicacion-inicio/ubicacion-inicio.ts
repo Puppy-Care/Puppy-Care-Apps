@@ -22,7 +22,7 @@ export class UbicacionInicioPage {
   public animation: number;
   public object: any;
   public contador: number = 0;
-  public poligonoVer = true;
+  //public poligonoVer = true;
 
   @ViewChild("search") public searchElementRef;
 
@@ -112,8 +112,8 @@ export class UbicacionInicioPage {
       navigator.geolocation.getCurrentPosition(position => {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
-        //console.log("Geolocalizando...");
-        //console.log("Latitud: ", this.latitude, " Longitud:", this.longitude);
+        console.log("Geolocalizando...");
+        console.log("Latitud: ", this.latitude, " Longitud:", this.longitude);
         console.log("{ lat:", this.latitude, ", lng:", this.longitude, "},");
         this.zoom = 16;
       });
@@ -121,47 +121,10 @@ export class UbicacionInicioPage {
   }
 
   private setUbicacionPorSeleccion() {
-    let strValor: string;
-    strValor = localStorage.getItem("getRuta");
-
-    console.log("mi localstorage get ruta es >>>> ", strValor);
-
-    switch (strValor) {
-      case '"Riobamba - Quito"':
-        console.log("es la opcion Riobamba - Quito");
-        this.latitude = -1.6635508;
-        this.longitude = -78.65464600000001;
-        this.zoom = 15;
-        break; //ruta riobamba - quito
-      case '"Quito - Riobamba"':
-        console.log("es la opcion Quito - Riobamba");
-        this.latitude = -0.1806532;
-        this.longitude = -78.46783820000002;
-        this.zoom = 14;
-        break; //ruta quito - riobamba
-      case '"Riobamba-Quito-Aeropuerto UIO"':
-        console.log("es la opcion Riobamba - Quito - Aeropuerto UIO");
-        this.latitude = -1.6635508;
-        this.longitude = -78.65464600000001;
-        this.zoom = 15;
-        break; //ruta Riobamba - Quito - Aeropuerto UIO
-      case '"Aeropuerto UIO-Quito-Riobamba"':
-        console.log("es la opcion Aeropuerto UIO - Quito - Riobamba");
-        this.latitude = -0.1239264;
-        this.longitude = -78.3618196;
-        this.zoom = 15;
-        break; //ruta Aeropuerto UIO - Quito - Riobamba
-      case '"Express"':
-        this.poligonoVer = false;
-        console.log("es la opcion Express");
-        this.setCurrentPosition();
-        this.zoom = 15;
-        break; //ruta express
-      default:
-        console.log("no ingreso ninguna ruta");
-        this.setCurrentPosition();
-        this.zoom = 15; //ruta sin ingresar
-    }
+   console.log("QUITO");
+   this.latitude = -0.1806532;
+   this.longitude = -78.46783820000002;
+   this.zoom = 14;
   }
 
   markerDragEnd($event: MouseEvent) {
@@ -233,8 +196,6 @@ export class UbicacionInicioPage {
 
   //1 viaje 2 encomienda
   irUbicacionFinal() {
-
-    if (localStorage.getItem("getEnc_Ruta") == '"1"') {
       this.objSolicitudViaje = JSON.parse(localStorage.getItem("objSolicitudViaje"));
       this.objSolicitudViaje.latitud_salida = this.latitude;
       this.objSolicitudViaje.longitud_salida = this.longitude;
@@ -243,18 +204,7 @@ export class UbicacionInicioPage {
       console.log('es mi objeto ' + JSON.stringify(this.objSolicitudViaje));
       console.log("boton final");
       this.navCtrl.push(UbicacionFinalPage);
-    } else {
-      if (localStorage.getItem("getEnc_Ruta") == '"2"') {
-        this.objSolicitudEncomienda = JSON.parse(localStorage.getItem("objSolicitudEncomienda"));
-        this.objSolicitudEncomienda.latitud_salida = this.latitude;
-        this.objSolicitudEncomienda.longitud_salida = this.longitude;
 
-        localStorage.setItem("objSolicitudEncomienda", JSON.stringify(this.objSolicitudEncomienda));
-        console.log('es mi objeto ' + JSON.stringify(this.objSolicitudEncomienda));
-        console.log("boton final");
-        this.navCtrl.push(UbicacionFinalPage);
-      }
-    }
   }
 }
 

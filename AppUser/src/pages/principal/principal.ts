@@ -67,7 +67,6 @@ export class PrincipalPage {
     latitud_llegada: null,
     longitud_llegada: null,
     identity: null,
-    socketId: null,
     estadoLleno: '0'
   };
 
@@ -102,7 +101,7 @@ export class PrincipalPage {
     if (this.Raza != null && this.Raza != ""  && this.num_edad != null && this.num_edad != "" && this.fecha_salida != "" && this.fecha_salida != null && this.horarioE != "" && this.horarioE != null && this.horarioR != "" && this.horarioR != null) {
       this.navCtrl.push(UbicacionInicioPage);
     } else {
-      this.nolleno();
+    this.nolleno();
     }
   }
 

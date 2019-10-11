@@ -42,7 +42,7 @@ import { MyDatePickerModule } from 'mydatepicker';
     HttpModule,
     IonicModule.forRoot(MyApp),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBpvyrZXYTUxsVOnNQQS9zNCxN9Ti9azP0',
+      apiKey: 'AIzaSyARuGaeV-rD_M_ZP2uZT6d8SzFmywzAbRk',
       libraries: ["places"]
     }),
     FormsModule,
