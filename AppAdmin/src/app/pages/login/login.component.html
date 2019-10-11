@@ -1,0 +1,78 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Montecarlo VIP</title>
+</head>
+
+<div class="my-container">
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '14px' }"></ngx-loading>
+</div>
+
+  <!-- ====================================================                     ERROR =================================-->
+    <!-- ====================================================                     ERROR =================================-->
+    <button id="openModalError" [hidden]="true" data-toggle="modal" data-target="#ModalError">Error</button>
+    <div class="modal fade" id="ModalError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input style="width: 100%; border: 0; background-color: white;" disabled type="text" #MensajeError="ngModel" [(ngModel)]="this.mensajeerrormodals"
+              name="mensajeerror">
+          </div>
+          <div class="modal-footer">
+            <!-- <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button> -->
+            <button class="btn btn-primary" type="button" data-dismiss="modal">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+<body >
+<div class="wrapper fadeInDown" >
+
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <br>
+    <div class="fadeIn first">
+      <img src="assets/img/finalogo.png" id="icon" alt="User Icon" />
+    </div>
+<br>
+<br>
+    <!-- Login Form -->
+    <form>
+      <input  id="login" class="fadeIn second"  placeholder="Usuario" type="email"   #Usuario="ngModel" [(ngModel)]="obj.email" name="usuario">
+      <input  id="" class="fadeIn second"  placeholder="Contraseña" type="password" #Password="ngModel" [(ngModel)]="obj.password" name="password">
+      <br>
+      <br>
+    
+      
+    
+      <br>
+      <br>
+      <input type="button" (click)="loguin()" class="fadeIn fourth" value="Entrar">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      &#169; Grapes Company
+    </div>
+
+  </div>
+  
+</div>
+</body>
+</html>

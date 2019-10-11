@@ -1,0 +1,37 @@
+.rows1 {
+  background-image: url('../../../assets/img/finalogo.png');
+
+  background-color: white;
+  background-size: cover;
+  background-position: right center;
+  width: 60%; 
+  height: 50vh;
+   margin-left: 20%
+}
+
+#nuestroinput
+{
+display: none
+}
+
+.fileContainer [type=file] {
+
+  display: block;
+
+  filter: alpha(opacity=0);
+  height: 5%;
+  width: 10%;
+  opacity: 0;
+ 
+  
+  text-align: right;
+  
+ 
+}
+/*
+.fileContainer
+{
+  background-color: blue;
+  min-height: 10%;
+  width: 10%;
+}*/

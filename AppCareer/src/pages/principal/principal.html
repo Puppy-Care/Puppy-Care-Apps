@@ -1,0 +1,131 @@
+<ion-header collapse="condense">
+  <ion-navbar hideBackButton color="appcolr">
+      <ion-toolbar>  
+    <button ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+
+    <!-- ANDROID ////////////////////////////////////////////////// -
+    <ion-title>
+      Menú Principal-->
+
+    <!-- CALENDARIO 
+    <button (click)="historial('1','calendario')" style="background: transparent; left:0; right:0; max-width:12%; float: right; margin-right: 3%; display: block; max-height:100%;">
+        <ion-icon item-left>
+          <img src="assets/imgs/calendar.png">
+        </ion-icon>
+      </button> -->
+
+    <!-- CAMPANA 
+    <button (click)="historial('0','campana')" style="background: transparent; left:0; right:0; max-width:12%; float: right; margin-right: 3%; display: block; max-height:100%;">
+        <ion-icon item-left>
+          <img src="assets/imgs/notification.png">
+        </ion-icon>
+      </button>-->
+
+    <!-- RELOJ 
+    <button (click)="historial('0','reloj')" style="background: transparent; left:0; right:0; max-width:12%; float: right; margin-right: 3%; display: block; max-height:100%;">
+        <ion-icon item-left>
+          <img src="assets/imgs/today.png">
+        </ion-icon>
+      </button>
+    </ion-title>-->
+
+    <!-- IOS ////////////////////////////////////////////////// -->
+    
+    <ion-title ><label >Menú Principal</label></ion-title>   
+      <!-- CALENDARIO -->
+      <button (click)="historial('1','calendario')" style="background: transparent; left:0; right:0; max-width:2%; float: right; margin-right: 5%; display: block; max-height:100%;">
+        <ion-icon name="calendar" style="cursor:pointer; font-size: 140%; color:rgb(255, 255, 255);"></ion-icon>
+      </button>
+    
+  
+   
+      <!-- CAMPANA -->
+       <button (click)="historial('0','campana')" style="background: transparent; left:0; right:0; max-width:2%; float: right; margin-right: 5%; display: block; max-height:100%;">
+        <ion-icon name="notifications" style="cursor:pointer; font-size: 150%; color:rgb(255, 255, 255);"></ion-icon>
+      </button> 
+ 
+   
+      <!-- RELOJ -->
+       <button (click)="historial('0','reloj')" style="background: transparent; left:0; right:0; max-width:10%; float: right; margin-right: 0%; display: block; max-height:100%;">
+        <ion-icon name="alarm" style="cursor:pointer; font-size: 130%; color:rgb(255, 255, 255);"></ion-icon>
+      </button>
+    </ion-toolbar>  
+ 
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-image: url('assets/imgs/fondo2.png')" class="getstarPrincipal">
+  <br>
+  <ion-grid class="container-fluid" *ngIf="contenidoDinamico">
+    <h3 style="text-align: center">{{titulo}}</h3>
+    <h3 style="text-align: center">
+      <small>(Elija una opción)</small>
+    </h3>
+    <ion-row>
+      <ion-col style="justify-content: left;">
+        <div>
+          <button ion-button color={{clrBotonViaje}} (click)="verViajes()" style="float: right; width: 146px; max-width:146px;">
+            <ion-icon name="car"></ion-icon> &nbsp;Viajes&nbsp;
+            <ion-icon name={{checkmarkViaje}}></ion-icon>
+          </button>
+        </div>
+      </ion-col>
+      <ion-col style="display: flex; justify-content: right;">
+        <div>
+          <button ion-button color={{clrBotonEncomienda}} (click)="verEncomiendas()" style="width: 146px; max-width:146px;">
+            <ion-icon name="cube"></ion-icon>&nbsp;Encomiendas&nbsp;
+            <ion-icon name={{checkmarkEncomienda}}></ion-icon>
+          </button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!--  -->
+  <ion-list *ngIf="contenidoDinamicoViaje">
+    <ion-item *ngFor=" let listado of  vectorViajes">
+      <ion-thumbnail item-start style="margin-right: 0;">
+        <ion-icon name="ios-car" style="cursor:pointer; font-size: 400%; color:#4266AE; margin-left: 15%"></ion-icon>
+      </ion-thumbnail>
+      <p style="font-size: 12px;">
+        <b>Ruta: </b> {{listado.ruta}}</p>
+      <p style="font-size: 12px;">
+        <b>Fecha Salida: </b> {{listado.fech_salida}}</p>
+      <p style="font-size: 12px;">
+        <b>Horario: </b> {{listado.horario}}</p>
+      <button ion-button clear item-end (click)="irDetalles(listado,'viaje')">Ver</button>
+      <button ion-button clear item-end (click)="irFinalizar(listado,'viaje')" *ngIf="btnFinalizarViaje">Finalizar</button>
+    </ion-item>
+  </ion-list>
+  <!--  -->
+  <ion-list *ngIf="contenidoDinamicoEncomienda">
+    <ion-item *ngFor=" let listado of  vectorEncomiendas">
+      <ion-thumbnail item-start style="margin-right: 0;">
+        <ion-icon name="cube" style="cursor:pointer; font-size: 400%; color: #4266AE; margin-left: 15%;"></ion-icon>
+      </ion-thumbnail>
+      <p style="font-size: 12px;">
+        <b>Ruta: </b> {{listado.ruta}}</p>
+      <p style="font-size: 12px;">
+        <b>Fecha Salida: </b>{{listado.fech_salida}}</p>
+      <p style="font-size: 12px;">
+        <b>Horario: </b> {{listado.horario}}</p>
+      <button ion-button clear item-end (click)="irDetalles(listado,'encomienda')">Ver</button>
+      <button ion-button clear item-end (click)="irFinalizar(listado,'encomienda')" *ngIf="btnFinalizarEncomiendas">Finalizar</button>
+    </ion-item>
+  </ion-list>
+
+  <br>
+  <br>
+  <br>
+
+  <div style="align-content: center; text-align: center;" *ngIf="portada">
+    <img src="../../assets/imgs/principalchofer.png" />
+    <ion-card-content>
+      <p  style="font-size: 180%">
+        Hola, Bienvenido {{datosChoferInt.nombre}} {{datosChoferInt.apellido}}
+      </p>
+    </ion-card-content>
+  </div>
+
+</ion-content>

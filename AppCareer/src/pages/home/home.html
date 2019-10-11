@@ -1,0 +1,38 @@
+<!-- activar en android
+ <ion-content padding class="getstart">
+</ion-content>  -->
+
+<div class="getstart"></div>
+<img id="imganeTitulo1" src="assets/imgs/titulo.png">
+<br>
+<br>
+<img id="imganeTitulo" src="assets/imgs/iconoDirver.png">
+<div class="Aligner-item Aligner-item--bottom"></div>
+<br>
+
+<form #Formulario="ngForm" (ngSubmit)="onSubmit()">
+  <div id="formLogin">
+    <div style="top:0; bottom: 0;" class="item item-block">
+      <ion-icon item-left style="  max-width:0.02%; margin-top:0%; margin-bottom:0; margin-right:5% ">
+        <img style="max-width:90%; left: 0; right: 0;" src="assets/imgs/Recurso3.png">
+      </ion-icon>
+      <input type="email" #email="ngModel" [(ngModel)]="obj.email" name="email" class="form-control" style="font-size:110%">
+    </div>
+    <br>
+    <div style="top:0; bottom: 0; " class="item item-block">
+      <ion-icon item-left style="max-width:0.02%; margin-top:0%; margin-bottom:0; margin-right:5% ">
+        <img style=" max-width:80%; left: 0; right: 0; " src="assets/imgs/Recurso2.png">
+      </ion-icon>
+      <input [type]="getType()" #password="ngModel" [(ngModel)]="obj.password" name="password" class="form-control" style="font-size:110%">
+    </div>
+    <br>
+    <!-- prueba de mostra contrase -->
+    <div class="checkbox" style="margin-left:10%">
+      <label>
+        <input type="checkbox" (click)="toggleTextPassword()"> Mostrar Contraseña</label>
+    </div>
+    <br>
+    <input type="submit" value="Ingresar" style="background-color: #ABCA4A; padding-top:2%; padding-bottom:2%; font-size: 100%; font-weight: bold"
+      class="form-control">
+  </div>
+</form>

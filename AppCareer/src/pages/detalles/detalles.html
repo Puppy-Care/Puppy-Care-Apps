@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-navbar color="appcolr">
+    <ion-title>Detalles del Viaje</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="cards-bg social-cards">
+
+  <ion-card>
+
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="../../assets/imgs/clienteFinal.png">
+      </ion-avatar>
+      <h2>
+        <b>Datos del Cliente</b>
+      </h2>
+      <p>{{viajeDetalle.receiver.nombre}} {{viajeDetalle.receiver.apellido}}</p>
+      <p (click)="llama(this.viajeDetalle.receiver.tel_celular)">
+        <ion-icon name='call'></ion-icon>&nbsp;{{viajeDetalle.receiver.tel_celular}}
+      </p>
+      <p (click)="llama(this.viajeDetalle.receiver.tel_convencional)">
+        <ion-icon name='call'></ion-icon>&nbsp;{{viajeDetalle.receiver.tel_convencional}}
+      </p>
+    </ion-item>
+
+    <h2 style="text-align: center">
+      <br>
+      <b>Lugar de Salida</b>
+    </h2>
+    <hr>
+    <agm-map [latitude]="latitud_salida" [longitude]="longitud_salida" [zoom]=15>
+      <agm-marker [latitude]="latitud_salida" [longitude]="longitud_salida"></agm-marker>
+    </agm-map>
+
+    <h2 style="text-align: center">
+      <br>
+      <b>Lugar de Llegada</b>
+    </h2>
+    <hr>
+    <agm-map [latitude]="latitud_llegada" [longitude]="longitud_llegada" [zoom]=15>
+      <agm-marker [latitude]="latitud_llegada" [longitude]="longitud_llegada"></agm-marker>
+    </agm-map>
+
+    <ion-card-content>
+      <h2 style="text-align: center">
+        <b>Datos del Viaje</b>
+      </h2>
+      <hr>
+      <p>
+        <b>Ruta:</b>{{viajeDetalle.ruta}}</p>
+      <p>
+        <b>Fecha de Salida: </b> {{viajeDetalle.fech_salida}}</p>
+      <p>
+        <b>Hora de Salida: </b> {{viajeDetalle.horario}}</p>
+      <p>
+        <b>Número de maletas:</b> {{viajeDetalle.num_maleta}} maletas</p>
+      <p>
+        <b>Precio: </b> {{viajeDetalle.precio}} dólares ($)</p>
+      <p>
+        <b>Asientos: </b> {{this.express}}</p>
+      <p *ngIf="a1" style="margin-left: 5%">
+        <b>Copiloto: </b> {{this.p1}}</p>
+      <p *ngIf="a2" style="margin-left: 5%">
+        <b>Izquierda: </b> {{this.p2}}</p>
+      <p *ngIf="a3" style="margin-left: 5%">
+        <b>Medio: </b> {{this.p3}}</p>
+      <p *ngIf="a4" style="margin-left: 5%">
+        <b>Derecha: </b> {{this.p4}}</p>
+
+    </ion-card-content>
+
+
+    <ion-row>
+      <ion-col align-self-center text-center>
+        <button (click)="envioNotificacion()" ion-button color="colorapp" clear small icon-start>
+          <ion-icon name='car'></ion-icon>
+          Aceptar
+        </button>
+      </ion-col>
+      <ion-col align-self-center text-center *ngIf="btnEnviar">
+        <button (click)="terminarEnvio()" ion-button color="colorapp" clear small icon-start>
+          <ion-icon name='stopwatch'></ion-icon>
+          Finalizar
+        </button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col align-self-center text-center>
+        <ion-note style="text-align: center">Fecha y Hora de Solicitud</ion-note>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col align-self-center text-center>
+        <ion-note>{{viajeDetalle.fech_solicitud}}</ion-note>
+      </ion-col>
+      <ion-col align-self-center text-center>
+        <ion-note>{{viajeDetalle.hora_solicitud}}</ion-note>
+      </ion-col>
+    </ion-row>
+
+  </ion-card>
+
+
+</ion-content>
+<button ion-button color="primary" clear small icon-start></button>
+
+<style>
+  .social-cards ion-col {
+    padding: 0;
+  }
+</style>
