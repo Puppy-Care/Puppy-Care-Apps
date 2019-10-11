@@ -4,7 +4,7 @@ import { NavController, LoadingController, AlertController, MenuController  } fr
 import { RegistroPage } from "../registro/registro";
 import { UserService } from "../../app/services/user.services";
 //import { User } from "../../app/models/user";
-//import { PrincipalPage } from "../principal/principal";
+import { PrincipalPage } from "../principal/principal";
 //import { ContactosPage } from "../contactanos/contactanos";
 //import { TerminosPage } from '../terminos/terminos';
 
@@ -35,7 +35,7 @@ export class HomePage implements OnInit {
     public loadingCtrl: LoadingController,
     public menuCtrl: MenuController
   ) {
-    //this.user = new User("", "", "", "", "", "", "", "");
+   //this.user = new User("", "", "", "", "", "", "", "","");
   }
 
   ngOnInit() {
@@ -100,7 +100,7 @@ export class HomePage implements OnInit {
                 
                 localStorage.setItem("Token", token);
                 setTimeout(() => {
-                  // this.navCtrl.push(PrincipalPage);
+                   this.navCtrl.push(PrincipalPage);
                 }, 2000);
               }
             },
