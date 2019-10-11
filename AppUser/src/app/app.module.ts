@@ -10,6 +10,8 @@ import { HomePage } from '../pages/home/home';
 import { RegistroPage } from '../pages/registro/registro';
 import { MiCuenta } from '../pages/mi_cuenta/mi_cuenta';
 import { PrincipalPage } from '../pages/principal/principal';
+import { UbicacionInicioPage } from '../pages/ubicacion-inicio/ubicacion-inicio';
+import { UbicacionFinalPage } from '../pages/ubicacion-final/ubicacion-final';
 
 import { UserService } from './services/user.services';
 import { MessageService } from './services/message.services';
@@ -31,7 +33,9 @@ import { MyDatePickerModule } from 'mydatepicker';
     HomePage,
     RegistroPage,
     MiCuenta,
-    PrincipalPage
+    PrincipalPage,
+    UbicacionInicioPage,
+    UbicacionFinalPage
   ],
   imports: [
     BrowserModule,
@@ -47,7 +51,9 @@ import { MyDatePickerModule } from 'mydatepicker';
     HomePage,
     RegistroPage,
     MiCuenta,
-    PrincipalPage
+    PrincipalPage, 
+    UbicacionInicioPage,
+    UbicacionFinalPage
   ],
   providers: [
     StatusBar,

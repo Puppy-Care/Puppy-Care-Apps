@@ -23,23 +23,81 @@
 <ion-content style="background-image: url('assets/imgs/fondo2.png')" class="getstarPrincipal">
   <br>
   <form #myForm="ngForm" novalidate class="form_princi">
-   
+
     <!-- ESTE ES EL PEDIDO PATITA -->
-      <div id="page_principal" *ngIf="menuprincipal">
-          <div id="hijo">
-            <ion-item class="css-btn" *ngIf="VarPatita">
-              <div id="icon-item" *ngIf="VarPatita" value="VIAJES" (click)="activaV()">
-                <ion-icon style="cursor:pointer; font-size: 780%;">
-                    <img src="assets/imgs/patita.png" style=" margin: 0; padding: 0;">
-                </ion-icon>
-              </div>
-              <input type="button" class="btn1" *ngIf="VarPatita" value="SOLICITAR" (click)="activaV()">
-            </ion-item>
-
+    <div id="page_principal" *ngIf="menuprincipal">
+      <div id="hijo">
+        <ion-item class="css-btn" *ngIf="VarPatita">
+          <div id="icon-item" *ngIf="VarPatita" value="VIAJES" (click)="activaV()">
+            <ion-icon style="cursor:pointer; font-size: 780%;">
+              <img src="assets/imgs/patita.png" style=" margin: 0; padding: 0;">
+            </ion-icon>
           </div>
+          <input type="button" class="btn1" *ngIf="VarPatita" value="SOLICITAR" (click)="activaV()">
+        </ion-item>
+      </div>
+    </div>
+
+    <ion-list class="Lista_Menu_Viaje">
+      <!-- AQUI EMPIEZA LA SOLICITUD -->
+      <div class="list_1" *ngIf="bander">
+        <ion-label class="title_menu">Raza:</ion-label>
+        <ion-item class="css-itemSelec">
+          <ion-input placeholder="Raza" #raza="ngModel" [(ngModel)]="Raza" name="raza" required></ion-input>
+        </ion-item>
+      </div>
+      <hr *ngIf="bander" />
+
+      <div class="list_1" *ngIf="bander">
+        <ion-label class="title_menu">Edad:</ion-label>
+        <ion-item class="css-itemSelec">
+          <ion-input placeholder="Edad" #edad="ngModel" [(ngModel)]="num_edad" name="edad" required></ion-input>
+        </ion-item>
+      </div>
+      <hr *ngIf="bander" />
+
+      <div class="list_3" *ngIf="bander">
+        <ion-label class="title_menu">Fecha Salida:</ion-label>
+        <div class="picker">
+          <my-date-picker required placeholder="Fecha Salida" [options]="myDatePickerOptions" name="mydate"
+            #mydate="ngModel" [(ngModel)]="fecha_salida" required></my-date-picker>
         </div>
+      </div>
+      <hr *ngIf="bander" />
 
+      <div class="list_2" *ngIf="bander">
+        <ion-label class="title_menu">Hora Recogida:</ion-label>
+        <ion-item class="css-itemSelec css-datetime">
+          <ion-datetime required placeholder="Seleccione hora de recogida" displayFormat="hh:mm A" #dateR="ngModel"
+            [(ngModel)]="horarioR" name="dateE"></ion-datetime>
+        </ion-item>
+      </div>
+      <hr *ngIf="bander" />
 
+      <div class="list_2" *ngIf="bander">
+        <ion-label class="title_menu">Hora Entrega:</ion-label>
+        <ion-item class="css-itemSelec css-datetime">
+          <ion-datetime required placeholder="Seleccione hora de entrega" displayFormat="hh:mm A" #dateE="ngModel"
+            [(ngModel)]="horarioE" name="dateE"></ion-datetime>
+        </ion-item>
+      </div>
+      <hr *ngIf="bander" />
 
+      <div class="DetalleEnc" *ngIf="bander">
+        <ion-label class="title_menu">Información Adicional:</ion-label>
+        <ion-item class="css-TextArea">
+          <ion-textarea required rows="8" class="textare" #informacion="ngModel" [(ngModel)]="inf_adicional"
+            name="informacion"
+            placeholder="Detalle toda la información adicional que usted desee proporcionar, como enfermedades.">
+          </ion-textarea>
+        </ion-item>
+      </div>
+
+      <br *ngIf="solicita">
+      <button *ngIf="solicita" class="rutasGeol" style="background: transparent;" (click)="irUbicacionInicio();">
+        <img src="assets/imgs/solicitar.png" style=" margin: 0; padding: 0;">
+      </button>
+      <br *ngIf="solicita">
+    </ion-list>
   </form>
 </ion-content>
