@@ -12,6 +12,7 @@ var app = express();
 var user_routes = require('./routes/user');
 var chofer_routes=require('./routes/chofer');
 var secretaria_routes=require('./routes/secretaria');
+var solicitudViaje_routes = require('./routes/solicitudViaje');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); //convertir a json als peticiones
@@ -30,6 +31,7 @@ app.use((req, res, next) => {
 app.use('/api', user_routes);
 app.use('/api', chofer_routes);
 app.use('/api', secretaria_routes);
+app.use('/api',solicitudViaje_routes);
 
 
 module.exports = app; // hace referencia a la variable de express
