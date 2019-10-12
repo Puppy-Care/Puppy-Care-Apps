@@ -15,7 +15,7 @@ import { UbicacionFinalPage } from '../pages/ubicacion-final/ubicacion-final';
 import { HistorialPage } from '../pages/historial/historial';
 import { SolicitudesPage } from '../pages/solicitudes/solicitudes';
 import { CardsolicitudPage } from '../pages/cardsolicitud/cardsolicitud';
-import { ConfirmacionPage } from '../pages/confirmacion/confirmacion';
+//import { ConfirmacionPage } from '../pages/confirmacion/confirmacion';
 
 import { UserService } from './services/user.services';
 import { MessageService } from './services/message.services';
@@ -42,8 +42,7 @@ import { MyDatePickerModule } from 'mydatepicker';
     UbicacionFinalPage,
     HistorialPage,
     SolicitudesPage,
-    CardsolicitudPage,
-    ConfirmacionPage
+    CardsolicitudPage
   ],
   imports: [
     BrowserModule,
@@ -68,8 +67,7 @@ import { MyDatePickerModule } from 'mydatepicker';
     UbicacionFinalPage,
     HistorialPage,
     SolicitudesPage,
-    CardsolicitudPage,
-    ConfirmacionPage
+    CardsolicitudPage
   ],
   providers: [
     StatusBar,
