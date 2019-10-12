@@ -1,0 +1,13 @@
+.txt_titulos{
+    text-align: left;
+    font-weight: bold;
+}
+
+.txt_subtitulos{
+    text-align: right;
+    font-weight: normal;
+}
+
+.lbl_ingreso{
+    width : 87px;
+}

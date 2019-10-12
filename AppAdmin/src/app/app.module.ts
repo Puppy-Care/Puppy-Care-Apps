@@ -10,7 +10,8 @@ import { HttpModule } from '@angular/http';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { DetalleSolicitudViajeComponent } from './pages/detalle-solicitud-viaje/detalle-solicitud-viaje.component';
-
+import { ViajesRealizadosComponent } from './pages/viajes-realizados/viajes-realizados.component';
+import { DetallesViajesRealizadosComponent } from './pages/detalles-viajes-realizados/detalles-viajes-realizados.component';
 import { MyDatePickerModule } from '../../node_modules/mydatepicker';
 import { NotificacionesService } from '../services/notificaciones.services';
 import { LoadingModule } from 'ngx-loading';
@@ -20,7 +21,9 @@ import { AgmCoreModule } from '@agm/core';
     AppComponent,
     LoginComponent,
     HomeComponent,
-    DetalleSolicitudViajeComponent
+    DetalleSolicitudViajeComponent,
+    ViajesRealizadosComponent,
+    DetallesViajesRealizadosComponent
   ],
   imports: [
     MyDatePickerModule,

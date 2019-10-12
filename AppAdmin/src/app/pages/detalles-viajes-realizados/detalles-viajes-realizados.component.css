@@ -1,0 +1,10 @@
+agm-map {
+    height: 300px;
+  } 
+
+  .rows1 {
+    background-image: url('../../../assets/img/logo.png');
+    background-color: white;
+    background-size: cover;
+    background-position: right center;
+  }
