@@ -8,14 +8,18 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
+import { DetalleSolicitudViajeComponent } from './pages/detalle-solicitud-viaje/detalle-solicitud-viaje.component';
+
 import { MyDatePickerModule } from '../../node_modules/mydatepicker';
 import { NotificacionesService } from '../services/notificaciones.services';
 import { LoadingModule } from 'ngx-loading';
+import { AgmCoreModule } from '@agm/core';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    DetalleSolicitudViajeComponent
   ],
   imports: [
     MyDatePickerModule,
@@ -23,9 +27,9 @@ import { LoadingModule } from 'ngx-loading';
     FormsModule,
     HttpModule,
     LoadingModule,
-    /*AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBpvyrZXYTUxsVOnNQQS9zNCxN9Ti9azP0'
-    })*/
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyARuGaeV-rD_M_ZP2uZT6d8SzFmywzAbRk'
+    })
   ],
   providers: [UserService, MessageService,NotificacionesService],
   bootstrap: [AppComponent],

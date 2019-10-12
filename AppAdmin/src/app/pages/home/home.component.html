@@ -65,7 +65,7 @@
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Buscador de viajes y encomiendas en una fecha">
           <a class="nav-link" data-toggle="collapse" data-parent="#exampleAccordion" (click)="aparecerViajesRealizados()">
             <i class="fa fa-fw fa-suitcase"></i>
-            <span class="nav-link-text"> Viajes y Encomiendas Realizadas</span>
+            <span class="nav-link-text"> Paseos Realizados</span>
           </a>
         </li>
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Pagos totales por día en una fecha específica">
@@ -88,7 +88,7 @@
 
             <i class="fa fa-fw fa-car"></i>
 
-            <span class="d-lg-none">Notificaciones Viajes
+            <span class="d-lg-none">Notificaciones Paseos
               <span class="badge badge-pill badge-warning">{{notViaje}} Nuevas</span>
             </span>
 
@@ -98,17 +98,17 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="alertsDropdown">
             <h6 class="dropdown-header">
-              <a (click)="apareceNotificacionViaje()">Ver todas las solicitudes de viajes ...</a>
+              <a (click)="apareceNotificacionViaje()">Ver todas las solicitudes de paseos ...</a>
             </h6>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" (click)="mostrarNotificacion(listado)" *ngFor=" let listado of  messages">
               <span class="text-success">
                 <strong>
-                  <i class="fa fa-long-arrow-up fa-fw"></i>{{listado.tipo}}</strong>
+                  <i class="fa fa-long-arrow-up fa-fw"></i>Paseo por atender</strong>
               </span>
-              <div class="dropdown-message small">{{listado.ruta}}</div>
-              <div class="dropdown-message small">{{listado.horario}}</div>
-              <div class="dropdown-message small">{{listado.fechaSalida}}
+              <div class="dropdown-message small">Raza:{{listado.raza}}</div>
+              <div class="dropdown-message small">Horario recogida:{{listado.horarioR}}</div>
+              <div class="dropdown-message small">Fecha:{{listado.fechaSalida}}
               </div>
               <div class="dropdown-divider"></div>
             </a>
@@ -786,7 +786,22 @@
      
 
         </div>
-      </div>
+
+     
+      <!-- ***************************                        REPORTES                        ****************************************************** -->
+      <!-- Inicio Reporte Uno-->
+
+     
+      <!-- Final Reporte Tres-->
+     
+      <!-- ***************************                        REPORTES                        ****************************************************** -->
+
+
+      <!-- ***************************         DETALLE DE SOLICITUD  VIAJE Y ENCOMIENDA        ****************************************************** -->
+      <app-detalle-solicitud-viaje *ngIf="detalleSolicitudViaje"></app-detalle-solicitud-viaje>
+  
+    </div>
+    
 
 
    
