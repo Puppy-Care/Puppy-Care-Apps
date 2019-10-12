@@ -178,7 +178,7 @@ export class UbicacionFinalPage {
     localStorage.removeItem('objSolicitudViaje');
     let alert = this.alertCtrl.create({
       title: "<center><h3>IMPORTANTE</h3></center>",
-      subTitle: "Montecarlo Trans Vip. Su petición ha sido atendida satisfactoriamente.",
+      subTitle: "PATITAS. Su petición ha sido atendida satisfactoriamente.",
       message: '<p align="justify">Esta solicitud puede ser cancelada antes de su confirmación. Para más información comunicate con nosotros.</p>',
       buttons: ["OK"],
       cssClass: 'customLoader'
@@ -228,48 +228,6 @@ export class UbicacionFinalPage {
     alert.present();
   }
 
-  showAlertEnviarEncomienda() {
-    let alert = this.alertCtrl.create({
-      title: '<center><h3>IMPORTANTE</h3></center>',
-      subTitle: '<center>¿Desea enviar la solicitud?</center>',
-      message: '<p align="justify">Para más información comunicate con nosotros.</p>',
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-            console.log('Solicitud Cancelada');
-          }
-        },
-        {
-          text: 'OK',
-          handler: data => {
-            this.objSolicitudEncomienda = JSON.parse(localStorage.getItem("objSolicitudEncomienda"));
-            this.objSolicitudEncomienda.latitud_llegada = this.latitude;
-            this.objSolicitudEncomienda.longitud_llegada = this.longitude;
-            // this.objSolicitudEncomienda.socketId = this.socket.ioSocket.id;
-
-            localStorage.setItem("objSolicitudEncomienda", JSON.stringify(this.objSolicitudEncomienda));
-            console.log('es mi objeto ' + JSON.stringify(this.objSolicitudEncomienda));
-            // aqui guardo en la base     
-            this._notificacionesService.saveSolicituEncomienda(this._userService.getToken(), this.objSolicitudEncomienda).subscribe(
-              response => {
-                console.log("hola" + response);
-                // this.socket.emit('create notification', { a: this.objSolicitudEncomienda });
-                this.showAlertConfirmado();
-                this.navCtrl.push(PrincipalPage);
-              },
-              error => {
-                console.log(error);
-              }
-            );
-          }
-        }
-      ],
-      cssClass: 'customLoader'
-    });
-    alert.present();
-  }
-
   polygonClicked($event: MouseEvent) {
     this.showAlertPoligono();
   }
@@ -282,29 +240,4 @@ export class UbicacionFinalPage {
     });
     alert.present();
   }
-
-  // showAlertEnviarPedido() {
-  //   let alert = this.alertCtrl.create({
-  //     title: '<center><h3>IMPORTANTE</h3></center>',
-  //     subTitle: 'Solicitud aceptada',
-  //     message: '<p>Para más información comunicate con nosotros.</p>',
-  //     buttons: [
-  //       {
-  //         text: 'Cancel',
-  //         handler: data => {
-  //           console.log('Solicitud Cancelada');
-  //         }
-  //       },
-  //       {
-  //         text: 'OK',
-  //         handler: data => {
-  //           //Aqui va el envio del pedido confirmado al socketc
-  //           this.showAlertConfirmado();
-  //           this.navCtrl.push(PrincipalPage);
-  //         }
-  //       }
-  //     ]
-  //   });
-  //   alert.present();
-  // }
 }

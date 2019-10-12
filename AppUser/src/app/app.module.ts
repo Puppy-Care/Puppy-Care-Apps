@@ -15,11 +15,12 @@ import { UbicacionFinalPage } from '../pages/ubicacion-final/ubicacion-final';
 import { HistorialPage } from '../pages/historial/historial';
 import { SolicitudesPage } from '../pages/solicitudes/solicitudes';
 import { CardsolicitudPage } from '../pages/cardsolicitud/cardsolicitud';
-//import { ConfirmacionPage } from '../pages/confirmacion/confirmacion';
+import { ConfirmacionPage } from '../pages/confirmacion/confirmacion';
 
 import { UserService } from './services/user.services';
 import { MessageService } from './services/message.services';
 import { NotificacionesService } from './services/notificaciones.services';
+import { PayPal } from './services/paypal.service';
 
 //plugin de la geolicalizacion
 import { Geolocation } from '@ionic-native/geolocation';
@@ -30,6 +31,9 @@ import { CustomFormsModule } from 'ng2-validation';
 
 //Datapicker
 import { MyDatePickerModule } from 'mydatepicker';
+
+// abrir browser
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,8 @@ import { MyDatePickerModule } from 'mydatepicker';
     UbicacionFinalPage,
     HistorialPage,
     SolicitudesPage,
-    CardsolicitudPage
+    CardsolicitudPage,
+    ConfirmacionPage
   ],
   imports: [
     BrowserModule,
@@ -67,7 +72,8 @@ import { MyDatePickerModule } from 'mydatepicker';
     UbicacionFinalPage,
     HistorialPage,
     SolicitudesPage,
-    CardsolicitudPage
+    CardsolicitudPage,
+    ConfirmacionPage
   ],
   providers: [
     StatusBar,
@@ -76,7 +82,9 @@ import { MyDatePickerModule } from 'mydatepicker';
     MessageService,
     NotificacionesService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Geolocation
+    Geolocation,
+    PayPal,
+    InAppBrowser
   ]
 })
 export class AppModule {}

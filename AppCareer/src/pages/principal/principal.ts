@@ -1,9 +1,7 @@
 import { Component } from "@angular/core";
 import { NavController, AlertController, MenuController } from "ionic-angular";
 import { ChoferService } from "../../app/services/chofer.service";
-//import { DetallesPage } from "../detalles/detalles";
-
-
+import { DetallesPage } from "../detalles/detalles";
 
 @Component({
   selector: "page-principal",
@@ -176,16 +174,19 @@ export class PrincipalPage {
       this.titulo = "NOTIFICACIONES RECIBIDAS";
       this.btnFinalizarViaje = true;
       this.btnFinalizarEncomiendas = true;
+      this.verViajes();
     } else {
       if (tipoMostrar == 'calendario') {
         this.titulo = "HISTORIAL";
         this.btnFinalizarViaje = false;
         this.btnFinalizarEncomiendas = false;
+        this.verViajes();
       } else {
         if (tipoMostrar == 'reloj') {
           this.titulo = "PARA HOY";
           this.btnFinalizarViaje = true;
           this.btnFinalizarEncomiendas = true;
+          this.verViajes();
         }
       }
     }
@@ -208,7 +209,7 @@ export class PrincipalPage {
     console.log('ir a detaless >>>>', JSON.stringify(this.objAnimacion));
     if (tipoEnviar == 'viaje') {
       localStorage.setItem("viaje", JSON.stringify(NotificacionIndividual));
-      //this.navCtrl.push(DetallesPage);
+      this.navCtrl.push(DetallesPage);
     }
   }
 

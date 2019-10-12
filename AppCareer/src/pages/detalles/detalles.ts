@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PrincipalPage } from '../principal/principal';
 import { ChoferService } from "../../app/services/chofer.service";
 import { CallNumber } from '@ionic-native/call-number';
+
 @Component({
   selector: 'page-detalles',
   templateUrl: 'detalles.html',

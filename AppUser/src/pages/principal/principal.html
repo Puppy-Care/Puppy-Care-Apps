@@ -44,7 +44,7 @@
       <div class="list_1" *ngIf="bander">
         <ion-label class="title_menu">Raza:</ion-label>
         <ion-item class="css-itemSelec">
-          <ion-input placeholder="Raza" #raza="ngModel" [(ngModel)]="Raza" name="raza" required></ion-input>
+          <ion-input placeholder="Raza: ej. Bulldog" #raza="ngModel" [(ngModel)]="Raza" name="raza" required></ion-input>
         </ion-item>
       </div>
       <hr *ngIf="bander" />
@@ -52,7 +52,7 @@
       <div class="list_1" *ngIf="bander">
         <ion-label class="title_menu">Edad:</ion-label>
         <ion-item class="css-itemSelec">
-          <ion-input placeholder="Edad" #edad="ngModel" [(ngModel)]="num_edad" name="edad" required></ion-input>
+          <ion-input placeholder="Edad: ej. 1 mes" #edad="ngModel" [(ngModel)]="num_edad" name="edad" required></ion-input>
         </ion-item>
       </div>
       <hr *ngIf="bander" />
@@ -96,7 +96,7 @@
 
       <br *ngIf="solicita">
       <button *ngIf="solicita" class="rutasGeol" style="background: transparent;" (click)="irUbicacionInicio();">
-        <img src="assets/imgs/patita.png" style=" margin: 0; padding: 0;">
+        <img src="assets/imgs/solicitar.png" style=" margin: 0; padding: 0;">
       </button>
       <br *ngIf="solicita">
     </ion-list>

@@ -13,10 +13,11 @@ import { NotificacionesService } from "../../app/services/notificaciones.service
 
 export class CardsolicitudPage {
   public inf_viaje;
-  public ruta;
+  public raza;
+  public num_edad;
   public fechaSalida;
-  public horario;
-  public num_maleta;
+  public horarioR;
+  public horarioE; 
   public informacion;
   public estado;
   public cancelarV = false;
@@ -26,10 +27,11 @@ export class CardsolicitudPage {
     this.inf_viaje = JSON.parse(localStorage.getItem("recibi"));
     console.log('contexto info viaje', this.inf_viaje);
 
-    this.ruta = this.inf_viaje.ruta;
+    this.raza = this.inf_viaje.raza;
+    this.num_edad = this.inf_viaje.num_edad;
     this.fechaSalida = this.inf_viaje.fechaSalida;
-    this.horario = this.inf_viaje.horario;
-    this.num_maleta = this.inf_viaje.num_maleta;
+    this.horarioR = this.inf_viaje.horarioR;
+    this.horarioE = this.inf_viaje.horarioE;
     this.informacion = this.inf_viaje.informacion;
     this.estado = this.inf_viaje.estado;
 
