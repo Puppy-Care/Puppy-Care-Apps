@@ -10,8 +10,8 @@ exports.sendEmail = function (req, res) {
     var transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-            user: 'notificacionesmontecarlo@gmail.com',
-            pass: 'vano0388'
+            user: 'notificationspatitas@gmail.com',
+            pass: 'Patitas123'
         }
     });
     // Definimos el email
@@ -39,10 +39,10 @@ exports.sendEmail = function (req, res) {
                 } else {
                     console.log("El CHofer", user);
                     var mailOptions = {
-                        from: 'notificacionesmontecarlo@gmail.com',
+                        from: 'notificationspatitas@gmail.com',
                         to: user.correo + ',' + req.body.obj.receiver.correo,//req.body.obj._id_chofer.correo,
                         subject: 'Tienes nuevas notificaciones en tu APP MONTECARLO',
-                        text: 'NUEVO VIAJE: El viaje del cliente ' + req.body.obj.receiver.nombre + ' ' + req.body.obj.receiver.apellido + ' en la fecha ' + req.body.obj.fechaSalida + ' Hora de recogida ' + req.body.obj.horarioR + ' Hora de entrega ' + req.body.obj.horarioE + ' ha sido asignada, por favor para mas información revisa tu aplicación móvil.'
+                        text: 'NUEVO PASEO: El viaje del cliente ' + req.body.obj.receiver.nombre + ' ' + req.body.obj.receiver.apellido + ' en la fecha ' + req.body.obj.fechaSalida + ' Hora de recogida ' + req.body.obj.horarioR + ' Hora de entrega ' + req.body.obj.horarioE + ' ha sido asignada, por favor para mas información revisa tu aplicación móvil.'
                     };
                     transporter.sendMail(mailOptions, function (error) {
                         if (error) {
