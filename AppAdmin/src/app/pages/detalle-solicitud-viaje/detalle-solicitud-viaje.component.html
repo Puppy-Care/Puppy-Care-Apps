@@ -1,0 +1,278 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12" style="text-align: center; color: #2863a9">
+      <h3>DETALLES DE SOLICITUD
+        <small>(VIAJES)</small>
+      </h3>
+    </div>
+    <div class="col-md-12">
+      <hr style="background-color: #e9ecef; width: 50%;">
+    </div>
+  </div>
+  <!-- ************************ INFORMACION DEL CLIENTE ************************ -->
+  <!-- ************************ INFORMACION DEL CLIENTE ************************ -->
+  <div class="row">
+    <i class="fa fa-user fa-2x" style="color: #2863a9"></i>
+    <h4 style="color: #2863a9">&nbsp;&nbsp;&nbsp;Información del Cliente</h4>
+    <div class="col-md-12">
+      <hr style="background-color: #b3cb26; width: 100%;">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-1">
+      <img src="../assets/img/barraHorizontal.jpg" style="width: 5px; height: 144px; display: block; margin-left: 75%; border-radius: 3px 3px 3px 3px;">
+    </div>
+    <div class="col-md-2">
+      <div class="row">
+        <b>Nombre:</b>
+      </div>
+      <div class="row">
+        <b>Apellido:</b>
+      </div>
+      <div class="row">
+        <b>Cédula:</b>
+      </div>
+      <div class="row">
+        <b>Correo:</b>
+      </div>
+      <div class="row">
+        <b>Celular:</b>
+      </div>
+      <div class="row">
+        <b>Convencional:</b>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="row">&nbsp;{{nombre}} </div>
+      <div class="row">&nbsp;{{apellido}}</div>
+      <div class="row">&nbsp;{{cedula}}</div>
+      <div class="row">&nbsp;{{correo}}</div>
+      <div class="row">&nbsp;{{celular}}</div>
+      <div class="row">&nbsp;{{convencional}}</div>
+    </div>
+    <div class="col-md-4">
+      <img src="../assets/img/VerUser.png" style="display: block; margin-left: 36%; height: 144px;">
+    </div>
+  </div>
+  <br>
+  <!-- ************************ DETALLE DEL VIAJE ************************ -->
+  <!-- ************************ DETALLE DEL VIAJE ************************ -->
+  <div class="row">
+    <i class="fa fa-briefcase fa-2x" style="color: #2863a9"></i>
+    <h4 style="color: #2863a9">&nbsp;&nbsp;&nbsp;Detalle del viaje</h4>
+    <div class="col-md-12">
+      <hr style="background-color: #b3cb26; width: 100%;">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-1">
+      <img src="../assets/img/barraHorizontal.jpg" style="width: 5px; height: 240; display: block; margin-left: 75%; border-radius: 3px 3px 3px 3px;">
+    </div>
+    <div class="col-md-2">
+      <div class="row">
+        <b>Ruta:</b>
+      </div>
+      <div class="row">
+        <b>Horario:</b>
+      </div>
+      <div class="row">
+        <b>Fecha de Salida:</b>
+      </div>
+      <div class="row">
+        <b>Maletas:</b>
+      </div>
+      <div class="row">
+        <b>Precio:</b>
+      </div>
+      <div class="row">
+        <b>Asientos:</b>
+        <div class="col-md-12">
+          <b>&nbsp;</b>
+        </div>
+        <div class="col-md-12">
+          <b>&nbsp;</b>
+        </div>
+        <div class="col-md-12">
+          <b>&nbsp;</b>
+        </div>
+      </div>
+      <div class="row">
+        <b>Información:</b>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="row">&nbsp;{{ruta}}</div>
+      <div class="row">&nbsp;{{horario}}</div>
+      <div class="row">&nbsp;{{fechaSalida}}</div>
+      <div class="row">&nbsp;{{num_maleta}} maletas</div>
+      <div class="row">
+        <input style="border-radius: 5px 5px 5px 5px;
+        -moz-border-radius: 5px 5px 5px 5px;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border: 1px dotted #ff0000;"
+          type="number" #Precio="ngModel" [(ngModel)]="precio" placeholder="Ingrese el precio"> dólares
+        ($)
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <b>Copiloto:&nbsp;</b> {{puestoCopiloto}}&nbsp;</div>
+        <div class="col-md-12">
+          <b>Izquierdo:&nbsp;</b> {{puestoAtrasIzquierdo}}&nbsp;</div>
+        <div class="col-md-12">
+          <b>Medio:&nbsp;</b> {{puestoAtrasMedio}}&nbsp;</div>
+        <div class="col-md-12">
+          <b>Derecho:&nbsp;</b> {{puestoAtrasDerecho}}</div>
+      </div>
+      <div class="row">&nbsp;{{informacion}}</div>
+    </div>
+    <div class="col-md-3">
+      <img src="../assets/img/carroSolicitud.png" style="display: block; margin-left: 25%; height: 144px;">
+    </div>
+  </div>
+  <br>
+  <!-- ************************ DIRECCIONES EN LOS MAPAS ************************ -->
+  <!-- ************************ DIRECCIONES EN LOS MAPAS ************************ -->
+  <div class="container" style="text-align: center; align-content: center;">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="row">
+          <i class="fa fa-map-marker fa-lg" style="color: #2863a9"></i>
+          <h5 style="color: #2863a9">&nbsp;&nbsp;&nbsp;Dirección de Salida:
+            <small>&nbsp;{{ruta}}</small>
+          </h5>
+          <div class="col-md-12">
+            <hr style="background-color: #b3cb26; width: 100%;">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <agm-map [latitude]="latitud_salida" [longitude]="longitud_salida" [scrollwheel]="true" [zoom]="17"
+              [zoomControl]="true" [mapTypeControl]="false">
+              <agm-marker [latitude]="latitud_salida" [longitude]="longitud_salida"></agm-marker>
+            </agm-map>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <img src="../assets/img/barraHorizontal.jpg" style="width: 3px; height: 375px; display: block; margin-left: 50%; border-radius: 3px 3px 3px 3px;">
+      </div>
+      <div class="col-md-5">
+        <div class="row">
+          <i class="fa fa-map-marker fa-lg" style="color: #2863a9"></i>
+          <h5 style="color: #2863a9">&nbsp;&nbsp;&nbsp;Dirección de Llegada:
+            <small> {{ruta}}</small>
+          </h5>
+          <div class="col-md-12">
+            <hr style="background-color: #b3cb26; width: 100%;">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <agm-map [latitude]="latitud_llegada" [longitude]="longitud_llegada" [scrollwheel]="true" [zoom]="17"
+              [zoomControl]="true" [mapTypeControl]="false">
+              <agm-marker [latitude]="latitud_llegada" [longitude]="longitud_llegada"></agm-marker>
+            </agm-map>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <!-- ************************ ASIGNACION DEL CONDUCTOR ************************ -->
+  <!-- ************************ ASIGNACION DEL CONDUCTOR ************************ -->
+  <div class="row">
+    <i class="fa fa-male fa-2x" style="color: #2863a9"></i>
+    <h4 style="color: #2863a9">&nbsp;&nbsp;&nbsp;Asignación del Conductor</h4>
+    <div class="col-md-12">
+      <hr style="background-color: #b3cb26; width: 100%;">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-3">
+          <b>Conductor</b>
+        </div>
+        <div class="col-md-9">
+          <div class="form-group">
+            <select class="form-control" id="exampleFormControlSelect1" (change)="mostrarDatosConductor($event.target.value)">
+              <option disabled="true">Seleccione un conductor</option>
+              <option *ngFor=" let listado of  listadoChoferes" value="{{listado._id}}">Nombre: {{listado.nombre}}
+                {{listado.apellido}}
+                | Convencional: {{listado.tel_convencional}} | Celular: {{listado.tel_celular}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <!-- ************************ ASIGNACION DEL TAXI ************************ -->
+  <!-- ************************ ASIGNACION DEL TAXI ************************ -->
+  <div class="row">
+    <i class="fa fa-car fa-2x" style="color: #2863a9"></i>
+    <h4 style="color: #2863a9">&nbsp;&nbsp;&nbsp;Asignación del Taxi</h4>
+    <div class="col-md-12">
+      <hr style="background-color: #b3cb26; width: 100%;">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-3">
+          <b>Taxi</b>
+        </div>
+        <div class="col-md-9">
+          <div class="form-group">
+            <!-- <label for="exampleFormControlSelect1">Seleccione un taxi</label> -->
+            <select class="form-control" id="exampleFormControlSelect1" (change)="mostrarDatosTaxi($event.target.value)">
+              <option disabled="true">Seleccione un taxi</option>
+              <option *ngFor=" let listado of  listadoTaxis" value="{{listado._id}}">Placa: {{listado.placa}} | Marca:
+                {{listado.marca}}
+                | Modelo: {{listado.modelo}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <!-- ************************ BOTONES DE CONFIRMACION Y DE GENERAR PDF ************************ -->
+  <!-- ************************ BOTONES DE CONFIRMACION Y DE GENERAR PDF ************************ -->
+  <div class="row">
+    <div class="col-md-12">
+      <hr style="background-color: #e9ecef; width: 50%;">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12" style="text-align: center;">
+      <button type="button" class="btn btn-primary" (click)="asignarViaje();">Asignar</button>
+    </div>
+    <!-- <div class="col-md-6" style="text-align: left;">
+      <button type="button" class="btn btn-danger" (click)="cancelarViaje();">Cancelar Viaje</button>
+    </div> -->
+  </div>
+  <br>
+  <!-- ====================================================                     ERROR =================================-->
+  <!-- ====================================================                     ERROR =================================-->
+  <button id="openModalError" [hidden]="true" data-toggle="modal" data-target="#ModalError">Error</button>
+  <div class="modal fade" id="ModalError" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input style="width: 100%; border: 0; background-color: white;" disabled type="text" #MensajeError="ngModel"
+            [(ngModel)]="this.mensajeerrormodals" name="mensajeerror">
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="button" data-dismiss="modal">Ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

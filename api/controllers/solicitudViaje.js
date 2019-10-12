@@ -17,23 +17,18 @@ function saveMessageSolicitudViaje(req, res) {
 
     solicitudViaje.tipo = params.tipo;
     solicitudViaje.estado = params.estado;
-    solicitudViaje.ruta = params.ruta;
-    solicitudViaje.horario = params.horario;
+    solicitudViaje.raza = params.raza;
+    solicitudViaje.num_edad=params.num_edad;
     solicitudViaje.fechaSalida = params.fechaSalida.formatted;
-    solicitudViaje.num_maleta = params.num_maleta;
+    solicitudViaje.horarioR=params.horarioR;
+    solicitudViaje.horarioE=params.horarioE;
     solicitudViaje.informacion = params.informacion;
     solicitudViaje.latitud_salida = params.latitud_salida;
     solicitudViaje.longitud_salida = params.longitud_salida;
     solicitudViaje.latitud_llegada = params.latitud_llegada;
     solicitudViaje.longitud_llegada = params.longitud_llegada;
-    //solicitudViaje.asiento = params.asiento;
     solicitudViaje.user = params.identity;
-    solicitudViaje.socketId = params.socketId;
-    solicitudViaje.p1 = params.p1;
-    solicitudViaje.p2 = params.p2;
-    solicitudViaje.p3 = params.p3;
-    solicitudViaje.p4 = params.p4;
-    solicitudViaje.estadoLleno = params.estadoLleno;
+
 
     //console.log("viaje" + JSON.stringify(solicitudViaje));
 
@@ -137,7 +132,7 @@ function getTodasSolicitudesViajes(req, res) {
 }
 
 
-
+// pilas no me acuerdo
 function updateConjuntosolicitudViaje(req, res) {
     var update = req.body;
     // en este caso e sparametro de ruta es decir el id para todo lo demas req.body

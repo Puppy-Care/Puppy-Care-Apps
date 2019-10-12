@@ -125,25 +125,14 @@ export class HomeComponent implements OnInit {
     this.estadoClaveChofer = "0";
     this.estadoClaveUsuario = "0";
 
-    var banderaVE = localStorage.getItem("banderaViajeEncom");
-    localStorage.removeItem("banderaViajeEncom");
-    console.log('MI BANDERA VE >>> ', banderaVE);
-    if (banderaVE == null) { }
-    if (banderaVE == "viaje") {
+  
+
       this._notificacionesService.getSolicitudViaje(this._userService.getToken(), "0").subscribe(
         response => {
           this.messages = response.solicitudviajes;
           console.log("*****************************************");
           console.log("ESTE ES MI VECTOR DE MENSAJES DEL IF", this.messages);
           console.log("*****************************************");
-          let ct = 0;
-          this.messages.forEach(() => {
-            ct = ct + 1;
-            console.log('estoy en el sensual foreach');
-          });
-          console.log('valor de mi contador >>> ', ct);
-          this.notViaje = ct;
-          //this.obtenerSolicitudesViajes();
           this.apareceNotificacionViaje();
         },
         error => {
@@ -152,7 +141,7 @@ export class HomeComponent implements OnInit {
       );
     }
    
-  }
+  
 
   hola() //  esta funcion  debe cargar el json  con todos los datos del usuario y enviarlos por la notificacion
   {
@@ -436,39 +425,14 @@ export class HomeComponent implements OnInit {
     this.viajesRealizadosDetalles = false;
   
   }
-  apareceDetalleEncomienda() {
-
-    this.ReporteClientes = false;
-    this.listadoC = false;
-    this.listadoS = false;
-    
-    this.ReporteTres = false;
-    this.ReporteDos = false;
-    this.ReporteUno = false;
-
-    this.IngreseUsuario = false;
-    this.ModificarUsuario = false;
-    this.IngreseChofer = false;
-    this.ModificarChofer = false;
-    this.primera = "Alerta";
-    this.segunda = "Encomiendas";
-    this.imagen = false;
-    this.detalleSolicitudViaje = false;
-   
-    this.verViajesTotales = false;
-  
-    this.viajesRealizados = false;
-    this.viajesRealizadosDetalles = false;
-   
-  }
-
+ 
 
   //metodo para aparecer todas las notificaciones de los viajes
   apareceNotificacionViaje() {
 
     this.ReporteClientes = false;
     console.log('aparecenotificaionViaje');
-    this.organizarViajes();
+    //this.organizarViajes();
     this.listadoC = false;
     this.listadoS = false;
 
@@ -936,23 +900,22 @@ export class HomeComponent implements OnInit {
     if (tipo == "Viaje") {
       //json a guardar de viaje
       var jViaje = {
-        j_sockett: NotificacionIndividual.socketId,
+     
         j_tipo: NotificacionIndividual.tipo,
         j_id: NotificacionIndividual.user,
-        j_ruta: NotificacionIndividual.ruta,
-        j_horario: NotificacionIndividual.horario,
+        j_estado: NotificacionIndividual.estado,
+        j_raza: NotificacionIndividual.raza,
+        j_num_edad: NotificacionIndividual.num_edad,
         j_fechaSalida: NotificacionIndividual.fechaSalida,
-        j_num_maleta: NotificacionIndividual.num_maleta,
         j_informacion: NotificacionIndividual.informacion,
+        j_horarioR: NotificacionIndividual.horarioR,
+        j_horarioE: NotificacionIndividual.horarioE,
         j_latitud_salida: NotificacionIndividual.latitud_salida,
         j_longitud_salida: NotificacionIndividual.longitud_salida,
         j_latitud_llegada: NotificacionIndividual.latitud_llegada,
         j_longitud_llegada: NotificacionIndividual.longitud_llegada,
         //nuevos asientos
-        j_p1: NotificacionIndividual.p1,
-        j_p2: NotificacionIndividual.p2,
-        j_p3: NotificacionIndividual.p3,
-        j_p4: NotificacionIndividual.p4,
+     
         //nuevos asientos
         j_cedula: NotificacionIndividual.user.cedula,
         j_nombre: NotificacionIndividual.user.nombre,
@@ -964,33 +927,7 @@ export class HomeComponent implements OnInit {
       localStorage.setItem("viaje", JSON.stringify(jViaje));
       console.log('********* mi localsoteage viaje>>>>> ', jViaje);
       this.apareceDetalleViaje();
-    } else {
-      if (tipo == 'Encomienda') {
-        //json a guardar de encomienda
-        var jEncomienda = {
-          j_sockett: NotificacionIndividual.socketId,
-          j_tipo: NotificacionIndividual.tipo,
-          j_id: NotificacionIndividual.user,
-          j_ruta: NotificacionIndividual.ruta,
-          j_horario: NotificacionIndividual.horario,
-          j_fechaSalida: NotificacionIndividual.fechaSalida,
-          j_latitud_salida: NotificacionIndividual.latitud_salida,
-          j_longitud_salida: NotificacionIndividual.longitud_salida,
-          j_latitud_llegada: NotificacionIndividual.latitud_llegada,
-          j_longitud_llegada: NotificacionIndividual.longitud_llegada,
-          j_detalle_paquete: NotificacionIndividual.detalle_paquete,
-          j_destinatario: NotificacionIndividual.destinatario,
-          j_cedula: NotificacionIndividual.user.cedula,
-          j_nombre: NotificacionIndividual.user.nombre,
-          j_apellido: NotificacionIndividual.user.apellido,
-          j_correo: NotificacionIndividual.user.correo,
-          j_celular: NotificacionIndividual.user.tel_celular,
-          j_convencional: NotificacionIndividual.user.tel_convencional
-        };
-        localStorage.setItem("encomienda", JSON.stringify(jEncomienda));
-        console.log('mi localsoteage encomienda>>>>> ', jEncomienda);
-        this.apareceDetalleEncomienda();
-      }
+    
     }
   }
 
