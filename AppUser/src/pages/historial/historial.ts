@@ -5,7 +5,7 @@ import { NavController } from "ionic-angular";
 import { UserService } from "../../app/services/user.services";
 import { LocaleDataIndex } from "@angular/common/src/i18n/locale_data";
 import { MessageService } from "../../app/services/message.services";
-import { ConfirmacionPage } from "../../pages/confirmacion/confirmacion";
+//import { ConfirmacionPage } from "../../pages/confirmacion/confirmacion";
 import { PrincipalPage } from "../principal/principal";
 
 @Component({
@@ -110,7 +110,7 @@ export class HistorialPage {
       localStorage.setItem("confirmacion1", JSON.stringify(response.messagess));
 
       localStorage.setItem('Dirige', '1');
-      this.navCtrl.push(ConfirmacionPage);
+     // this.navCtrl.push(ConfirmacionPage);
 
     }, (err) => { console.log("Existen COmplicaciones Intente mas tarde", err) });
   }
