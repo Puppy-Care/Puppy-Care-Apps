@@ -91,7 +91,7 @@ export class DetalleSolicitudViajeComponent implements DoCheck, OnDestroy {
     console.log('ESTE ES MI OBJETO PARA PRUEBA WOLF >>>>>', this.viajeDetalle);
     this.identitySecretaria = JSON.parse(localStorage.getItem("identity"));
 
-    this._solicitudViajeSend = new Viaje("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+    this._solicitudViajeSend = new Viaje("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
 
     //para la visualizacion en el detallesolicitudViaje.html
     this.tipo = this.viajeDetalle.j_tipo;
