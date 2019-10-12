@@ -5,7 +5,6 @@ import { MessageService } from '../../../services/message.services';
 import { UserService } from '../../../services/user.services';
 import { NotificacionesService } from '../../../services/notificaciones.services';
 
-import { nextTick } from '../../../../node_modules/@types/q';
 import { EnvioEmail } from '../../../services/correo.service';
 
 @Component({
@@ -23,55 +22,45 @@ export class DetalleSolicitudViajeComponent implements DoCheck, OnDestroy {
 
   ngDoCheck() {
     this.viajeDetalle = JSON.parse(localStorage.getItem("viaje"));
-
-   // this.comprobarAsientos();
-
-    // para la visualizacion en el detallesolicitudViaje.html
+ 
     this.tipo = this.viajeDetalle.j_tipo;
-    this.ruta = this.viajeDetalle.j_ruta;
-    this.horario = this.viajeDetalle.j_horario;
+    this.estado = this.viajeDetalle.j_ruta;
+    this.raza = this.viajeDetalle.raza;
     this.fechaSalida = this.viajeDetalle.j_fechaSalida;
-    this.num_maleta = this.viajeDetalle.j_num_maleta;
-    this.informacion = this.viajeDetalle.j_informacion;
+    this.horarioR = this.viajeDetalle.j_horarioR;
+    this.horarioE = this.viajeDetalle.j_horarioE;
     this.latitud_salida = Number(this.viajeDetalle.j_latitud_salida);
     this.longitud_salida = Number(this.viajeDetalle.j_longitud_salida);
     this.latitud_llegada = Number(this.viajeDetalle.j_latitud_llegada);
     this.longitud_llegada = Number(this.viajeDetalle.j_longitud_llegada);
+    this.informacion=this.viajeDetalle.j_informacion
     this.nombre = this.viajeDetalle.j_nombre;
     this.apellido = this.viajeDetalle.j_apellido;
     this.cedula = this.viajeDetalle.j_cedula;
     this.correo = this.viajeDetalle.j_correo;
     this.celular = this.viajeDetalle.j_celular;
     this.convencional = this.viajeDetalle.j_convencional;
-    this._solicitudViajeSend.sockett = this.viajeDetalle.j_sockett;
-    //console.log('Método DoCheck lanzado en la el viaje');
+    
+  
   }
 
-  public p1;
-  public p2;
-  public p3;
-  public p4;
 
-  //variables para visualizar los asientos
-  public puestoCopiloto;  //12
-  public puestoAtrasIzquierdo;  //21
-  public puestoAtrasMedio;  //22
-  public puestoAtrasDerecho;  //23
 
   public viajeDetalle;  // este es mi local storage
   public identitySecretaria;  //e ste es mi local storage de la secretaria
 
   public tipo;
-  public id_cliente;
-  public ruta;
-  public horario;
+  public estado;
+  public raza;
+  public num_edad;
   public fechaSalida;
-  public num_maleta;
+  public horarioR;
+  public horarioE;
   public informacion;
-  public latitud_salida;
   public longitud_salida;
-  public latitud_llegada;
+  public latitud_salida;
   public longitud_llegada;
+  public latitud_llegada;
   public nombre;
   public apellido;
   public cedula;
@@ -79,7 +68,6 @@ export class DetalleSolicitudViajeComponent implements DoCheck, OnDestroy {
   public celular;
   public convencional;
   public precio;
-  public sockett;
   public _solicitudViajeSend: Viaje;  // variable de tipo Viaje para guardar mis datos
 
   public _solicitudSendId = {
@@ -103,26 +91,26 @@ export class DetalleSolicitudViajeComponent implements DoCheck, OnDestroy {
     console.log('ESTE ES MI OBJETO PARA PRUEBA WOLF >>>>>', this.viajeDetalle);
     this.identitySecretaria = JSON.parse(localStorage.getItem("identity"));
 
-    this._solicitudViajeSend = new Viaje("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+    this._solicitudViajeSend = new Viaje("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
 
     //para la visualizacion en el detallesolicitudViaje.html
     this.tipo = this.viajeDetalle.j_tipo;
-    this.ruta = this.viajeDetalle.j_ruta;
-    this.horario = this.viajeDetalle.j_horario;
+    this.estado = this.viajeDetalle.j_ruta;
+    this.raza = this.viajeDetalle.raza;
     this.fechaSalida = this.viajeDetalle.j_fechaSalida;
-    this.num_maleta = this.viajeDetalle.j_num_maleta;
-    this.informacion = this.viajeDetalle.j_informacion;
+    this.horarioR = this.viajeDetalle.j_horarioR;
+    this.horarioE = this.viajeDetalle.j_horarioE;
     this.latitud_salida = Number(this.viajeDetalle.j_latitud_salida);
     this.longitud_salida = Number(this.viajeDetalle.j_longitud_salida);
     this.latitud_llegada = Number(this.viajeDetalle.j_latitud_llegada);
     this.longitud_llegada = Number(this.viajeDetalle.j_longitud_llegada);
+    this.informacion=this.viajeDetalle.j_informacion
     this.nombre = this.viajeDetalle.j_nombre;
     this.apellido = this.viajeDetalle.j_apellido;
     this.cedula = this.viajeDetalle.j_cedula;
     this.correo = this.viajeDetalle.j_correo;
     this.celular = this.viajeDetalle.j_celular;
     this.convencional = this.viajeDetalle.j_convencional;
-    this._solicitudViajeSend.sockett = this.viajeDetalle.j_sockett;
 
     console.log('***********************');
     console.log('VARIABLES de viaje');
@@ -136,19 +124,16 @@ export class DetalleSolicitudViajeComponent implements DoCheck, OnDestroy {
     this._solicitudViajeSend.tipo = this.viajeDetalle.j_tipo;
     this._solicitudViajeSend._id_secretaria = this.identitySecretaria._id;
     this._solicitudViajeSend.receiver = this.viajeDetalle.j_id;
-    this._solicitudViajeSend.ruta = this.viajeDetalle.j_ruta;
-    this._solicitudViajeSend.horario = this.viajeDetalle.j_horario;
+    this._solicitudViajeSend.raza = this.viajeDetalle.j_raza;
+    this._solicitudViajeSend.num_edad = this.viajeDetalle.j_num_edad;
     this._solicitudViajeSend.fechaSalida = this.viajeDetalle.j_fechaSalida;
-    this._solicitudViajeSend.num_maleta = this.viajeDetalle.j_num_maleta;
+    this._solicitudViajeSend.horarioR = this.viajeDetalle.j_horarioR;
+    this._solicitudViajeSend.horarioE = this.viajeDetalle.j_horarioE;
     this._solicitudViajeSend.informacion = this.viajeDetalle.j_informacion;
     this._solicitudViajeSend.latitud_salida = this.viajeDetalle.j_latitud_salida;
     this._solicitudViajeSend.longitud_salida = this.viajeDetalle.j_longitud_salida;
     this._solicitudViajeSend.latitud_llegada = this.viajeDetalle.j_latitud_llegada;
     this._solicitudViajeSend.longitud_llegada = this.viajeDetalle.j_longitud_llegada;
-    this._solicitudViajeSend.p1 = this.viajeDetalle.j_p1;
-    this._solicitudViajeSend.p2 = this.viajeDetalle.j_p2;
-    this._solicitudViajeSend.p3 = this.viajeDetalle.j_p3;
-    this._solicitudViajeSend.p4 = this.viajeDetalle.j_p4;
     this._solicitudViajeSend.precio = this.precio;
     this._solicitudViajeSend.estado = '0';
     //console.log("danni zorroojhb nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", this._solicitudViajeSend);
@@ -163,8 +148,7 @@ export class DetalleSolicitudViajeComponent implements DoCheck, OnDestroy {
   validacion() {
     console.log('precio >> ', this.precio);
     console.log('conductor >> ', this._idConductor);
-    console.log('taxi >> ', this._idTaxi);
-    if (this.precio == null || this._idConductor == null || this._idTaxi == null) {
+    if (this.precio == null || this._idConductor == null) {
       console.log('POR FAVOR LLENE TODOS LOS CAMPOS');
       return false;
     }
@@ -202,27 +186,14 @@ export class DetalleSolicitudViajeComponent implements DoCheck, OnDestroy {
         response => {
           console.log('hola vanessa' + JSON.stringify(response.viaje._id));
           this._solicitudSendId.idSolicitud = response.viaje._id;
-          this._solicitudSendId.sockett = this._solicitudViajeSend.sockett;
           this._solicitudSendId.tipoSolicitud = this._solicitudViajeSend.tipo;
           console.log('los ies que se envia', this._solicitudSendId);
       
-
-
-          //ir otra pagina 
-
-
         },
         error => {
           console.log(error);
         }
       );
-
-      /* this._solicitudSendId.idSolicitud = localStorage.getItem("viajeID");
-       this._solicitudSendId.sockett = this._solicitudViajeSend.sockett;
-     
-       console.log("los ies que se envia", this._solicitudSendId);
-       this.socket.emit('secretaria', { a: this._solicitudSendId });
-       //this.socket.emit('create notification', { tipo: 'viaje' });*/
     } else {
       console.log('***********LLENE TODOS LOS CAMPOS');
       document.getElementById("openModalError").click();
@@ -321,48 +292,8 @@ export class DetalleSolicitudViajeComponent implements DoCheck, OnDestroy {
     console.log('DATOS DEL CONDUCTOR INDIVIDUAL >>>> ', this._idConductor);
   }
 
-  mostrarDatosTaxi(datosTaxi) {
-    this._idTaxi = datosTaxi;
-    this._solicitudViajeSend._id_taxi = this._idTaxi;
-    console.log('DATOS DEL TAXI INDIVIDUAL >>>> ', this._idTaxi);
-  }
-
-  comprobarAsientos() {
-    this.p1 = this.viajeDetalle.j_p1;
-    this.p2 = this.viajeDetalle.j_p2;
-    this.p3 = this.viajeDetalle.j_p3;
-    this.p4 = this.viajeDetalle.j_p4;
-
-    if (this.p1 == "12") {
-      this.puestoCopiloto = "Seleccionado"
-    } else {
-      if (this.p1 == "0") {
-        this.puestoCopiloto = "Libre"
-      }
-    }
-    if (this.p2 == "21") {
-      this.puestoAtrasIzquierdo = "Seleccionado"
-    } else {
-      if (this.p2 == "0") {
-        this.puestoAtrasIzquierdo = "Libre"
-      }
-    }
-    if (this.p3 == "22") {
-      this.puestoAtrasMedio = "Seleccionado"
-    } else {
-      if (this.p3 == "0") {
-        this.puestoAtrasMedio = "Libre"
-      }
-    }
-    if (this.p4 == "23") {
-      this.puestoAtrasDerecho = "Seleccionado"
-    } else {
-      if (this.p4 == "0") {
-        this.puestoAtrasDerecho = "Libre"
-      }
-    }
-  }
-
+ 
+  
   cancelarViaje() {
     alert('ESTOY EN CANCELAR VIAJE DEL DETALLE DE SOLICITUD DE VIAJE');
     console.log('ESTOY EN CANCELAR VIAJE DEL DETALLE DE SOLICITUD DE VIAJE');

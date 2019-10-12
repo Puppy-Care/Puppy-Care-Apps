@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { UserService } from '../services/user.services';
 import { MessageService } from '../services/message.services';
+import { EnvioEmail } from '../services/correo.service';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { LoginComponent } from './pages/login/login.component';
@@ -31,7 +32,7 @@ import { AgmCoreModule } from '@agm/core';
       apiKey: 'AIzaSyARuGaeV-rD_M_ZP2uZT6d8SzFmywzAbRk'
     })
   ],
-  providers: [UserService, MessageService,NotificacionesService],
+  providers: [UserService, MessageService,NotificacionesService,EnvioEmail],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

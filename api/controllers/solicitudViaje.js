@@ -118,7 +118,7 @@ function getTodasSolicitudesViajes(req, res) {
     var params = req.body;
    // console.log("estoy trayedo mensajes todos fechaaaa ", params);
 
-    var solicitudviajetodo = SolicitudViaje.find({ '$and': [ {'$or':[{estado:'0'},{estado:'1'}]},{ estadoLleno: '0' }, { ruta: params.rura }, { horario: params.hora }, {fechaSalida:params.fecha}] }, (err, solicitudviajesTodos) => {
+    var solicitudviajetodo = SolicitudViaje.find({ '$and': [ {'$or':[{estado:'0'},{estado:'1'}]}, { ruta: params.rura }, { horario: params.hora }, {fechaSalida:params.fecha}] }, (err, solicitudviajesTodos) => {
         if (err) {
             return res.status(500).send({ message: 'Error  al obtener las solicitudes de Viaje' });
         }

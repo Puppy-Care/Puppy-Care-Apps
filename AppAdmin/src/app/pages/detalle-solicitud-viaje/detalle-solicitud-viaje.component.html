@@ -59,7 +59,7 @@
   <!-- ************************ DETALLE DEL VIAJE ************************ -->
   <div class="row">
     <i class="fa fa-briefcase fa-2x" style="color: #2863a9"></i>
-    <h4 style="color: #2863a9">&nbsp;&nbsp;&nbsp;Detalle del viaje</h4>
+    <h4 style="color: #2863a9">&nbsp;&nbsp;&nbsp;Detalle de la Mascota</h4>
     <div class="col-md-12">
       <hr style="background-color: #b3cb26; width: 100%;">
     </div>
@@ -70,41 +70,36 @@
     </div>
     <div class="col-md-2">
       <div class="row">
-        <b>Ruta:</b>
+        <b>Raza:</b>
       </div>
       <div class="row">
-        <b>Horario:</b>
+        <b>Edad:</b>
       </div>
       <div class="row">
         <b>Fecha de Salida:</b>
       </div>
       <div class="row">
-        <b>Maletas:</b>
+        <b>Hora de Recogida:</b>
       </div>
+      <div class="row">
+        <b>Hora de Entrega:</b>
+      </div>
+     
       <div class="row">
         <b>Precio:</b>
       </div>
       <div class="row">
-        <b>Asientos:</b>
-        <div class="col-md-12">
-          <b>&nbsp;</b>
-        </div>
-        <div class="col-md-12">
-          <b>&nbsp;</b>
-        </div>
-        <div class="col-md-12">
-          <b>&nbsp;</b>
-        </div>
-      </div>
-      <div class="row">
-        <b>Información:</b>
+        <b>Información Adicional:</b>
       </div>
     </div>
     <div class="col-md-6">
-      <div class="row">&nbsp;{{ruta}}</div>
-      <div class="row">&nbsp;{{horario}}</div>
+      <div class="row">&nbsp;{{raza}}</div>
+      <div class="row">&nbsp;{{edad}}</div>
       <div class="row">&nbsp;{{fechaSalida}}</div>
-      <div class="row">&nbsp;{{num_maleta}} maletas</div>
+      <div class="row">&nbsp;{{horarioR}}</div>
+      <div class="row">&nbsp;{{horarioE}}</div>
+      
+      
       <div class="row">
         <input style="border-radius: 5px 5px 5px 5px;
         -moz-border-radius: 5px 5px 5px 5px;
@@ -113,16 +108,7 @@
           type="number" #Precio="ngModel" [(ngModel)]="precio" placeholder="Ingrese el precio"> dólares
         ($)
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <b>Copiloto:&nbsp;</b> {{puestoCopiloto}}&nbsp;</div>
-        <div class="col-md-12">
-          <b>Izquierdo:&nbsp;</b> {{puestoAtrasIzquierdo}}&nbsp;</div>
-        <div class="col-md-12">
-          <b>Medio:&nbsp;</b> {{puestoAtrasMedio}}&nbsp;</div>
-        <div class="col-md-12">
-          <b>Derecho:&nbsp;</b> {{puestoAtrasDerecho}}</div>
-      </div>
+    
       <div class="row">&nbsp;{{informacion}}</div>
     </div>
     <div class="col-md-3">
@@ -209,33 +195,8 @@
   <br>
   <!-- ************************ ASIGNACION DEL TAXI ************************ -->
   <!-- ************************ ASIGNACION DEL TAXI ************************ -->
-  <div class="row">
-    <i class="fa fa-car fa-2x" style="color: #2863a9"></i>
-    <h4 style="color: #2863a9">&nbsp;&nbsp;&nbsp;Asignación del Taxi</h4>
-    <div class="col-md-12">
-      <hr style="background-color: #b3cb26; width: 100%;">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="row">
-        <div class="col-md-3">
-          <b>Taxi</b>
-        </div>
-        <div class="col-md-9">
-          <div class="form-group">
-            <!-- <label for="exampleFormControlSelect1">Seleccione un taxi</label> -->
-            <select class="form-control" id="exampleFormControlSelect1" (change)="mostrarDatosTaxi($event.target.value)">
-              <option disabled="true">Seleccione un taxi</option>
-              <option *ngFor=" let listado of  listadoTaxis" value="{{listado._id}}">Placa: {{listado.placa}} | Marca:
-                {{listado.marca}}
-                | Modelo: {{listado.modelo}}</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+ 
+
   <br>
   <!-- ************************ BOTONES DE CONFIRMACION Y DE GENERAR PDF ************************ -->
   <!-- ************************ BOTONES DE CONFIRMACION Y DE GENERAR PDF ************************ -->
