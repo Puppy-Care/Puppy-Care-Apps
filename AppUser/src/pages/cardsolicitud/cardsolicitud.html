@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-navbar color="colorapp">
+    <ion-title style="text-align: center;">
+      Viajes Realizados
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding style="background-image: url('assets/imgs/fondo2.png');" class="principal">
+  <div class="Aligner-item Aligner-item--top"></div>
+  <img id="imganeTitulo" src="assets/imgs/titulo.png" style=" width: 100%;">
+  <div class="Aligner-item Aligner-item--bottom"></div>
+  <ion-card>
+    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">
+      <ion-item style="float: left; width:100%; background-color: transparent;">
+        <div style="width: 30%; font-size: 13px;">
+          <label style="padding: 0; margin: 0;">Raza:</label>
+        </div>
+        <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">
+          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{raza}}</label>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">
+      <ion-item style="float: left; width:100%; background-color: transparent;">
+        <div style="width: 30%; font-size: 13px;">
+          <label style="padding: 0; margin: 0;">Edad:</label>
+        </div>
+        <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">
+          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{num_edad}}</label>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">
+      <ion-item style="float: left; width:100%; background-color: transparent;">
+        <div style="width: 30%; font-size: 13px;">
+          <label style="padding: 0; margin: 0;">Fecha Salida:</label>
+        </div>
+        <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">
+          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{fechaSalida}}</label>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">
+      <ion-item style="float: left; width:100%; background-color: transparent;">
+        <div style="width: 30%; font-size: 13px;">
+          <label style="padding: 0; margin: 0;">Hora Recogida:</label>
+        </div>
+        <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">
+          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{horarioR}}</label>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">
+      <ion-item style="float: left; width:100%; background-color: transparent;">
+        <div style="width: 30%; font-size: 13px;">
+          <label style="padding: 0; margin: 0;">HorA Entrega:</label>
+        </div>
+        <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">
+          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{horarioE}}</label>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">
+      <ion-item style="float: left; width:100%; background-color: transparent;">
+        <div style="width: 30%; font-size: 13px;">
+          <label style="padding: 0; margin: 0;">Estado:</label>
+        </div>
+        <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">
+          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{estado}}</label>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">
+      <ion-item style="float: left; width:100%; background-color: transparent;">
+        <div style="width: 30%; font-size: 13px;">
+          <label style="padding: 0; margin: 0;">Información:</label>
+        </div>
+        <div item-content style="text-align: justify; float: left; width: 65%; font-size: 13px; color: #777777;">
+          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{informacion}}</label>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-start clear small>
+          <ion-icon name="checkmark"></ion-icon>
+          <div (click)="opciones();">Aceptar</div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button [disabled]="cancelarV" ion-button icon-start clear small>
+          <ion-icon name="close"></ion-icon>
+          <div (click)="CancelarSolicitud()">Cancelar Solicitud</div>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>

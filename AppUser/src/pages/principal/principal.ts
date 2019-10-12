@@ -6,6 +6,9 @@ import { IMyDpOptions } from 'mydatepicker';
 import { MessageService } from "../../app/services/message.services";
 import { NotificacionesService } from "../../app/services/notificaciones.services";
 import { UbicacionInicioPage } from "../ubicacion-inicio/ubicacion-inicio";
+import { HistorialPage } from "../../pages/historial/historial";
+import { SolicitudesPage } from "../../pages/solicitudes/solicitudes";
+
 
 @Component({
   selector: "page-principal",
@@ -113,6 +116,14 @@ export class PrincipalPage {
       cssClass: 'customLoader'
     });
     alert.present();
+  }
+
+  historial() {
+    this.navCtrl.push(HistorialPage);
+  }
+
+  solicitudes() {
+    this.navCtrl.push(SolicitudesPage);
   }
 
 }

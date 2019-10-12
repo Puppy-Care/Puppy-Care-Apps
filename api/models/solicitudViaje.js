@@ -17,9 +17,6 @@ var solicitudViajeSchema = Schema({
     latitud_llegada: String,
     longitud_llegada: String,
     user: { type: Schema.ObjectId, ref: "User" }
-
-
-
 });
 
 

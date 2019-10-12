@@ -12,6 +12,10 @@ import { MiCuenta } from '../pages/mi_cuenta/mi_cuenta';
 import { PrincipalPage } from '../pages/principal/principal';
 import { UbicacionInicioPage } from '../pages/ubicacion-inicio/ubicacion-inicio';
 import { UbicacionFinalPage } from '../pages/ubicacion-final/ubicacion-final';
+import { HistorialPage } from '../pages/historial/historial';
+import { SolicitudesPage } from '../pages/solicitudes/solicitudes';
+import { CardsolicitudPage } from '../pages/cardsolicitud/cardsolicitud';
+import { ConfirmacionPage } from '../pages/confirmacion/confirmacion';
 
 import { UserService } from './services/user.services';
 import { MessageService } from './services/message.services';
@@ -35,7 +39,11 @@ import { MyDatePickerModule } from 'mydatepicker';
     MiCuenta,
     PrincipalPage,
     UbicacionInicioPage,
-    UbicacionFinalPage
+    UbicacionFinalPage,
+    HistorialPage,
+    SolicitudesPage,
+    CardsolicitudPage,
+    ConfirmacionPage
   ],
   imports: [
     BrowserModule,
@@ -57,7 +65,11 @@ import { MyDatePickerModule } from 'mydatepicker';
     MiCuenta,
     PrincipalPage, 
     UbicacionInicioPage,
-    UbicacionFinalPage
+    UbicacionFinalPage,
+    HistorialPage,
+    SolicitudesPage,
+    CardsolicitudPage,
+    ConfirmacionPage
   ],
   providers: [
     StatusBar,

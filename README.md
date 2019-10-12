@@ -7,3 +7,9 @@ luego digitamos
 npm install
 
 para que se isntalen el resto de dependencias 
+
+
+-- ERROR TypeError: Object(...) is not a function at new FitBoundsService after npm upgrade #1507
+you can fix this issue instaling the previous version of the @agm/core
+remove you current version : npm uninstall @agm/core
+then install this version: npm i @agm/core@1.0.0-beta.3 --save

@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar hideBackButton color="colorapp">
+
+    <ion-buttons left>
+      <button
+        class="back-button disable-hover bar-button bar-button-md back-button-md bar-button-default bar-button-default-md show-back-button"
+        (click)="goBack();">
+        <ion-icon style="font-size: 170%; color:rgb(255, 255, 255);" name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+
+
+    <!-- IOS //////////////////////////////////////////// -->
+    <ion-title style="padding-right: 0; padding-left: 20px;"><label left>Solicitud</label>
+      <!-- <button (click)="aparecerViaje()" style="background: transparent; left:0; right:0; max-width:50%; float: right; margin-right: 5%; display: block; max-height:100%;">
+        <ion-icon name="ios-car" style="cursor:pointer; font-size: 140%; color:rgb(255, 255, 255);"></ion-icon>
+      </button> -->
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-image: url('assets/imgs/Registro.png')" class="getstarContactos">
+  <div id="solicituViaje" *ngIf="viaje">
+    <br>
+    <div style="text-align: center;">
+      <h3>
+        <font style="font-size: 90%"> SOLICITUDES REALIZADAS</font>
+      </h3>
+      <h3>
+        <font style="font-size: 90%">Recorridos</font>
+      </h3>
+    </div>
+    <hr>
+    <div style="text-align: left;">
+      <h4>
+        <font>&nbsp;Notificaciones</font>
+      </h4>
+    </div>
+    <ion-list>
+      <ion-item *ngFor=" let listado of vectorViajes">
+        <!-- <ion-thumbnail item-start>
+          <ion-icon name="ios-car" style="cursor:pointer; font-size: 400%; color: #4266AE;   margin-left: auto;margin-right: auto; display: block; margin-top: 10px;"></ion-icon>
+
+        </ion-thumbnail> -->
+        <p>
+          <b>Raza: </b> {{listado.raza}}</p>
+        <p>
+          <b>Fecha Salida: </b> {{listado.fechaSalida}}</p>
+        <p>
+          <b>Hora Recogida: </b> {{listado.horarioR}}</p>
+        <p>
+          <b>Hora Entrega: </b> {{listado.horarioE}}</p>
+        <button ion-button clear item-end (click)="irDetalles(listado)">Ver</button>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
