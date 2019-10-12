@@ -158,7 +158,8 @@
       <!-- Division Principal-->
       <div class="rows1" *ngIf="imagen"> </div>
 
-      <!--listado viajes totales-->
+      <!------------------------------------------------listado viajes totales------------------------------------>   
+      <!------------------------------------------------listado viajes totales------------------------------------>
       <div *ngIf="verViajesTotales"  class="pre-scrollable" style="max-height: 100%;">
         <div class="row">
           <div class="col-md-12" style="text-align: center; color: #2863a9">
@@ -171,7 +172,7 @@
         </div>
         <table class="table  text-center">
           <thead>
-            <tr style="background-color: #343a40; align-content: center">
+            <tr style="background-color: #2863a9; align-content: center">
               <th style="color: white" scope="col">#</th>
               <th style="color: white" scope="col">Cliente</th>
               <th style="color: white" scope="col">Correo</th>
@@ -216,7 +217,7 @@
           </div>
           <table class="table  text-center">
             <thead>
-              <tr style="background-color: #343a40; align-content: center">
+              <tr style="background-color: #2863a9; align-content: center">
                 <th style="color: white" scope="col">#</th>
                 <th style="color: white" scope="col">Nombre</th>
                 <th style="color: white" scope="col">Cédula</th>
@@ -254,7 +255,7 @@
           </div>
           <table class="table  text-center">
             <thead>
-              <tr style="background-color: #343a40; align-content: center">
+              <tr style="background-color: #2863a9; align-content: center">
                 <th style="color: white" scope="col">#</th>
                 <th style="color: white" scope="col">Nombre</th>
                 <th style="color: white" scope="col">Cédula</th>
@@ -835,8 +836,7 @@
       <!-- Final Reporte Tres-->
      
       <!-- ***************************                        REPORTES                        ****************************************************** -->
-
-
+      <app-viajes-realizados *ngIf="viajesRealizados"></app-viajes-realizados>
       <!-- ***************************         DETALLE DE SOLICITUD  VIAJE Y ENCOMIENDA        ****************************************************** -->
       <app-detalle-solicitud-viaje *ngIf="detalleSolicitudViaje"></app-detalle-solicitud-viaje>
   
