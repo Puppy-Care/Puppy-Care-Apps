@@ -122,7 +122,7 @@ export class ViajesRealizadosComponent implements OnInit, DoCheck {
 
   cargarValores() {
     //alert('cargar Valores');
-    this._cuentaService.getCuentas(this._userService.getToken(), this.fecha_salida.formatted, this._idConductor).subscribe(
+    /*this._cuentaService.getCuentas(this._userService.getToken(), this.fecha_salida.formatted, this._idConductor).subscribe(
       response => {
         // this.messagesE = response.messagess;
         console.log('de regreso con los datos para las secres', response.cuentas);
@@ -134,7 +134,7 @@ export class ViajesRealizadosComponent implements OnInit, DoCheck {
       error => {
         console.log(error);
       }
-    );
+    );*/
   }
 
   verFechaEncomiendas() {
@@ -438,7 +438,7 @@ export class ViajesRealizadosComponent implements OnInit, DoCheck {
     }
 
     console.log('guardatio >>>> ', guardarCuentaChofer);
-    this._cuentaService.saveCuentas(this._userService.getToken(), guardarCuentaChofer).subscribe(
+    /*this._cuentaService.saveCuentas(this._userService.getToken(), guardarCuentaChofer).subscribe(
       response => {
         // this.messagesE = response.messagess;
         console.log('juardatito de regreso', response.message);
@@ -446,7 +446,7 @@ export class ViajesRealizadosComponent implements OnInit, DoCheck {
       error => {
         console.log(error);
       }
-    );
+    );*/
   }
 
 }
