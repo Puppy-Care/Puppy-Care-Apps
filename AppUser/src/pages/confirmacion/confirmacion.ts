@@ -124,7 +124,7 @@ export class ConfirmacionPage {
   confirmarPagoViaje() {
     const confirm = this.alertCtrl.create({
       title: 'Atención',
-      message: 'Si elige esta opción podrá pagar por medio de la plataforma PAYPAL. Caso contrario cancele y espere pagar en efectivo al chofer',
+      message: 'Si elige esta opción podrá pagar por medio de la plataforma PAYPAL. Caso contrario cancele y espere pagar en efectivo',
       buttons: [
         {
           text: 'Cancel',

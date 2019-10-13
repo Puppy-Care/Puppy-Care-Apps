@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-12" style="text-align: center; color: #2863a9">
       <h3>DETALLES DE SOLICITUD REALIZADA
-        <small>(VIAJES)</small>
+        <small>(PASEOS)</small>
       </h3>
     </div>
     <div class="col-md-12">
@@ -15,13 +15,11 @@
     <i class="fa fa-user fa-2x" style="color: #2863a9"></i>
     <h4 style="color: #2863a9">&nbsp;&nbsp;&nbsp;Información del Cliente</h4>
     <div class="col-md-12">
-      <hr style="background-color: #b3cb26; width: 100%;">
+      <hr style="background-color: #D99350; width: 100%;">
     </div>
   </div>
   <div class="row">
-    <div class="col-md-1">
-      <img src="../assets/img/barraHorizontal.jpg" style="width: 5px; height: 144px; display: block; margin-left: 75%; border-radius: 3px 3px 3px 3px;">
-    </div>
+    
     <div class="col-md-2">
       <div class="row">
         <b>Nombre:</b>
@@ -61,61 +59,40 @@
     <i class="fa fa-briefcase fa-2x" style="color: #2863a9"></i>
     <h4 style="color: #2863a9">&nbsp;&nbsp;&nbsp;Detalle del viaje</h4>
     <div class="col-md-12">
-      <hr style="background-color: #b3cb26; width: 100%;">
+      <hr style="background-color: #D99350; width: 100%;">
     </div>
   </div>
   <div class="row">
-    <div class="col-md-1">
-      <img src="../assets/img/barraHorizontal.jpg" style="width: 5px; height: 240; display: block; margin-left: 75%; border-radius: 3px 3px 3px 3px;">
-    </div>
+    
     <div class="col-md-2">
       <div class="row">
-        <b>Ruta:</b>
+        <b>Mascota-Raza:</b>
       </div>
       <div class="row">
-        <b>Horario:</b>
+        <b>Horario de recogida:</b>
+      </div>
+      <div class="row">
+        <b>Horario de entrega:</b>
       </div>
       <div class="row">
         <b>Fecha de Salida:</b>
       </div>
-      <div class="row">
-        <b>Maletas:</b>
-      </div>
+      
       <div class="row">
         <b>Precio:</b>
       </div>
-      <div class="row">
-        <b>Asientos:</b>
-        <div class="col-md-12">
-          <b>&nbsp;</b>
-        </div>
-        <div class="col-md-12">
-          <b>&nbsp;</b>
-        </div>
-        <div class="col-md-12">
-          <b>&nbsp;</b>
-        </div>
-      </div>
+
       <div class="row">
         <b>Información:</b>
       </div>
     </div>
     <div class="col-md-6">
-      <div class="row">&nbsp;{{viajeRealizadoDetalle.ruta}}</div>
-      <div class="row">&nbsp;{{viajeRealizadoDetalle.horario}}</div>
+      <div class="row">&nbsp;{{viajeRealizadoDetalle.raza}}</div>
+      <div class="row">&nbsp;{{viajeRealizadoDetalle.horarioR}}</div>
+      <div class="row">&nbsp;{{viajeRealizadoDetalle.horarioE}}</div>
       <div class="row">&nbsp;{{viajeRealizadoDetalle.fech_salida}}</div>
-      <div class="row">&nbsp;{{viajeRealizadoDetalle.num_maleta}} maletas</div>
       <div class="row">&nbsp;{{viajeRealizadoDetalle.precio}} $ (dólares)</div>
-      <div class="row">
-        <div class="col-md-12">
-          <b>Copiloto:&nbsp;</b> {{puestoCopiloto}}&nbsp;</div>
-        <div class="col-md-12">
-          <b>Izquierdo:&nbsp;</b> {{puestoAtrasIzquierdo}}&nbsp;</div>
-        <div class="col-md-12">
-          <b>Medio:&nbsp;</b> {{puestoAtrasMedio}}&nbsp;</div>
-        <div class="col-md-12">
-          <b>Derecho:&nbsp;</b> {{puestoAtrasDerecho}}</div>
-      </div>
+     
       <div class="row">&nbsp;{{viajeRealizadoDetalle.informacion}}</div>
     </div>
     <div class="col-md-3">
@@ -219,49 +196,8 @@
   <br>
   <!-- ************************ ASIGNACION DEL TAXI ************************ -->
   <!-- ************************ ASIGNACION DEL TAXI ************************ -->
-  <div class="row">
-    <i class="fa fa-car fa-2x" style="color: #2863a9"></i>
-    <h4 style="color: #2863a9">&nbsp;&nbsp;&nbsp;Detalles del Taxi</h4>
-    <div class="col-md-12">
-      <hr style="background-color: #b3cb26; width: 100%;">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-1">
-      <img src="../assets/img/barraHorizontal.jpg" style="width: 5px; height: 144px; display: block; margin-left: 75%; border-radius: 3px 3px 3px 3px;">
-    </div>
-    <div class="col-md-2">
-      <div class="row">
-        <b>Placa:</b>
-      </div>
-      <div class="row">
-        <b>Número de Régimen:</b>
-      </div>
-      <div class="row">
-        <b>Cooperativa:</b>
-      </div>
-      <div class="row">
-        <b>Marca:</b>
-      </div>
-      <div class="row">
-        <b>Modelo:</b>
-      </div>
-      <div class="row">
-        <b>Denuncia:</b>
-      </div>
-    </div>
-    <div class="col-md-5">
-      <div class="row">&nbsp;{{viajeRealizadoDetalle._id_taxi.placa}} </div>
-      <div class="row">&nbsp;{{viajeRealizadoDetalle._id_taxi.numero_regimen}}</div>
-      <div class="row">&nbsp;{{viajeRealizadoDetalle._id_taxi.nombre_coop}}</div>
-      <div class="row">&nbsp;{{viajeRealizadoDetalle._id_taxi.marca}}</div>
-      <div class="row">&nbsp;{{viajeRealizadoDetalle._id_taxi.capacidad_pasajeros}}</div>
-      <div class="row">&nbsp;{{viajeRealizadoDetalle.denuncia}}</div>
-    </div>
-    <div class="col-md-4">
-      <img src="../assets/img/IngresarAuto.png" style="display: block; margin-left: 36%; height: 144px;">
-    </div>
-  </div>
+ 
+  
 
   <br>
 

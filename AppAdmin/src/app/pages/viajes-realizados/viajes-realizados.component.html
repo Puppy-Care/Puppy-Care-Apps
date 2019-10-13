@@ -7,7 +7,7 @@
             Ingrese la fecha de consulta
           </div>
           <div class="row" style="height:40px">
-            Seleccione un conductor
+            Seleccione un trabajador
           </div>
         </div>
         <div class="col-md-4">
@@ -29,7 +29,7 @@
           <div class="row" style="display: flex; justify-content: center; align-items: center;"><input class="btn btn-success"
               type="button" value="Consultar" (click)="verFechaViajes()" style="width:75%;"></div>
           <div class="row" style="display: flex; justify-content: center; align-items: center; text-align: center;">
-            <font size="2">*Para visualizar un reporte específico ingresar la fecha y chofer y dar clic en el botón
+            <font size="2">*Para visualizar un reporte específico ingresar la fecha y trabajador y dar clic en el botón
               superior</font>
           </div>
         </div>
@@ -43,7 +43,7 @@
 <div *ngIf="verListadoFecha">
   <div class="row" *ngIf="lstViajes">
     <div class="col-md-12" style="text-align: center; color: #2863a9">
-      <h2>VIAJES REALIZADOS EL {{fecha_salida.formatted}}
+      <h2>PASEOS REALIZADOS EL {{fecha_salida.formatted}}
       </h2>
     </div>
     <div class="col-md-12">
@@ -55,11 +55,12 @@
     <thead>
       <tr style="background-color: #2863a9; align-content: center">
         <!-- <th style="color: white" scope="col">#</th> -->
-        <th style="color: white" scope="col">Ruta</th>
-        <th style="color: white" scope="col">Fecha</th>
-        <th style="color: white" scope="col">Horario</th>
-        <th style="color: white" scope="col">Cedula</th>
         <th style="color: white" scope="col">Nombres</th>
+        <th style="color: white" scope="col">Cedula</th>
+        <th style="color: white" scope="col">Mascota-Raza</th>
+        <th style="color: white" scope="col">Fecha</th>
+        <th style="color: white" scope="col">Horario de Recogida</th>
+        <th style="color: white" scope="col">Horario de Entrega</th>
         <th style="color: white" scope="col">Forma de Pago</th>
         <th style="color: white" scope="col">Opción</th>
       </tr>
@@ -67,11 +68,13 @@
     <tbody *ngFor=" let listado of  messages; let i = index">
       <tr *ngIf="listado._id_chofer._id == _idConductor && listado.fech_salida == _fecha">
         <!-- <td style="font-size: 130%">{{i+1}}</td> -->
-        <td style="font-size: 130%">{{listado.ruta}}</td>
-        <td style="font-size: 130%">{{listado.fech_salida}}</td>
-        <td style="font-size: 130%">{{ listado.horario}}</td>
-        <td style="font-size: 130%">{{listado.receiver.cedula}}</td>
         <td style="font-size: 130%">{{listado.receiver.nombre}} {{ listado.receiver.apellido}}</td>
+        <td style="font-size: 130%">{{listado.receiver.cedula}}</td>
+        <td style="font-size: 130%">{{listado.Raza}}</td>
+        <td style="font-size: 130%">{{listado.fech_salida}}</td>
+        <td style="font-size: 130%">{{ listado.horarioR}}</td>
+        <td style="font-size: 130%">{{ listado.horarioE}}</td>
+     
         <td style="font-size: 130%">{{listado.tipoPago}}</td>
         <td>
           <input class="btn btn-success" type="button" value="Ver Más..." (click)="mostrarNotificacion(listado)">
@@ -127,7 +130,7 @@
     </div>
   </div>
 
-  <div class="container-fluid">
+  <div class="container-fluid" style="display: none">
     <div class="card text-center">
       <div class="card-header">
         <h5>Reporte del chofer {{nombreChoferMostr}} en la fecha {{fecha_salida.formatted}}</h5>

@@ -35,6 +35,7 @@ import { MyDatePickerModule } from 'mydatepicker';
 // abrir browser
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -84,7 +85,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Geolocation,
     PayPal,
-    InAppBrowser
+    InAppBrowser,
+ 
   ]
 })
 export class AppModule {}
