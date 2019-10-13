@@ -42,9 +42,9 @@
     <ion-list class="Lista_Menu_Viaje">
       <!-- AQUI EMPIEZA LA SOLICITUD -->
       <div class="list_1" *ngIf="bander">
-        <ion-label class="title_menu">Raza:</ion-label>
+        <ion-label class="title_menu">Nombre y Raza:</ion-label>
         <ion-item class="css-itemSelec">
-          <ion-input placeholder="Raza: ej. Bulldog" #raza="ngModel" [(ngModel)]="Raza" name="raza" required></ion-input>
+          <ion-input placeholder="ej. Bobby - Bulldog" #raza="ngModel" [(ngModel)]="Raza" name="raza" required></ion-input>
         </ion-item>
       </div>
       <hr *ngIf="bander" />
