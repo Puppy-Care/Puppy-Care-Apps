@@ -10,7 +10,7 @@
 
     <ion-item>
       <ion-avatar item-start>
-        <img src="../../assets/imgs/clienteFinal.png">
+        <img src="../../assets/imgs/registroNombre.png">
       </ion-avatar>
       <h2>
         <b>Datos del Cliente</b>
@@ -48,26 +48,19 @@
       </h2>
       <hr>
       <p>
-        <b>Ruta:</b>{{viajeDetalle.ruta}}</p>
+        <b>Raza:</b>{{viajeDetalle.raza}}</p>
+        <p>
+            <b>Edad:</b> {{viajeDetalle.num_edad}}</p>
       <p>
         <b>Fecha de Salida: </b> {{viajeDetalle.fech_salida}}</p>
       <p>
-        <b>Hora de Salida: </b> {{viajeDetalle.horario}}</p>
-      <p>
-        <b>Número de maletas:</b> {{viajeDetalle.num_maleta}} maletas</p>
+        <b>Hora Recogida: </b> {{viajeDetalle.horarioR}}</p>
+        <p>
+            <b>Hora Entrega: </b> {{viajeDetalle.horarioE}}</p>
+            <p>
+                <b>Información: </b> {{viajeDetalle.informacion}}</p>
       <p>
         <b>Precio: </b> {{viajeDetalle.precio}} dólares ($)</p>
-      <p>
-        <b>Asientos: </b> {{this.express}}</p>
-      <p *ngIf="a1" style="margin-left: 5%">
-        <b>Copiloto: </b> {{this.p1}}</p>
-      <p *ngIf="a2" style="margin-left: 5%">
-        <b>Izquierda: </b> {{this.p2}}</p>
-      <p *ngIf="a3" style="margin-left: 5%">
-        <b>Medio: </b> {{this.p3}}</p>
-      <p *ngIf="a4" style="margin-left: 5%">
-        <b>Derecha: </b> {{this.p4}}</p>
-
     </ion-card-content>
 
 
