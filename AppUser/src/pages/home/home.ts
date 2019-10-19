@@ -6,7 +6,7 @@ import { UserService } from "../../app/services/user.services";
 //import { User } from "../../app/models/user";
 import { PrincipalPage } from "../principal/principal";
 //import { ContactosPage } from "../contactanos/contactanos";
-//import { TerminosPage } from '../terminos/terminos';
+import { TerminosPage } from '../terminos/terminos';
 
 @Component({
   selector: "page-home",
@@ -62,9 +62,9 @@ export class HomePage implements OnInit {
   onCLick() {
      this.navCtrl.push(RegistroPage);
  }
-  // onCLickTerminos() {
-  //   this.navCtrl.push(TerminosPage);
-  // }
+   onCLickTerminos() {
+     this.navCtrl.push(TerminosPage);
+  }
 
   // onContactanos() {
   //   this.navCtrl.push(ContactosPage);
