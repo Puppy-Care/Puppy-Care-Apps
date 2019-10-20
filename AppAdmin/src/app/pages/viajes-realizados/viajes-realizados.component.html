@@ -7,7 +7,7 @@
             Ingrese la fecha de consulta
           </div>
           <div class="row" style="height:40px">
-            Seleccione un trabajador
+            Seleccione un paseador
           </div>
         </div>
         <div class="col-md-4">
@@ -19,7 +19,7 @@
           </div>
           <div class="row">
             <select style="margin-left: 15px " class="form-control" id="exampleFormControlSelect1" (change)="mostrarDatosConductor($event.target.value)">
-              <option disabled="true">Seleccione un conductor</option>
+              <option disabled="true">Seleccione un paseador</option>
               <option *ngFor=" let listadoC of  listadoChoferes" value="{{listadoC._id}}">{{listadoC.nombre}}
                 {{listadoC.apellido}}</option>
             </select>
@@ -55,13 +55,13 @@
     <thead>
       <tr style="background-color: #2863a9; align-content: center">
         <!-- <th style="color: white" scope="col">#</th> -->
-        <th style="color: white" scope="col">Nombres</th>
-        <th style="color: white" scope="col">Cedula</th>
+        <th style="color: white" scope="col">Cliente</th>
         <th style="color: white" scope="col">Mascota-Raza</th>
         <th style="color: white" scope="col">Fecha</th>
         <th style="color: white" scope="col">Horario de Recogida</th>
         <th style="color: white" scope="col">Horario de Entrega</th>
         <th style="color: white" scope="col">Forma de Pago</th>
+        <th style="color: white" scope="col">Monto</th>
         <th style="color: white" scope="col">Opción</th>
       </tr>
     </thead>
@@ -69,13 +69,13 @@
       <tr *ngIf="listado._id_chofer._id == _idConductor && listado.fech_salida == _fecha">
         <!-- <td style="font-size: 130%">{{i+1}}</td> -->
         <td style="font-size: 130%">{{listado.receiver.nombre}} {{ listado.receiver.apellido}}</td>
-        <td style="font-size: 130%">{{listado.receiver.cedula}}</td>
-        <td style="font-size: 130%">{{listado.Raza}}</td>
+        <td style="font-size: 130%">{{listado.raza}}</td>
         <td style="font-size: 130%">{{listado.fech_salida}}</td>
         <td style="font-size: 130%">{{ listado.horarioR}}</td>
         <td style="font-size: 130%">{{ listado.horarioE}}</td>
      
         <td style="font-size: 130%">{{listado.tipoPago}}</td>
+        <td style="font-size: 130%">{{ listado.precio}}$</td>
         <td>
           <input class="btn btn-success" type="button" value="Ver Más..." (click)="mostrarNotificacion(listado)">
         </td>
@@ -123,14 +123,13 @@
     </tbody>
   </table>
   <!-- ********************************************** ENCOMIENDAS -->
-
   <div class="row">
     <div class="col-md-12">
       <hr style="background-color: #e9ecef; width: 50%;">
     </div>
   </div>
 
-  <div class="container-fluid" style="display: none">
+  <div class="container-fluid">
     <div class="card text-center">
       <div class="card-header">
         <h5>Reporte del chofer {{nombreChoferMostr}} en la fecha {{fecha_salida.formatted}}</h5>
@@ -138,144 +137,34 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-5">
+           
+       
             <div class="row">
-              <div class="input-group">
-                <div class="input-group-append lbl_ingreso" data-toggle="tooltip" data-placement="right" title="Valor del Peaje">
-                  <span class="input-group-text lbl_ingreso">Peaje</span>
-                </div>
-                <input data-toggle="tooltip" data-placement="right" title="Valor del Peaje" type="number" class="form-control"
-                  aria-label="Ingrese el valor del peaje" placeholder="Ingrese el valor del peaje" #Peaje="ngModel"
-                  [(ngModel)]="peaje" name="peaje" id="peaje">
-                <div class="input-group-append" data-toggle="tooltip" data-placement="right" title="Valor del Peaje">
-                  <span class="input-group-text">$</span>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-group">
-                <div class="input-group-append lbl_ingreso" data-toggle="tooltip" data-placement="right" title="Valor de la Gasolina">
-                  <span class="input-group-text lbl_ingreso">Gasolina</span>
-                </div>
-                <input data-toggle="tooltip" data-placement="right" title="Valor de la Gasolina" type="number" class="form-control"
-                  aria-label="Ingrese el valor de la gasolina" placeholder="Ingrese el valor de la gasolina" #Gasolina="ngModel"
-                  [(ngModel)]="gasolina" name="gasolina" id="gasolina">
-                <div class="input-group-append" data-toggle="tooltip" data-placement="right" title="Valor de la Gasolina">
-                  <span class="input-group-text">$</span>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-group">
-                <div class="input-group-append lbl_ingreso" data-toggle="tooltip" data-placement="right" title="Valor del Lunch">
-                  <span class="input-group-text lbl_ingreso">Lunch</span>
-                </div>
-                <input data-toggle="tooltip" data-placement="right" title="Valor del Lunch" type="number" class="form-control"
-                  aria-label="Ingrese el valor del lunch" placeholder="Ingrese el valor del lunch" #Lunch="ngModel"
-                  [(ngModel)]="lunch" name="lunch" id="lunch">
-                <div class="input-group-append" data-toggle="tooltip" data-placement="right" title="Valor del Lunch">
-                  <span class="input-group-text">$</span>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-group">
-                <div class="input-group-append lbl_ingreso" data-toggle="tooltip" data-placement="right" title="Valores de Gastos Varios">
-                  <span class="input-group-text lbl_ingreso">Varios</span>
-                </div>
-                <input data-toggle="tooltip" data-placement="right" title="Valor de los Gastos Varios" type="number"
-                  class="form-control" aria-label="Ingrese el valor de los gastos varios" placeholder="Ingrese el valor de los gastos varios"
-                  #Varios="ngModel" [(ngModel)]="varios" name="varios" id="varios">
-                <div class="input-group-append" data-toggle="tooltip" data-placement="right" title="Valor de los gastos varios">
-                  <span class="input-group-text">$</span>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <font size="2">*Rellene los siguiente campos (peaje, gasolina, lunch, gastos varios) respectivamente para
-                calcular el
-                valor total en el reporte
-                <br><br>
+              <font size="2">
+                <br>
                 **Los valores de la forma de pago online no se ha tomado en cuenta para la contabilidad</font>
-              <hr style="background-color: #e9ecef; width: 100%;">
-              <button type="button" class="btn btn-success" (click)="guardarCuentas();" >Guardar</button>
+            
               <br>
             </div>
           </div>
+
           <div class="col-md-2">
-            <img src="../assets/img/barraHorizontal.jpg" style="width: 2px; height: 300px; display: block; margin-left: 50%; border-radius: 3px 3px 3px 3px;">
+            <img src="../assets/img/barraHorizontal.jpg" style="width: 2px; height: 100px; display: block; margin-left: 50%; border-radius: 3px 3px 3px 3px;">
           </div>
 
           <div class="col-md-5">
             <div class="row">
               <div class="col txt_titulos">
-                Viajes por pagar:
+                Paseos por pagar:
               </div>
               <div class="col txt_subtitulos">
                 {{totalCarrChofer}}
               </div>
             </div>
 
-            <div class="row">
-              <div class="col txt_titulos">
-                Encomiendas por pagar:
-              </div>
-              <div class="col txt_subtitulos">
-                {{totalCarrEncoChofer}}
-              </div>
-            </div>
+           
 
-            <div class="row">
-              <hr style="background-color: #e9ecef; width: 100%;">
-            </div>
-
-            <div class="row">
-              <div class="col txt_titulos">
-                (-)Peaje:
-              </div>
-              <div class="col txt_subtitulos">
-                {{peaje}} $
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col txt_titulos">
-                (-)Gasolina:
-              </div>
-              <div class="col txt_subtitulos">
-                {{gasolina}} $
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col txt_titulos">
-                (-)Lunch:
-              </div>
-              <div class="col txt_subtitulos">
-                {{lunch}} $
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col txt_titulos">
-                (-)Varios:
-              </div>
-              <div class="col txt_subtitulos">
-                {{varios}} $
-              </div>
-            </div>
-
-            <div class="row">
-              <hr style="background-color: #e9ecef; width: 100%;">
-            </div>
-
-            <div class="row">
-              <div class="col txt_titulos">
-                (+)SUBTOTAL:
-              </div>
-              <div class="col txt_subtitulos">
-                {{totalRecChofer}} $
-              </div>
-            </div>
+           
 
             <div class="row">
               <hr style="background-color: #e9ecef; width: 100%;">
@@ -293,7 +182,7 @@
         </div>
       </div>
       <div class="card-footer text-muted">
-        <h6>Montecarlo Transportes VIP. Logistica y Cargo</h6>
+        <h6>"PATITAS"  nada mejor que un paseo entre amigos</h6>
       </div>
     </div>
   </div>
@@ -309,8 +198,8 @@
 
 <div *ngIf="mensajeError">
   <div class="alert alert-warning" role="alert">
-    <p class="text-center">No existen datos de viajes de ese conductor en esa fecha. Ingrese otro conductor u otra
-      fecha y de clic en el botón Consultar.</p>
+    <p class="text-center">No existen datos de paseos de ese paseador en esa fecha. Ingrese otro paseador u otra
+      fecha y de clic en el botón consultar.</p>
   </div>
 </div>
 

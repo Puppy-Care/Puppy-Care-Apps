@@ -40,7 +40,7 @@
         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Ingreso de nuevos Choferes">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#nvChofer" style="text-decoration: none; color: black"  data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-users"></i>
-            <span class="nav-link-text"> Chofer</span>
+            <span class="nav-link-text"> Paseador</span>
           </a>
           <ul class="sidenav-second-level collapse" id="nvChofer">
             <li>
@@ -68,12 +68,7 @@
             <span class="nav-link-text"> Paseos Realizados</span>
           </a>
         </li>
-        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Pagos totales por día en una fecha específica">
-          <a class="nav-link" data-toggle="collapse" data-parent="#exampleAccordion" (click)="aparecerEncomiendasRealizadas()">
-            <i class="fa fa-fw fa-usd"></i>
-            <span class="nav-link-text"> Pagos Por Día</span>
-          </a>
-        </li>
+       
       </ul>
 
       
@@ -205,7 +200,7 @@
 
         <!-- ====================================================                                Listado Secretaria ============================================-->
         <!-- ====================================================                                Listado Secretaria ============================================-->
-        <div *ngIf="listadoS" class="container">
+        <div *ngIf="listadoS" >
           <div class="row">
             <div class="col-md-12" style="text-align: center; color: #2863a9">
               <h3>LISTADO SECRETARIAS
@@ -243,10 +238,10 @@
 
         <!-- ====================================================                                Listado Choferes ============================================-->
         <!-- ====================================================                                Listado Choferes ============================================-->
-        <div *ngIf="listadoC" class="container">
+        <div *ngIf="listadoC" >
           <div class="row">
             <div class="col-md-12" style="text-align: center; color: #2863a9">
-              <h3>LISTADO CHOFERES
+              <h3>LISTADO PASEADORES
               </h3>
             </div>
             <div class="col-md-12">
@@ -615,7 +610,7 @@
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group">
-                <label> Nombre del Chofer</label>
+                <label> Nombre del Paseador</label>
                 <input type="text" class="form-control" #NombreM="ngModel" [(ngModel)]="datosChoferes.nombre" name="nombreM"
                   [disabled]='textBox' pattern="[ A-Za-zñÑ]*" required>
                 <div [hidden]="NombreM.valid || NombreM.pristine" class="alert alert-warning">
@@ -623,7 +618,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label>Celular del Chofer</label>
+                <label>Celular del Paseador</label>
                 <input type="text" class="form-control" #CelularM="ngModel" [(ngModel)]="datosChoferes.tel_celular"
                   name="celularM" [disabled]='textBox' pattern="[0-9]*" required>
                 <div [hidden]="CelularM.valid || CelularM.pristine" class="alert alert-warning">
@@ -631,7 +626,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label>Número de Telefono del Chofer</label>
+                <label>Número de Telefono del Paseador</label>
                 <input type="text" class="form-control" #TelefonoM="ngModel" [(ngModel)]="datosChoferes.tel_convencional"
                   name="telefonoM" [disabled]='textBox' pattern="[0-9]*" required>
                 <div [hidden]="TelefonoM.valid || TelefonoM.pristine" class="alert alert-warning">
@@ -643,7 +638,7 @@
             </div>
             <div class="col-lg-6">
               <div class="form-group">
-                <label>Apellido del Chofer</label>
+                <label>Apellido del Paseador</label>
                 <input type="text" class="form-control" #ApellidoM="ngModel" [(ngModel)]="datosChoferes.apellido" name="apellidoM"
                   [disabled]='textBox' pattern="[ A-Za-zñÑ]*" required>
                 <div [hidden]="ApellidoM.valid || ApellidoM.pristine" class="alert alert-warning">
@@ -651,7 +646,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label>Correo del Chofer</label>
+                <label>Correo del Paseador</label>
                 <input type="email" class="form-control" #CorreoM="ngModel" [(ngModel)]="datosChoferes.correo" name="correoM"
                   [disabled]='textBox' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
                 <div [hidden]="CorreoM.valid || CorreoM.pristine" class="alert alert-warning">
@@ -830,12 +825,11 @@
 
      
       <!-- ***************************                        REPORTES                        ****************************************************** -->
-      <!-- Inicio Reporte Uno-->
-
+    
+         <!-- ***************************                    listado clientes                    ****************************************************** -->
+         <app-reporte-clientes *ngIf="ReporteClientes"></app-reporte-clientes>
      
-      <!-- Final Reporte Tres-->
-     
-      <!-- ***************************                        REPORTES                        ****************************************************** -->
+      <!-- ***************************                          DETALLE viajes realizados                      ****************************************************** -->
       <app-viajes-realizados *ngIf="viajesRealizados"></app-viajes-realizados>
       <!-- ***************************         DETALLE DE SOLICITUD  VIAJE Y ENCOMIENDA        ****************************************************** -->
       <app-detalle-solicitud-viaje *ngIf="detalleSolicitudViaje"></app-detalle-solicitud-viaje>

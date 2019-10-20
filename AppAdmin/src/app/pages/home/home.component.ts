@@ -281,7 +281,7 @@ export class HomeComponent implements OnInit {
     this.ReporteTres = false;
     this.ReporteDos = false;
     this.ReporteUno = false;
-    this.primera = "Chofer";
+    this.primera = "Paseador";
     this.segunda = "Nuevo";
     this.imagen = false;
     this.detalleSolicitudViaje = false;
