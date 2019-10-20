@@ -2,7 +2,7 @@
 
 var bcrypt = require('bcrypt-nodejs');
 var moment = require('moment');
-
+var Viaje = require('./models/viaje');
 var paypal = require('paypal-rest-sdk');
 
 
@@ -28,16 +28,16 @@ mongoose.connect('mongodb://localhost:27017/puppydb', (err, res) => {
 
 
 paypal.configure({
-    'mode': 'live', //sandbox or live
-    'client_id': 'AYjQP_qgxpCAJtdTPoeOFOsVtP__Lop-8y2ngTFLJxuOOSmtuSJg-51icjXM5II52TCAEJ2LxJtIW8cb',
-    'client_secret': 'EDi4KpUmoYDjfgKcHc7UrklXalpWZ624twyA5dfwyCZpDVydqduSoh_HO0EbteuRob9sDlzkL8FSIgVI'
+    'mode': 'sandbox', //sandbox or live
+    'client_id': 'AUXffM6g1diCdvcCHEj3xdu80ipGX7EMnbfaEJ-uYG1wg-iaUhONBS17YB6CoICLJgy5Qi2r-BFlPx3U',
+    'client_secret': 'ECZytw30fCOqtK3XOUfpxl-v_W3sebxxiliqxachxSMzgmroQxqe_4Nugdxp-CfVsgEQgxVDNVlYtWlR'
 });
 
 app.globalAmount = 0;
 app.globalTipoPago = '';
 app.globalTipoSolicitud = "";
 app.post('/api/createPayment', function (req, res) {
-    console.log('iudViaje', req.body.idViaje);
+    console.log('iudViaje', req.body);
     app.globalTipoSolicitud = req.body.pagoDe;
     app.globalId = req.body.idViaje;
     app.globalAmount = req.body.amount;
@@ -90,7 +90,7 @@ app.get('/executePayment', function (req, res) {
         "transactions": [{
             "amount": {
                 "currency": "USD",
-                "total": '1'//app.globalAmount
+                "total": '21.25' // app.globalAmount //'1'
             }
         }]
     };
@@ -118,7 +118,7 @@ app.get('/executePayment', function (req, res) {
                             res.status(404).send({ message: "El viaje no se ha pagado" });
                         } else {
                             //console.log(solicitudViajeUpdate);
-                            res.status(200).send("transaccion Completa");
+                            res.status(200).send("Transaccion Completa vuelve a la app");
 
                         }
                     }
