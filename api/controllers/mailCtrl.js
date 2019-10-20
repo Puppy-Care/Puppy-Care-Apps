@@ -34,14 +34,14 @@ exports.sendEmail = function (req, res) {
             } else {
                 if (!user) {
                     return res.status(500).send({
-                        message: "No tienes permiso para actualizar a un Chofer"
+                        message: "No tienes permiso para actualizar a un paseador"
                     });
                 } else {
                     console.log("El CHofer", user);
                     var mailOptions = {
                         from: 'notificationspatitas@gmail.com',
                         to: user.correo + ',' + req.body.obj.receiver.correo,//req.body.obj._id_chofer.correo,
-                        subject: 'Tienes nuevas notificaciones en tu APP MONTECARLO',
+                        subject: 'Tienes nuevas notificaciones en tu APP "PATITAS"',
                         text: 'NUEVO PASEO: El viaje del cliente ' + req.body.obj.receiver.nombre + ' ' + req.body.obj.receiver.apellido + ' en la fecha ' + req.body.obj.fechaSalida + ' Hora de recogida ' + req.body.obj.horarioR + ' Hora de entrega ' + req.body.obj.horarioE + ' ha sido asignada, por favor para mas información revisa tu aplicación móvil.'
                     };
                     transporter.sendMail(mailOptions, function (error) {
