@@ -62,6 +62,7 @@
         <th style="color: white" scope="col">Horario de Entrega</th>
         <th style="color: white" scope="col">Forma de Pago</th>
         <th style="color: white" scope="col">Monto</th>
+        <th style="color: white" scope="col">Denuncias</th>
         <th style="color: white" scope="col">Opción</th>
       </tr>
     </thead>
@@ -76,6 +77,7 @@
      
         <td style="font-size: 130%">{{listado.tipoPago}}</td>
         <td style="font-size: 130%">{{ listado.precio}}$</td>
+        <td style="font-size: 130%">{{ listado.denuncia}}</td>
         <td>
           <input class="btn btn-success" type="button" value="Ver Más..." (click)="mostrarNotificacion(listado)">
         </td>

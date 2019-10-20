@@ -106,7 +106,7 @@ export class ViajesRealizadosComponent implements OnInit, DoCheck {
         response => {
           this.messages = response.messagess;
           // console.log('estos son mis viajes que estan realizados en una fecha sin filtrar por chofer>>>', this.messages);
-          this.verFechaEncomiendas();
+         // this.verFechaEncomiendas();
           this.calcularTotalViajes();
         },
         error => {
@@ -137,7 +137,7 @@ export class ViajesRealizadosComponent implements OnInit, DoCheck {
     );*/
   }
 
-  verFechaEncomiendas() {
+  /*verFechaEncomiendas() {
     console.log('entre a las encomiendas');
     //console.log('fecha capturada Seleccionada', this.fecha_salida);
     this._messageService.getReceivedMessagesEncoListadoSecretaria(this._userService.getToken(), this.fecha_salida).subscribe(
@@ -149,7 +149,7 @@ export class ViajesRealizadosComponent implements OnInit, DoCheck {
         //console.log(error);
       }
     );
-  }
+  }*/
 
 
   mostrarNotificacion(listado) {
@@ -335,7 +335,7 @@ export class ViajesRealizadosComponent implements OnInit, DoCheck {
       ////////////////////////////////
       console.log('entre a las encomiendas');
       //console.log('fecha capturada Seleccionada', this.fecha_salida);
-      this._messageService.getReceivedMessagesEncoListadoSecretaria(this._userService.getToken(), this.fecha_salida).subscribe(
+     /* this._messageService.getReceivedMessagesEncoListadoSecretaria(this._userService.getToken(), this.fecha_salida).subscribe(
         response => {
           this.messagesE = response.messagess;
           console.log('NUEVAS ENCOMIENDAS >>>>>>>', this.messagesE);
@@ -344,7 +344,7 @@ export class ViajesRealizadosComponent implements OnInit, DoCheck {
         error => {
           //console.log(error);
         }
-      );
+      );*/
       ////////////////////////////////
     } else {
       //alert("Debe llenar todos los datos antes de continuar");
@@ -405,7 +405,7 @@ export class ViajesRealizadosComponent implements OnInit, DoCheck {
       this.viajesRealizadosDetalles = false;
       this.encomiendasRealizadasDetalles = false;
       //console.log('Fecha capturada Seleccionada >>>>>> ', this.fecha_salida);
-      this._messageService.getReceivedMessagesEncoListadoSecretaria(this._userService.getToken(), this.fecha_salida).subscribe(
+      /*this._messageService.getReceivedMessagesEncoListadoSecretaria(this._userService.getToken(), this.fecha_salida).subscribe(
         response => {
           this.messagesE = response.messagess;
           this.calcularTotalViajes();
@@ -414,7 +414,7 @@ export class ViajesRealizadosComponent implements OnInit, DoCheck {
         error => {
           //console.log(error);
         }
-      );
+      );*/
 
 
 
