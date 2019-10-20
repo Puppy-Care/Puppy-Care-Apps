@@ -16,6 +16,7 @@ import { HistorialPage } from '../pages/historial/historial';
 import { SolicitudesPage } from '../pages/solicitudes/solicitudes';
 import { CardsolicitudPage } from '../pages/cardsolicitud/cardsolicitud';
 import { ConfirmacionPage } from '../pages/confirmacion/confirmacion';
+import {TerminosPage} from '../pages/terminos/terminos';
 
 import { UserService } from './services/user.services';
 import { MessageService } from './services/message.services';
@@ -48,7 +49,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     HistorialPage,
     SolicitudesPage,
     CardsolicitudPage,
-    ConfirmacionPage
+    ConfirmacionPage,
+    TerminosPage
   ],
   imports: [
     BrowserModule,
@@ -74,7 +76,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     HistorialPage,
     SolicitudesPage,
     CardsolicitudPage,
-    ConfirmacionPage
+    ConfirmacionPage,
+    TerminosPage
   ],
   providers: [
     StatusBar,
