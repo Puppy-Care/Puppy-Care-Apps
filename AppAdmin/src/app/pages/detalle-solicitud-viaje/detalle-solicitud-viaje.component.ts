@@ -25,7 +25,8 @@ export class DetalleSolicitudViajeComponent implements DoCheck, OnDestroy {
  
     this.tipo = this.viajeDetalle.j_tipo;
     this.estado = this.viajeDetalle.j_ruta;
-    this.raza = this.viajeDetalle.raza;
+    this.raza = this.viajeDetalle.j_raza;
+    this.num_edad = this.viajeDetalle.j_num_edad;
     this.fechaSalida = this.viajeDetalle.j_fechaSalida;
     this.horarioR = this.viajeDetalle.j_horarioR;
     this.horarioE = this.viajeDetalle.j_horarioE;
