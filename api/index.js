@@ -40,7 +40,7 @@ app.post('/api/createPayment', function (req, res) {
     console.log('iudViaje', req.body);
     app.globalTipoSolicitud = req.body.pagoDe;
     app.globalId = req.body.idViaje;
-    app.globalAmount = req.body.amount;
+    app.globalAmount = (Number(req.body.amount)+1.25);
     var create_payment_json = {
         "intent": "sale",
         "payer": {
@@ -90,7 +90,7 @@ app.get('/executePayment', function (req, res) {
         "transactions": [{
             "amount": {
                 "currency": "USD",
-                "total": '21.25' // app.globalAmount //'1'
+                "total": app.globalAmount //'1'
             }
         }]
     };

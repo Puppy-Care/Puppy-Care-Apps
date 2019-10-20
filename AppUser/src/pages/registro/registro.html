@@ -14,9 +14,15 @@
 
 
   <div class="Aligner-item Aligner-item--top"></div>
-  <img id="imganeTitulo" src="assets/imgs/tituloRegistro.png" style=" width:40%;">
+
+  
+  <label class=" form-control fileContainer" style="border: none; ">
+    <img id="imganeTitulo" [src]="url2" style="display: block; width: 40%; ">
+    <input type='file' id="nuestroinput" class="btn btn-primary" (change)="readUrl($event)" />
+    <p id="Titulo">Seria genial una foto con tus mascotas</p>
+  </label>
   <div class="Aligner-item Aligner-item--bottom"></div>
-  <br>
+
   <form #FormularioRegistro="ngForm" id="formRegistro">
     <div id="formRegister">
       <div style="top:0; bottom: 0;" class="item item-block">

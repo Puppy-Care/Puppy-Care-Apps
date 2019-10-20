@@ -8,6 +8,7 @@ export class User {
         public contrasena: String,
         public tel_celular: String,
         public tel_convencional: String,
-        public estado: String
+        public estado: String,
+        public image: String
     ) { }
 }

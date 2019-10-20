@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { HomePage } from "../home/home";
+import { GLOBAL } from "../../app/services/global";
 import {
   NavController,
   AlertController,
@@ -19,6 +20,7 @@ export class RegistroPage {
   public user_register: User;
   public identity;
   public token;
+  public url;
   //objeto para la validacion del formulario
   miModelo: any;
   verificarPassword = "";
@@ -29,8 +31,10 @@ export class RegistroPage {
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController
   ) {
+    this.url2 = './';
+    this.url = GLOBAL.url;
     this.miModelo = {};
-    this.user_register = new User("", "", "", "", "", "", "", "", "");
+    this.user_register = new User("", "", "", "", "", "", "", "", "","");
   }
 
   public verificarContrasenas() {
@@ -57,6 +61,16 @@ export class RegistroPage {
         this.user_register.estado = "0";
         this._userService.register(this.user_register).subscribe(
           response => {
+            if (this.filesToUpload) {
+            
+              console.log("nombre de archivo" + this.filesToUpload[0].name);
+              this.makeFileRequest(this.url + 'upload-image-user/' + response.user._id, [], this.filesToUpload).then(
+    
+                (result: any) => {
+                  this.user_register.image = result.image;
+                }
+              );
+            }
             setTimeout(() => {
               this.showAlertCorrecto(
                 "El Usuario ha sido Registrado satisfactoriamente. Ingrese su correo y contraseña"
@@ -239,5 +253,50 @@ export class RegistroPage {
 
   goBack() {
     this.navCtrl.push(HomePage);
+  }
+
+  public url2;
+  public filesToUpload: Array<File>;
+
+  readUrl(event: any) {
+
+    this.filesToUpload = <Array<File>>event.target.files;
+
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = (event: any) => {
+        this.url2 = event.target.result;
+       
+      }
+
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+
+  makeFileRequest(url: string, params: Array<string>, files: Array<File>) {
+    // var token = this.tpken;
+    return new Promise(function (resolve, reject) {
+      var fromData: any = new FormData();
+      var xhr = new XMLHttpRequest();
+
+      for (var i = 0; i < files.length; i++) {
+        fromData.append('image', files[i], files[i].name)
+      }
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            resolve(JSON.parse(xhr.response));
+          } else {
+            reject(xhr.response);
+          }
+        }
+      }
+
+      xhr.open('POST', url, true);
+      // xhr.setRequestHeader('Authorization', token);
+      xhr.send(fromData);
+    });
   }
 }

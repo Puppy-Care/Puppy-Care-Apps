@@ -16,7 +16,8 @@ var UserSchema = Schema({
     contrasena: String,
     tel_celular: String,
     tel_convencional: String,
-    estado: String
+    estado: String,
+    image: String,
 });
 
 module.exports = mongoose.model('User', UserSchema); //de esta forma al exportar se podra utilizar el 
