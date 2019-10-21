@@ -1,5 +1,6 @@
 'use strcit'
-
+var fs = require('fs');
+var path = require('path');
 var bcrypt = require('bcrypt-nodejs');
 
 var User = require('../models/user'); //importar el modelo del usuario  o lo que son las clases comunes
@@ -14,8 +15,8 @@ function pruebas(req, res) {
 }
 function getImageFile(req, res) {
     var imageFile = req.params.imageFile;
-    var path_file = './uploads/users/' + imageFile;
-    //console.log("este es el path" + path_file);
+    var path_file = './uploads/users/'+ imageFile;
+    console.log("este es el path" + path_file);
     fs.exists(path_file, function (exists) {
         if (exists) {
             res.sendFile(path.resolve(path_file));

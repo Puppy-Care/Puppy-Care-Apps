@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { NavController, AlertController, Platform, LoadingController } from "ionic-angular";
 import { UserService } from "../../app/services/user.services";
-
+import { GLOBAL } from "../../app/services/global";
 @Component({
   selector: 'page-mi_cuenta',
   templateUrl: 'mi_cuenta.html',
@@ -10,7 +10,9 @@ import { UserService } from "../../app/services/user.services";
 
 export class MiCuenta {
   public identity;
-  public estadoContrasena='0';
+  public url2;
+  public url;
+  public estadoContrasena = '0';
   constructor(
     public navCtrl: NavController,
     public alertCtrl: AlertController,
@@ -19,6 +21,15 @@ export class MiCuenta {
   ) {
     this.identity = _userService.getIdentity();
     console.log(this.identity);
+    
+    this.url = GLOBAL.url;
+    if (this.identity.image == undefined) {
+      this.url2 = '../assets/imgs/tituloRegistro.png';
+
+    } else {
+      this.url2 = this.url + 'get-image-user/' + this.identity.image;
+      console.log("este es la iamgen" + this.identity.image);
+    }
   }
 
   disableTextbox = true;
@@ -73,27 +84,27 @@ export class MiCuenta {
         console.log("mi JSON esta vacio");
         this.presentAlert();
       } else {
-    this.verificarUpdate();
-    this._userService.update_user(this.identity,this.estadoContrasena).subscribe(
-      response => {
-   
-        if (!response.user) {
-          var errorMessage = "El usuario no se actualizo";
-        } else {
-           setTimeout(() => {
-            this.showAlertCorrecto(
-              "Sus datos han sido actualizados correctamente"
-            );
-          }, 3000);
-          localStorage.setItem('identity', JSON.stringify(this.identity))
-        }
-      },
-      err => {
-        var errorMessage = <any>err;
-        if (errorMessage) {
-          console.log(errorMessage);
+        this.verificarUpdate();
+        this._userService.update_user(this.identity, this.estadoContrasena).subscribe(
+          response => {
 
-          try {
+            if (!response.user) {
+              var errorMessage = "El usuario no se actualizo";
+            } else {
+              setTimeout(() => {
+                this.showAlertCorrecto(
+                  "Sus datos han sido actualizados correctamente"
+                );
+              }, 3000);
+              localStorage.setItem('identity', JSON.stringify(this.identity))
+            }
+          },
+          err => {
+            var errorMessage = <any>err;
+            if (errorMessage) {
+              console.log(errorMessage);
+
+              try {
                 var body = JSON.parse(err._body);
                 errorMessage = body.message;
               } catch (error) {
@@ -102,10 +113,10 @@ export class MiCuenta {
               setTimeout(() => {
                 this.showAlert(errorMessage);
               }, 3000);
-        }
+            }
+          }
+        );
       }
-    );
-  }
     } catch (error) {
       //this.showAlert("Verifique que la información sea correcta");
     }
@@ -137,7 +148,7 @@ export class MiCuenta {
       bool_apellidos ||
       bool_celular ||
       bool_telefono ||
-      !bool_cedula ) {
+      !bool_cedula) {
       return false;
     } else {
       return true;

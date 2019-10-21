@@ -18,7 +18,11 @@
   <br>
   <h1 style="text-align: center">Mi cuenta</h1>
   <br>
-
+  <label class=" form-control fileContainer" style="border: none; ">
+    <img id="imganeTitulo" [src]="url2" style="display: block; width: 40%; ">
+    <input type='file' id="nuestroinput" class="btn btn-primary" (change)="readUrl($event)" />
+    
+  </label>
   <form #FormularioUpdate="ngForm" (ngSubmit)="onUpdate()" id="formUpdate">
 
 
