@@ -270,8 +270,9 @@ export class ViajesRealizadosComponent implements OnInit, DoCheck {
         total = total + Number(encomiendasRealizadasSF[i]['precio']);
       }
     }
-
-    if (ct != 0 || ct1 != 0) {
+    if (ct != 0 || banderaViajes == true || banderaViajes1 == true) { this.lstViajes = true; this.verListadoFecha = true;
+      this.mensajeError = false; } else { this.lstViajes = false; }
+    /*if (ct != 0 || ct1 != 0) {//////////////////////////////////////////////////////////////// esto cambie por que no se veian los online
       this.verListadoFecha = true;
       this.mensajeError = false;
       if (ct != 0 || banderaViajes == true || banderaViajes1 == true) { this.lstViajes = true; } else { this.lstViajes = false; }
@@ -279,7 +280,7 @@ export class ViajesRealizadosComponent implements OnInit, DoCheck {
     } else {
       this.verListadoFecha = false;
       this.mensajeError = true;
-    }
+    }*/
 
     console.log('total', total);
     this.totalRecChofer = Math.round(total * 100) / 100;
