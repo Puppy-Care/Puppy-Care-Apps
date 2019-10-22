@@ -76,6 +76,8 @@ export class PrincipalPage {
       console.log('campana');
       this.listarNotificacionesCampana(estadoListar);
       this.verViajes();
+      
+    this.mostrarContenidoDinamico(tipoMostrar);
     }
     if (tipoMostrar == 'reloj') {
       this.objAnimacion.estadoListar = estadoListar;
@@ -83,6 +85,8 @@ export class PrincipalPage {
       console.log('reloj');
       this.listarNotificacionesReloj(estadoListar);
       this.verViajes();
+      
+    this.mostrarContenidoDinamico(tipoMostrar);
     }
     if (tipoMostrar == 'calendario') {
       this.objAnimacion.estadoListar = estadoListar;
@@ -90,8 +94,9 @@ export class PrincipalPage {
       console.log('calendario');
       this.listarNotificacionesCalendario(estadoListar);
       this.verViajes();
-    }
+      
     this.mostrarContenidoDinamico(tipoMostrar);
+    }
   }
 
   listarNotificacionesCampana(estadoListar) {
