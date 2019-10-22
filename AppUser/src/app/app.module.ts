@@ -18,6 +18,7 @@ import { CardsolicitudPage } from '../pages/cardsolicitud/cardsolicitud';
 import { ConfirmacionPage } from '../pages/confirmacion/confirmacion';
 import {TerminosPage} from '../pages/terminos/terminos';
 import { ContrasenaPage } from '../pages/contrasena/contrasena';
+import { ContactosPage } from '../pages/contactanos/contactanos';
 
 import { UserService } from './services/user.services';
 import { MessageService } from './services/message.services';
@@ -37,6 +38,10 @@ import { MyDatePickerModule } from 'mydatepicker';
 // abrir browser
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 
+// call number
+import { CallNumber } from '@ionic-native/call-number';
+// e-mail
+import { EmailComposer } from '@ionic-native/email-composer';
 
 @NgModule({
   declarations: [
@@ -52,7 +57,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     CardsolicitudPage,
     ConfirmacionPage,
     TerminosPage,
-    ContrasenaPage
+    ContrasenaPage,
+    ContactosPage
   ],
   imports: [
     BrowserModule,
@@ -80,7 +86,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     CardsolicitudPage,
     ConfirmacionPage,
     TerminosPage,
-    ContrasenaPage
+    ContrasenaPage,
+    ContactosPage
   ],
   providers: [
     StatusBar,
@@ -90,10 +97,11 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     NotificacionesService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Geolocation,
+    CallNumber,
+    EmailComposer,
     PayPal,
     InAppBrowser,
     EnvioEmail
- 
   ]
 })
 export class AppModule {}

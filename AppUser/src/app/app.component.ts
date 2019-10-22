@@ -7,7 +7,7 @@ import { PrincipalPage } from '../pages/principal/principal';
 import { UserService } from './services/user.services';
 // import { Encuentranos } from '../pages/page_menu/encuentranos/encuentranos';
  import { MiCuenta } from '../pages/mi_cuenta/mi_cuenta';
-// import { ContactosPage } from '../pages/contactanos/contactanos';
+import { ContactosPage } from '../pages/contactanos/contactanos';
  import { ContrasenaPage } from '../pages/contrasena/contrasena';
 // import { PagoOnlinePage } from '../pages/pagoOnline/pagoOnline';
 
@@ -38,6 +38,7 @@ export class MyApp {
      this.pages = [
        { titulo: 'Menú Principal', component: PrincipalPage, icon: 'inicio.png' },
        { titulo: 'Mi Cuenta', component: MiCuenta, icon: 'correroRegistro.png' },
+       { titulo: 'Contáctenos', component: ContactosPage, icon: 'contactoTC.png' },
        { titulo: 'Cambiar contraseña', component: ContrasenaPage, icon: 'cambiarContrasena.png' }
      ];
  }
