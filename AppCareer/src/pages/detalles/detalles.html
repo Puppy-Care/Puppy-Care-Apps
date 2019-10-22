@@ -66,6 +66,13 @@
 
     <ion-row>
       <ion-col align-self-center text-center>
+        <button (click)="cancelarViaje()" ion-button color="colorapp" clear small icon-start>
+          <ion-icon name='close'></ion-icon>
+          Cancelar
+        </button>
+      </ion-col>
+
+      <ion-col align-self-center text-center>
         <button (click)="envioNotificacion()" ion-button color="colorapp" clear small icon-start>
           <ion-icon name='car'></ion-icon>
           Aceptar

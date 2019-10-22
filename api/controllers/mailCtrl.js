@@ -4,7 +4,7 @@ var nodemailer = require('nodemailer');
 var Chofer = require('../models/chofer');
 // email sender function
 exports.sendEmail = function (req, res) {
-    console.log("MI INFORMACION >>>>>>>>>>>>>", req.body.obj);
+    console.log("MI INFORMACION >>>>>>>>>>>>>", req.body);
     // Definimos el transporter
     // console.log(req.b);
     var transporter = nodemailer.createTransport({
@@ -17,6 +17,28 @@ exports.sendEmail = function (req, res) {
     // Definimos el email
 
     //PONER AQUI EL IF
+
+    if (req.body.variable == 'CVC') {
+        console.log("entre a cancelar chofer",req.body.obj.receiver.correo + ',' + req.body.chofer.correo,)
+        var mailOptions = {
+            from: 'notificationspatitas@gmail.com',
+            to: req.body.obj.receiver.correo + ',' + req.body.chofer.correo,
+            
+            subject: 'Tienes nuevas notificaciones en tu APP "PATITAS',
+            text: 'VIAJE CANCELADO POR EL CHOFER: El viaje del cliente ' + req.body.obj.receiver.nombre + ' ' + req.body.obj.receiver.apellido + ' en la fecha ' + req.body.obj.fech_salida + ' Hora de recogida ' + req.body.obj.horarioR + ' Hora de entrega ' + req.body.obj.horarioE + ' ha sido asignada, por favor para mas información revisa tu aplicación móvil.'
+        };
+        console.log('mailOptions >>>>>> ', mailOptions);
+        transporter.sendMail(mailOptions, function (error) {
+            if (error) {
+                console.log(error);
+                res.send(500, err.message);
+            } else {
+                console.log("Email sent");
+                res.status(200).jsonp(req.body);
+            }
+        });
+    }
+
     if (req.body.variable == 'CVU') {
         var mailOptions = {
             from: 'notificationspatitas@gmail.com',

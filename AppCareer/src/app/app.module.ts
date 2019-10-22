@@ -12,6 +12,8 @@ import { PrincipalPage } from '../pages/principal/principal';
 import { DetallesPage } from '../pages/detalles/detalles';
 import { ChoferService } from './services/chofer.service';
 import { CallNumber } from '@ionic-native/call-number';
+import { MessageService } from "../app/services/message.services";
+import { EnvioEmail } from '../app/services/correo.service';
 @NgModule({
   declarations: [
     MyApp,
@@ -39,6 +41,8 @@ import { CallNumber } from '@ionic-native/call-number';
     SplashScreen,
     ChoferService,
     CallNumber,
+    MessageService,
+    EnvioEmail,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
