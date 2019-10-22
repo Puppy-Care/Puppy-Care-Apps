@@ -17,7 +17,46 @@ exports.sendEmail = function (req, res) {
     // Definimos el email
 
     //PONER AQUI EL IF
-   
+    if (req.body.variable == 'CVU') {
+        var mailOptions = {
+            from: 'notificationspatitas@gmail.com',
+            to: req.body.obj._id_chofer.correo + ',' + req.body.usuario.correo,
+            
+            subject: 'Tienes nuevas notificaciones en tu APP "PATITAS',
+            text: 'VIAJE CANCELADO POR EL USUARIO: El viaje del cliente ' + req.body.usuario.nombre + ' ' + req.body.usuario.apellido + ' en la fecha ' + req.body.obj.fech_salida + ' Hora de recogida ' + req.body.obj.horarioR + ' Hora de entrega ' + req.body.obj.horarioE + ' ha sido asignada, por favor para mas información revisa tu aplicación móvil.'
+        };
+        console.log('mailOptions >>>>>> ', mailOptions);
+        transporter.sendMail(mailOptions, function (error) {
+            if (error) {
+                console.log(error);
+                res.send(500, err.message);
+            } else {
+                console.log("Email sent");
+                res.status(200).jsonp(req.body);
+            }
+        });
+    }
+
+
+    if (req.body.variable == 'CV') {
+        var mailOptions = {
+            from: 'notificationspatitas@gmail.com',
+            to: req.body.obj._id_chofer.correo + ',' + req.body.obj.receiver.correo,
+            
+            subject: 'Tienes nuevas notificaciones en tu APP "PATITAS',
+            text: 'VIAJE CANCELADO: El viaje del cliente ' + req.body.obj.receiver.nombre + ' ' + req.body.obj.receiver.apellido + ' en la fecha ' + req.body.obj.fech_salida + ' Hora de recogida ' + req.body.obj.horarioR + ' Hora de entrega ' + req.body.obj.horarioE + ' ha sido asignada, por favor para mas información revisa tu aplicación móvil.'
+        };
+        console.log('mailOptions >>>>>> ', mailOptions);
+        transporter.sendMail(mailOptions, function (error) {
+            if (error) {
+                console.log(error);
+                res.send(500, err.message);
+            } else {
+                console.log("Email sent");
+                res.status(200).jsonp(req.body);
+            }
+        });
+    }
 
     if (req.body.variable == 'AV') {
         var idChofer = req.body.obj._id_chofer;

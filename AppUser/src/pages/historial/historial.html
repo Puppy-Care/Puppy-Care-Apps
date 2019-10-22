@@ -51,7 +51,8 @@
             <b>Hora de Entrega: </b> {{listado.horarioE}}</p>  
         <p>
           <b>Recibida: </b> {{listado.fech_solicitud}}</p>
-        <button ion-button clear item-end (click)="irDetalles(listado)">Ver</button>
+          <button ion-button clear item-end color="danger" *ngIf="listado.estado == '2'">Cancelado</button>
+          <button ion-button clear item-end (click)="irDetalles(listado)">Ver</button>
       </ion-item>
     </ion-list>
   </div>

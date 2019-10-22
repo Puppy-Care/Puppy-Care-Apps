@@ -84,5 +84,13 @@ updateMessageEncoDenunciayCancelar(token, encomeinda)
       .map(res => res.json());
 }
 
-
+UpdateEstadoMessage(token, obj)
+{
+  obj.estado="2";
+  let params = obj;
+  console.log("objeto finalizado", obj._id);   
+  let headers = new Headers({ "Content-type": "application/json","Authorization":token });
+  return this._http.put(this.url +"updateMessageCancelacion/"+obj._id, params, { headers: headers })
+    .map(res => res.json());
+}
 }
