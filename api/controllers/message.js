@@ -128,7 +128,7 @@ function getReceivedMessagesChofer(req, res) {
   var userId = req.user.sub;
   var estadoListar = req.params.estadoListar;
   console.log("estado listar", estadoListar, "user id chofer",userId);
-  var message = Viaje.find({ '$and': [{ estado: estadoListar }, { _id_chofer: userId }] }).populate({ path: 'receiver' }).exec((err, messagess) => {
+  var message = Viaje.find({ '$and': [{'$or': [{ estado: estadoListar },{estado:'2'},{estado:'3'},{estado:'4'}]}, { _id_chofer: userId }] }).populate({ path: 'receiver' }).exec((err, messagess) => {
     if (err) {
       return res.status(500).send({
         message: 'No se han podido obtener sus Viajes'

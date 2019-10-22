@@ -94,9 +94,11 @@
         <b>Hora Recogida: </b> {{listado.horarioR}}</p>
       <p style="font-size: 12px;">
         <b>Hora Entrega: </b> {{listado.horarioE}}</p>
+      
       <button ion-button clear item-end (click)="irDetalles(listado,'viaje')">Ver</button>
+      <button *ngIf="listado.estado=='2'|| listado.estado=='3' || listado.estado=='4'" ion-button color="danger" clear item-end >Cancelado</button>
       <button ion-button clear item-end (click)="irFinalizar(listado,'viaje')"
-        *ngIf="btnFinalizarViaje">Finalizar</button>
+        *ngIf="btnFinalizarViaje && listado.estado !='2' && listado.estado !='3' && listado.estado !='4'">Finalizar</button>
     </ion-item>
   </ion-list>
   <br>
