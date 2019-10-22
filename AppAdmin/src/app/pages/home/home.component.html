@@ -113,7 +113,40 @@
         </li>
        <!-- ====================================================                      VIAJES CANCELADOS ============================================-->
         <!-- ====================================================                     VIAJES CANCELADOS ============================================-->
+        <li class="nav-item dropdown">
+          <a title="Nuevas Solicitudes de viajes" (click)="obtenerSolicitudesViajes()" class="nav-link dropdown-toggle mr-lg-2"
+            id="alertsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
+            <i class="fa fa-exclamation-circle"></i>
+
+            <span class="d-lg-none">Notificaciones Paseos
+              <span class="badge badge-pill badge-warning">{{notViaje}} Nuevas</span>
+            </span>
+
+            <span class="indicator text-warning d-none d-lg-block">
+              <i class="fa fa-fw fa-circle">{{notViaje}}</i>
+            </span>
+            Paseos cancelados
+          </a>
+          <div class="dropdown-menu" aria-labelledby="alertsDropdown">
+            <h6 class="dropdown-header">
+              <a (click)="apareceNotificacionViaje()">Ver todas las solicitudes de paseos ...</a>
+            </h6>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click)="mostrarNotificacion(listado)" *ngFor=" let listado of  messages">
+              <span class="text-success">
+                <strong>
+                  <i class="fa fa-long-arrow-up fa-fw"></i>Paseo por atender</strong>
+              </span>
+              <div class="dropdown-message small">Raza:{{listado.raza}}</div>
+              <div class="dropdown-message small">Horario recogida:{{listado.horarioR}}</div>
+              <div class="dropdown-message small">Fecha:{{listado.fechaSalida}}
+              </div>
+              <div class="dropdown-divider"></div>
+            </a>
+            <a class="dropdown-item small" (click)="apareceNotificacionViaje()">Ver todas las solicitudes de Paseos</a>
+          </div>
+        </li>
         <!-- ====================================================                     Notificaciones  ENCOMIENDAS============================================-->
         <!-- ====================================================                     Notificaciones  ENCOMIENDAS============================================-->
         
