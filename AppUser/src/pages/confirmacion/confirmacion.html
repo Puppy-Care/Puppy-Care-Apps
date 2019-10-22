@@ -126,21 +126,25 @@
     </form>
   </div>
 
-  <ion-card>
-    <ion-row>
-      <ion-col align-self-center text-center>
+
+    <ion-row style="margin-left: 1%">
+      <ion-col  text-center>
         <!-- <ion-note>Denunciar</ion-note> -->
-        <button ion-button *ngIf='dirige' (click)="calificar();" color="colorapp">
+        <button style="padding: 5%; font-size: 80%"ion-button *ngIf='dirige' (click)="calificar();" color="colorapp">
           <ion-icon name='megaphone'></ion-icon>&nbsp;&nbsp;&nbsp;Denunciar
         </button>
       </ion-col>
-      <ion-col align-self-center text-center>
+      <ion-col  text-center>
         <!-- <ion-note>Pago Online</ion-note> -->
-        <button ion-button *ngIf='dirige' (click)="confirmarPagoViaje();" color="colorapp">
-          <ion-icon name='cash'></ion-icon>&nbsp;&nbsp;&nbsp;Pago Online
+        <button style="padding: 5%; font-size: 80%" ion-button *ngIf='dirige' (click)="confirmarPagoViaje();" color="colorapp">
+          <ion-icon name='cash'></ion-icon>&nbsp;&nbsp;&nbsp;Pagar
+        </button>
+      </ion-col>
+      <ion-col  text-center>
+        <!-- <ion-note>Pago Online</ion-note> -->
+        <button  style=" padding: 5%; font-size: 80%" ion-button *ngIf='dirige' (click)="cancelarViaje();" color="colorapp">
+          <ion-icon name='close'></ion-icon>&nbsp;&nbsp;&nbsp;Cancelar
         </button>
       </ion-col>
     </ion-row>
-  </ion-card>
-
-</ion-content>
+  </ion-content>

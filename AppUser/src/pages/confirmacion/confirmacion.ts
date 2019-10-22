@@ -7,7 +7,7 @@ import { UserService } from '../../app/services/user.services';
 //import { PagoOnlinePage } from '../pagoOnline/pagoOnline';
 import { PayPal } from '../../app/services/paypal.service';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-
+import { EnvioEmail } from '../../app/services/correo.service';
 @Component({
   selector: "page-confirmacion",
   templateUrl: "confirmacion.html",
@@ -32,7 +32,7 @@ export class ConfirmacionPage {
   public url2;
   public denuncia;
 
-  constructor(private iab: InAppBrowser, public navCtrl: NavController, public alertCtrl: AlertController, private _messageservice: MessageService, private _userservice: UserService, private _paypalservice: PayPal) {
+  constructor(private iab: InAppBrowser, public navCtrl: NavController, public alertCtrl: AlertController, private _messageservice: MessageService, private _userservice: UserService, private _paypalservice: PayPal, private _envioEmail:EnvioEmail) {
     this.url = GLOBAL.url;
     this.inf_viaje = JSON.parse(localStorage.getItem("confirmacion1"));
     console.log('contexto info viaje', this.inf_viaje);
@@ -144,4 +144,37 @@ export class ConfirmacionPage {
     confirm.present();
   }
 
+  cancelarViaje() {
+
+    //alert('El viaje se ha cancelado correctamente');
+    console.log('ESTOY EN CANCELAR VIAJE DEL DETALLE DE VIAJES REALIZADOS');
+    this._messageservice.UpdateEstadoMessage(this._userservice.getToken(),  this.inf_viaje["0"]).subscribe(
+      response => {
+        console.log("Seactualizo el estado", response);
+        //location.reload(true);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+    var cancelarViaje =
+    {
+      obj: this.inf_viaje["0"],
+      variable: 'CVU',
+      usuario:this._userservice.getIdentity()
+    }
+    console.log("este es el objeto que cancela el viaje desde el usuario", cancelarViaje);
+    //aqui va el envio del correo
+    this._envioEmail.envioEmail(this._userservice.getToken(), cancelarViaje).subscribe(
+      response => {
+        console.log("Se envio el correo electronico ", response);
+        //location.reload(true);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+  }
 }

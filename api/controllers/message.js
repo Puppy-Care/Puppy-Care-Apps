@@ -70,7 +70,7 @@ function getReceivedMessages(req, res) {
   //console.log("estoy trayedo mensajes");
   var userId = req.user.sub;
 
-  var message = Viaje.find({ '$and': [ {'$or':[{ estado:0 },{estado:1}]},{
+  var message = Viaje.find({ '$and': [ {'$or':[{ estado:0 },{estado:1},{estado:2},{estado:3},{estado:4}]},{
     receiver: userId
   }]}, (err, messagess) => {
     if (err) {

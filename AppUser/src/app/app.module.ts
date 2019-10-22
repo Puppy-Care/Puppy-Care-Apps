@@ -22,7 +22,7 @@ import { UserService } from './services/user.services';
 import { MessageService } from './services/message.services';
 import { NotificacionesService } from './services/notificaciones.services';
 import { PayPal } from './services/paypal.service';
-
+import { EnvioEmail } from './services/correo.service';
 //plugin de la geolicalizacion
 import { Geolocation } from '@ionic-native/geolocation';
 import { AgmCoreModule } from '@agm/core';
@@ -89,6 +89,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     Geolocation,
     PayPal,
     InAppBrowser,
+    EnvioEmail
  
   ]
 })

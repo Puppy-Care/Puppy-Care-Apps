@@ -82,7 +82,7 @@ export class DetallesViajesRealizadosComponent implements OnInit, OnDestroy {
     this._envioEmail.envioEmail(this._userService.getToken(), cancelarViaje).subscribe(
       response => {
         console.log("Se envio el correo electronico ", response);
-        location.reload(true);
+       // location.reload(true);
       },
       error => {
         console.log(error);
