@@ -29,11 +29,11 @@
 
         <ion-grid>
           <ion-row>
-            <ion-item>
+            <ion-item >
               <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">
                 <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/registroNombre.png">
               </ion-icon>
-              <ion-input type="text" [(ngModel)]="user_register.nombre" name="nombres" #nombres="ngModel" placeholder="Nombres" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*"
+              <ion-input id="A1" type="text" [(ngModel)]="user_register.nombre" name="nombres" #nombres="ngModel" placeholder="Nombres" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*"
                 required></ion-input>
               <!-- (keyup)="convertirMayuscula(user_register.nombre)"  -->
             </ion-item>
@@ -48,7 +48,7 @@
               <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">
                 <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/registroNombre.png">
               </ion-icon>
-              <ion-input placeholder="Apellidos" #apellidos="ngModel" [(ngModel)]="user_register.apellido" name="apellidos" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ  ]*"
+              <ion-input id="A1" placeholder="Apellidos" #apellidos="ngModel" [(ngModel)]="user_register.apellido" name="apellidos" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ  ]*"
                 required></ion-input>
             </ion-item>
             <ion-item *ngIf="apellidos.errors && (apellidos.dirty || apellidos.touched)">
@@ -64,7 +64,7 @@
                 <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/cedulaRegistro.png">
               </ion-icon>
 
-              <ion-input placeholder="Cédula/DNI" #cedula="ngModel" [(ngModel)]="user_register.cedula" name="cedula" required digits pattern="[0-9]*"
+              <ion-input id="A1"  placeholder="Cédula/DNI" #cedula="ngModel" [(ngModel)]="user_register.cedula" name="cedula" required digits pattern="[0-9]*"
                 (keyup)="validarCedula()" minlength="10" maxlength="10"></ion-input>
             </ion-item>
             <ion-item *ngIf="cedula.errors && (cedula.dirty || cedula.touched)">
@@ -83,7 +83,7 @@
                 <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/correroRegistro.png">
               </ion-icon>
 
-              <ion-input placeholder="Correo" #correo="ngModel" [(ngModel)]="user_register.correo" name="correo" required email pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></ion-input>
+              <ion-input id="A1"  placeholder="Correo" #correo="ngModel" [(ngModel)]="user_register.correo" name="correo" required email pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></ion-input>
             </ion-item>
             <ion-item *ngIf="correo.errors && (correo.dirty || correo.touched)">
               <ion-icon name="alert" item-start color="danger"></ion-icon>
@@ -99,7 +99,7 @@
               <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">
                 <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/contrasenaRegistro.png">
               </ion-icon>
-              <ion-input type="password" placeholder="Contraseña" #contrasena="ngModel" [(ngModel)]="user_register.contrasena" name="contrasena"
+              <ion-input id="A1"  type="password" placeholder="Contraseña" #contrasena="ngModel" [(ngModel)]="user_register.contrasena" name="contrasena"
                 required minlength="6"></ion-input>
             </ion-item>
             <ion-item *ngIf="contrasena.errors && (contrasena.dirty || contrasena.touched)">
@@ -114,7 +114,7 @@
               <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">
                 <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/contrasenaRegistro.png">
               </ion-icon>
-              <ion-input type="password" placeholder="Confirmar Contraseña" #confirmContrasena="ngModel" [(ngModel)]="verificarPassword"
+              <ion-input id="A1"  type="password" placeholder="Confirmar Contraseña" #confirmContrasena="ngModel" [(ngModel)]="verificarPassword"
                 name="confirmContrasena" required [equalTo]="contrasena"></ion-input>
             </ion-item>
             <ion-item *ngIf="confirmContrasena.errors && (confirmContrasena.dirty || confirmContrasena.touched)">
@@ -129,7 +129,7 @@
               <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">
                 <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/telefonoCelRegistro.png">
               </ion-icon>
-              <ion-input placeholder="Celular" #telefonoCel="ngModel" [(ngModel)]="user_register.tel_celular" name="telefonoCel" required
+              <ion-input id="A1"  placeholder="Celular" #telefonoCel="ngModel" [(ngModel)]="user_register.tel_celular" name="telefonoCel" required
                 digits pattern="[0-9]*" minlength="10" maxlength="10"></ion-input>
             </ion-item>
             <ion-item *ngIf="telefonoCel.errors && (telefonoCel.dirty || telefonoCel.touched)">
@@ -145,7 +145,7 @@
               <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">
                 <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/telefonoCelRegistro.png">
               </ion-icon>
-              <ion-input placeholder="Convencional" #convencional="ngModel" [(ngModel)]="user_register.tel_convencional" name="convencional"
+              <ion-input id="A1"  placeholder="Convencional" #convencional="ngModel" [(ngModel)]="user_register.tel_convencional" name="convencional"
                 required digits pattern="[0-9]*" minlength="6" maxlength="10"></ion-input>
             </ion-item>
             <ion-item *ngIf="convencional.errors && (convencional.dirty || convencional.touched)">

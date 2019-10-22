@@ -17,6 +17,7 @@ import { SolicitudesPage } from '../pages/solicitudes/solicitudes';
 import { CardsolicitudPage } from '../pages/cardsolicitud/cardsolicitud';
 import { ConfirmacionPage } from '../pages/confirmacion/confirmacion';
 import {TerminosPage} from '../pages/terminos/terminos';
+import { ContrasenaPage } from '../pages/contrasena/contrasena';
 
 import { UserService } from './services/user.services';
 import { MessageService } from './services/message.services';
@@ -50,7 +51,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     SolicitudesPage,
     CardsolicitudPage,
     ConfirmacionPage,
-    TerminosPage
+    TerminosPage,
+    ContrasenaPage
   ],
   imports: [
     BrowserModule,
@@ -77,7 +79,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
     SolicitudesPage,
     CardsolicitudPage,
     ConfirmacionPage,
-    TerminosPage
+    TerminosPage,
+    ContrasenaPage
   ],
   providers: [
     StatusBar,

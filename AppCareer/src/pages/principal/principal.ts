@@ -65,7 +65,6 @@ export class PrincipalPage {
     boton: null
   };
 
-
   historial(estadoListar, tipoMostrar) {
     this.vectorViajes = null;
     this.vectorEncomiendas = null;
@@ -110,6 +109,7 @@ export class PrincipalPage {
     this._choferservice.getMessagesMioChoferHoy(this._choferservice.getToken(), estadoListar).subscribe(response => {
       if (response.messagess[0] != undefined) {
         this.vectorViajes = response.messagess;
+        this.darvuelta();
       }
     }, (err) => { console.log("Existen Complicaciones, intente más tarde", err) });
 
@@ -121,6 +121,7 @@ export class PrincipalPage {
     this._choferservice.getMessagesMioChofer(this._choferservice.getToken(), estadoListar).subscribe(response => {
       if (response.messagess[0] != undefined) {
         this.vectorViajes = response.messagess;
+        this.darvuelta();
       }
     }, (err) => { console.log("Existen Complicaciones, intente más tarde", err) });
    
@@ -141,8 +142,6 @@ export class PrincipalPage {
     }
     this.c = 0;
   }
-
-
 
   ordenar(vector) {
     this.cont = 0;
@@ -245,9 +244,7 @@ export class PrincipalPage {
       console.log('irFInalizar ?>>>>>>>>>', JSON.stringify(this.objAnimacion));
       this._choferservice.FinalizarUpdateMessageChofer(this._choferservice.getToken(), NotificacionIndividual).subscribe(response => {
         this.navCtrl.push(PrincipalPage);
-      }, (err) => { console.log("Existen Complicaciones, intente más tarde", err) });
-    
+      }, (err) => { console.log("Existen Complicaciones, intente más tarde", err) });   
     }
-
   }
 }
