@@ -95,7 +95,11 @@ function getReceivedMessagesCancelados(req, res) {
   //console.log("estoy trayedo mensajes");
   var userId = req.user.sub;
 
-  var message = Viaje.find({ '$or':[{estado:2},{estado:3}]}, (err, messagess) => {
+  var message = Viaje.find({ '$or':[{estado:2},{estado:3}]}).populate({
+    path: '_id_chofer'
+  }).populate({
+    path: 'receiver'
+  }).exec((err, messagess) =>{
     if (err) {
       return res.status(500).send({
         message: 'No se ha podido obtener los viajes'

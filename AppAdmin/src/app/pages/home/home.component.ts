@@ -376,7 +376,7 @@ export class HomeComponent implements OnInit {
     this.verViajesTotales = false;
     this.viajesCancelados= false;
 
-    
+
     this.viajesRealizados = false;
     
     this.viajesRealizadosDetalles = false;
@@ -981,25 +981,25 @@ export class HomeComponent implements OnInit {
     // aqui se obtiene las  solicitudes de Encomeidnas
   }
 
-
+public messagesC;
   obtenerViajesCancelados() {
 
     this._messageService.getMessagesCancelados(this._userService.getToken()).subscribe(
       response => {
-        console.log("hola" + response.messagess);
-        this.messages = response.messagess;
+        console.log("hola viajes cancelados" + response.messagess);
+        this.messagesC = response.messagess;
 
         console.log("*****************************************");
         console.log(" ----- ESTE ES MI VECTOR DE MENSAJES DESDE LA DATABASE", this.messages);
         console.log("*****************************************");
-        this.ordenar(this.messages);
+       // this.ordenar(this.messagesC);
         console.log("*****************************************");
         console.log(" ----- ESTE ES MI VECTOR DE MENSAJES LLAMADO A ORDENAR", this.messages);
         console.log("*****************************************");
 
         let ct = 0;
 
-        this.messages.forEach(() => {
+        this.messagesC.forEach(() => {
           ct = ct + 1;
           console.log('estoy en el sensual foreach');
         });
@@ -1094,7 +1094,7 @@ export class HomeComponent implements OnInit {
     this.IngreseChofer = false;
     this.ModificarChofer = false;
     this.primera = "Reporte";
-    this.segunda = "Viajes Realizados";
+    this.segunda = "Viajes Cancelados";
     this.imagen = false;
     this.detalleSolicitudViaje = false;
     this.verViajesTotales = false;
