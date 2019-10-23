@@ -29,7 +29,7 @@ export class UbicacionFinalPage {
   public object: any;
   public contador: number = 0;
   public poligonoVer = false;
-
+ 
   @ViewChild("search") public searchElementRef;
 
   constructor(

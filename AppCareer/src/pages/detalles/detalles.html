@@ -65,8 +65,8 @@
 
 
     <ion-row>
-      <ion-col align-self-center text-center>
-        <button (click)="cancelarViaje()" ion-button color="colorapp" clear small icon-start>
+      <ion-col align-self-center text-center *ngIf="btnEnviar">
+        <button (click)="showAlertCancelar()" ion-button color="colorapp" clear small icon-start>
           <ion-icon name='close'></ion-icon>
           Cancelar
         </button>
