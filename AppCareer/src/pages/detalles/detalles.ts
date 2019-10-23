@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { PrincipalPage } from '../principal/principal';
 import { ChoferService } from "../../app/services/chofer.service";
 import { CallNumber } from '@ionic-native/call-number';
@@ -19,7 +19,7 @@ export class DetallesPage {
   public animacion;
   public btnEnviar;
   
-  constructor(public navCtrl: NavController, private callNumber: CallNumber, public navParams: NavParams, private _choferservice: ChoferService, private _messageservice:MessageService, private _envioEmail:EnvioEmail ) {
+  constructor(public alertCtrl: AlertController, public navCtrl: NavController, private callNumber: CallNumber, public navParams: NavParams, private _choferservice: ChoferService, private _messageservice:MessageService, private _envioEmail:EnvioEmail ) {
     this.viajeDetalle = JSON.parse(localStorage.getItem("viaje"));
     this.animacion = JSON.parse(localStorage.getItem("opcionesAnimacion"));
     console.log('ANIMACION >>',this.animacion);
@@ -47,11 +47,8 @@ export class DetallesPage {
   }
 
   terminarEnvio() {
-
     this._choferservice.FinalizarUpdateMessageChofer(this._choferservice.getToken(), this.viajeDetalle).subscribe(response => {
     }, (err) => { console.log("Existen Complicaciones, intente más tarde", err) });
-
-
     this.navCtrl.push(PrincipalPage);
   }
 
@@ -93,6 +90,31 @@ export class DetallesPage {
         console.log(error);
       }
     );
+  }
 
+
+  showAlertCancelar() {
+    let alert = this.alertCtrl.create({
+      title: '<center><h3>IMPORTANTE</h3></center>',
+      subTitle: '<center>¿Desea enviar la solicitud?</center>',
+      message: '<p align="justify">Para más información comunicate con nosotros.</p>',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Solicitud Cancelada');
+          }
+        },
+        {
+          text: 'OK',
+          handler: data => {
+            this.cancelarViaje();
+            this.envioNotificacion();
+          }
+        }
+      ],
+      cssClass: 'customLoader'
+    });
+    alert.present();
   }
 }

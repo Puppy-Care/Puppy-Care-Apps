@@ -24,7 +24,7 @@ export class ConfirmacionPage {
   public horarioR;
   public horarioE;
   public informacion;
-  
+  public estado;
   public precio;
 
   public dirige = false;
@@ -48,14 +48,20 @@ export class ConfirmacionPage {
     this.horarioR = this.inf_viaje["0"].horarioR;    
     this.horarioE = this.inf_viaje["0"].horarioE;
     this.num_edad = this.inf_viaje["0"].num_edad;
+    this.estado = this.inf_viaje["0"].estado;
 
     this.precio = this.inf_viaje["0"].precio;
     this.url2 = this.url + 'get-image-chofer/' + this.inf_viaje["0"]._id_chofer.image;
     
     var direccion = localStorage.getItem('Dirige');
     if (direccion == '1') {
-      this.dirige = true;
-      localStorage.removeItem('Dirige');
+      if(this.estado == 2 || this.estado==3 || this.estado==4){
+        this.dirige = false;
+        localStorage.removeItem('Dirige');
+      }else{
+        this.dirige = true;
+        localStorage.removeItem('Dirige');
+      }
     }
   }
 
@@ -177,4 +183,31 @@ export class ConfirmacionPage {
     );
 
   }
+
+  showAlertCancelar() {
+    let alert = this.alertCtrl.create({
+      title: '<center><h3>IMPORTANTE</h3></center>',
+      subTitle: '<center>¿Desea cancelar la solicitud?</center>',
+      message: '<p align="justify">Para más información comunicate con nosotros.</p>',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Solicitud Cancelada');
+          }
+        },
+        {
+          text: 'OK',
+          handler: data => {
+            this.cancelarViaje();
+            this.navCtrl.push(HistorialPage);
+          }
+        }
+      ],
+      cssClass: 'customLoader'
+    });
+    alert.present();
+  }
+
+
 }
