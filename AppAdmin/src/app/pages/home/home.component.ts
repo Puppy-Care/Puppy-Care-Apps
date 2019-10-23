@@ -71,6 +71,8 @@ export class HomeComponent implements OnInit {
 
   //reportes de los viajes realizados 
   public viajesRealizados = false;
+  
+  public viajesCancelados = false;
   public viajesRealizadosDetalles = false;
 
 
@@ -263,6 +265,7 @@ export class HomeComponent implements OnInit {
     this.verViajesTotales = false;
 
     this.viajesRealizados = false;
+    this.viajesCancelados= false;
     this.viajesRealizadosDetalles = false;
    
   }
@@ -289,6 +292,7 @@ export class HomeComponent implements OnInit {
     this.verViajesTotales = false;
 
     this.viajesRealizados = false;
+    this.viajesCancelados= false;
     this.viajesRealizadosDetalles = false;
     
     this.url2 = '../assets/img/IngresarChofer.png';
@@ -315,6 +319,7 @@ export class HomeComponent implements OnInit {
     this.verViajesTotales = false;
 
     this.viajesRealizados = false;
+    this.viajesCancelados= false;
     this.viajesRealizadosDetalles = false;
   
     this.url2 = "../assets/img/IngresarAuto.png";
@@ -343,6 +348,7 @@ export class HomeComponent implements OnInit {
     this.verViajesTotales = false;
     
     this.viajesRealizados = false;
+    this.viajesCancelados= false;
     this.viajesRealizadosDetalles = false;
    
   }
@@ -368,8 +374,11 @@ export class HomeComponent implements OnInit {
     this.detalleSolicitudViaje = false;
    
     this.verViajesTotales = false;
-  
+    this.viajesCancelados= false;
+
+    
     this.viajesRealizados = false;
+    
     this.viajesRealizadosDetalles = false;
 
   }
@@ -396,6 +405,7 @@ export class HomeComponent implements OnInit {
     this.verViajesTotales = false;
     
     this.viajesRealizados = false;
+    this.viajesCancelados= false;
     this.viajesRealizadosDetalles = false;
 
   }
@@ -422,6 +432,7 @@ export class HomeComponent implements OnInit {
     this.verViajesTotales = false;
    
     this.viajesRealizados = false;
+    this.viajesCancelados= false;
     this.viajesRealizadosDetalles = false;
   
   }
@@ -452,6 +463,7 @@ export class HomeComponent implements OnInit {
     this.detalleSolicitudViaje = false;
    
     this.viajesRealizados = false;
+    this.viajesCancelados= false;
     this.viajesRealizadosDetalles = false;
 
     this.url2 = '../assets/img/IngresarChofer.png';
@@ -553,6 +565,7 @@ export class HomeComponent implements OnInit {
     this.verViajesTotales = false;
    
     this.viajesRealizados = false;
+    this.viajesCancelados= false;
     this.viajesRealizadosDetalles = false;
 
     this.busquedaChofer();
@@ -587,6 +600,7 @@ export class HomeComponent implements OnInit {
     this.ModificarUsuario = true;
     this.listados = false;
     this.viajesRealizados = false;
+    this.viajesCancelados= false;
     this.viajesRealizadosDetalles = false;
 
     this.datosSecretarias = datosSecretarias;
@@ -618,6 +632,7 @@ export class HomeComponent implements OnInit {
     this.detalleSolicitudViaje = false;
   
     this.viajesRealizados = false;
+    this.viajesCancelados= false;
     this.viajesRealizadosDetalles = false;
   
 
@@ -967,6 +982,38 @@ export class HomeComponent implements OnInit {
   }
 
 
+  obtenerViajesCancelados() {
+
+    this._messageService.getMessagesCancelados(this._userService.getToken()).subscribe(
+      response => {
+        console.log("hola" + response.messagess);
+        this.messages = response.messagess;
+
+        console.log("*****************************************");
+        console.log(" ----- ESTE ES MI VECTOR DE MENSAJES DESDE LA DATABASE", this.messages);
+        console.log("*****************************************");
+        this.ordenar(this.messages);
+        console.log("*****************************************");
+        console.log(" ----- ESTE ES MI VECTOR DE MENSAJES LLAMADO A ORDENAR", this.messages);
+        console.log("*****************************************");
+
+        let ct = 0;
+
+        this.messages.forEach(() => {
+          ct = ct + 1;
+          console.log('estoy en el sensual foreach');
+        });
+        console.log('valor de mi contador >>> ', ct);
+        this.notViaje = ct;
+
+
+      },
+      error => {
+        console.log(error);
+      }
+    );
+    // aqui se obtiene las  solicitudes de Encomeidnas
+  }
 
 
   aceptarBoton(notIndividual) {
@@ -1028,11 +1075,38 @@ export class HomeComponent implements OnInit {
   }
 
 
+  aparecerViajesCancelados() {
+
+    this.ReporteClientes = false;
+    this.viajesRealizados = false;
+    this.viajesCancelados= true;
+    this.viajesRealizadosDetalles = false;
+    
+    this.listadoC = false;
+    this.listadoS = false;
+   
+    this.ReporteTres = false;
+    this.ReporteDos = false;
+    this.ReporteUno = false;
+  
+    this.IngreseUsuario = false;
+    this.ModificarUsuario = false;
+    this.IngreseChofer = false;
+    this.ModificarChofer = false;
+    this.primera = "Reporte";
+    this.segunda = "Viajes Realizados";
+    this.imagen = false;
+    this.detalleSolicitudViaje = false;
+    this.verViajesTotales = false;
+   
+  }
+
 
   aparecerViajesRealizados() {
 
     this.ReporteClientes = false;
     this.viajesRealizados = true;
+    this.viajesCancelados= false;
     this.viajesRealizadosDetalles = false;
     
     this.listadoC = false;
@@ -1057,6 +1131,7 @@ export class HomeComponent implements OnInit {
 
     this.ReporteClientes = false;
     this.viajesRealizados = false;
+    this.viajesCancelados= false;
     this.viajesRealizadosDetalles = true;
    
     this.listadoC = false;
@@ -1081,6 +1156,7 @@ export class HomeComponent implements OnInit {
 
     this.ReporteClientes = false;
     this.viajesRealizados = false;
+    this.viajesCancelados= false;
     this.viajesRealizadosDetalles = false;
     
     this.listadoC = false;

@@ -61,14 +61,14 @@ export class MessageService {
     }
   
 
-    /*  getMessages(token):Observable<any>
-  {
-      
-      let headers = new Headers({ "Content-type": "application/JSON","Authorization":token });
-       
-       return  this._http.get(this.url+'my-messages', {headers: headers});
-  }*/
-
+    getMessagesCancelados(token)
+    {
+        let headers = new Headers({ "Content-type": "application/json","Authorization":token });
+        return this._http.get(this.url +"messagesCancelados", { headers: headers })
+          .map(res => res.json());
+          
+    
+    }
 
     getReceivedMessagesListadoSecretaria(token, fecha) {
         let dia = this.concatenacion(JSON.stringify(fecha.date.day));

@@ -91,6 +91,29 @@ function getReceivedMessages(req, res) {
   });
 }
 
+function getReceivedMessagesCancelados(req, res) {
+  //console.log("estoy trayedo mensajes");
+  var userId = req.user.sub;
+
+  var message = Viaje.find({ '$or':[{estado:2},{estado:3}]}, (err, messagess) => {
+    if (err) {
+      return res.status(500).send({
+        message: 'No se ha podido obtener los viajes'
+      });
+    }
+
+    if (!messagess) {
+      return res.status(200).send({
+        message: 'No tiene mensajes'
+      });
+    }
+
+    return res.status(200).send({
+      messagess
+    });
+  });
+}
+
 
 function getReceivedMessagesMios(req, res) {
  // console.log("estoy trayedo mensajes mios VANESSA VANESSA");
@@ -298,5 +321,6 @@ module.exports = {
   updateMessageChofer,
   updateMessageDenuncia,
   getReceivedMessagesListadoSecretaria,
-  updateMessageCancelacion
+  updateMessageCancelacion,
+  getReceivedMessagesCancelados
 };

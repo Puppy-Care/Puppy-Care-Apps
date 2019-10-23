@@ -9,6 +9,8 @@ var md_auth = require('../middleware/authenticated');
 api.get('/probando-md',  MessageController.probando);
 api.post('/message', md_auth.ensureAuth, MessageController.saveMessage);
 api.get('/my-messages', md_auth.ensureAuth, MessageController.getReceivedMessages);
+api.get('/messagesCancelados', md_auth.ensureAuth, MessageController.getReceivedMessagesCancelados);
+
 api.get('/my-messagesMio/:_id',md_auth.ensureAuth, MessageController.getReceivedMessagesMios);
 api.get('/getReceivedMessagesChofer/:estadoListar',md_auth.ensureAuth, MessageController.getReceivedMessagesChofer);
 api.get('/getReceivedMessagesChoferHoy/:estadoListar',md_auth.ensureAuth, MessageController.getReceivedMessagesChoferHoy);
