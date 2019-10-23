@@ -1182,5 +1182,23 @@ public messagesC;
     location.reload(true);
   }
 
+  RevisadaCancelacion(viajeCancelado) {
+
+    //alert('El viaje se ha cancelado correctamente');
+    console.log('ESTOY EN CANCELAR VIAJE DEL DETALLE DE VIAJES REALIZADOS');
+    this._messageService.UpdateEstadoMessageRevisado(this._userService.getToken(), viajeCancelado).subscribe(
+      response => {
+        console.log("Seactualizo el estado", response);
+        this.obtenerViajesCancelados();
+        //location.reload(true);// cargar viajes
+      },
+      error => {
+        console.log(error);
+      }
+    );
+
+   
+
+  }
 }
 

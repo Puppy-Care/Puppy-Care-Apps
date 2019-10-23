@@ -38,6 +38,16 @@ export class MessageService {
         .map(res => res.json());
     }
   
+    
+   UpdateEstadoMessageRevisado(token, obj)
+   {
+     obj.estado="4";
+     let params = obj;
+     console.log("objeto finalizado", obj._id);   
+     let headers = new Headers({ "Content-type": "application/json","Authorization":token });
+     return this._http.put(this.url +"updateMessageCancelacion/"+obj._id, params, { headers: headers })
+       .map(res => res.json());
+   }
   
 
     addMessageEnco(token, param): Observable<any> {
