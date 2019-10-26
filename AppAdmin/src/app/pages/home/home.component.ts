@@ -135,7 +135,7 @@ export class HomeComponent implements OnInit {
           console.log("*****************************************");
           console.log("ESTE ES MI VECTOR DE MENSAJES DEL IF", this.messages);
           console.log("*****************************************");
-          this.apareceNotificacionViaje();
+         // this.apareceNotificacionViaje();
         },
         error => {
           console.log(error);

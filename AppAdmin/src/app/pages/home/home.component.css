@@ -1,12 +1,13 @@
 .rows1 {
-  background-image: url('../../../assets/img/finalogo.png');
+  background-image: url('../../../assets/img/logo.png');
 
   background-color: white;
   background-size: cover;
   background-position: right center;
-  width: 60%; 
-  height: 50vh;
-   margin-left: 20%
+  width: 30%; 
+  height: 52vh;
+   margin-left: 30%;
+   margin-top: 5%
 }
 
 #nuestroinput

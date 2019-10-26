@@ -81,9 +81,9 @@
     </ion-row> -->
   </ion-grid>
   <!--  -->
-  <ion-list *ngIf="contenidoDinamicoViaje">
+  <ion-list style="margin-left: -2%" *ngIf="contenidoDinamicoViaje">
     <ion-item *ngFor=" let listado of  vectorViajes">
-      <ion-thumbnail item-start style="margin-right: 0;">
+      <ion-thumbnail item-start style="margin-right: 0; margin-left: 0%">
         <ion-icon name="paw" style="cursor:pointer; font-size: 250%; color:#D79357; margin-left: 10%"></ion-icon>
       </ion-thumbnail>
       <p style="font-size: 12px;">
@@ -95,9 +95,9 @@
       <p style="font-size: 12px;">
         <b>Hora Entrega: </b> {{listado.horarioE}}</p>
       
-      <button ion-button clear item-end (click)="irDetalles(listado,'viaje')">Ver</button>
-      <button *ngIf="listado.estado=='2'|| listado.estado=='3' || listado.estado=='4'" ion-button color="danger" clear item-end >Cancelado</button>
-      <button ion-button clear item-end (click)="irFinalizar(listado,'viaje')"
+      <button style="padding: 1%;margin: 1%" ion-button clear item-end (click)="irDetalles(listado,'viaje')">Ver</button>
+      <button style="padding: 1%;margin: 1%" *ngIf="listado.estado=='2'|| listado.estado=='3' || listado.estado=='4'" ion-button color="danger" clear item-end >Cancelado</button>
+      <button style="padding: 1%;margin: 1%"  ion-button clear item-end (click)="irFinalizar(listado,'viaje')"
         *ngIf="btnFinalizarViaje && listado.estado !='2' && listado.estado !='3' && listado.estado !='4'">Finalizar</button>
     </ion-item>
   </ion-list>
