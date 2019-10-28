@@ -178,7 +178,7 @@ export class UbicacionFinalPage {
     localStorage.removeItem('objSolicitudViaje');
     let alert = this.alertCtrl.create({
       title: "<center><h3>IMPORTANTE</h3></center>",
-      subTitle: "PATITAS. Su petición ha sido atendida satisfactoriamente. Recuerda el precio variará entre $5.00 y $10.00 dependiendo la raza y edad de su mascota.",
+      subTitle: "DOGI. Su petición ha sido atendida satisfactoriamente. Recuerda el precio variará entre $5.00 y $10.00 dependiendo la raza y edad de su mascota.",
       message: '<p align="justify">Esta solicitud puede ser cancelada antes de su confirmación. Para más información comunicate con nosotros.</p>',
       buttons: ["OK"],
       cssClass: 'customLoader'

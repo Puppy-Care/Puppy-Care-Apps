@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12" style="text-align: center; color: #2863a9">
-    <h2>Clientes de PATITAS
+    <h2>Clientes de DOGI
     </h2>
   </div>
   <div class="col-md-12">
@@ -12,7 +12,7 @@
 <table class="table  text-left" id="mireportecito">
   <thead>
     <tr style="background-color: #2863a9; align-content: left;">
-      <th style="color: white" scope="col">#</th>
+   
       <th style="color: white" scope="col">Cédula</th>
       <th style="color: white" scope="col">Nombres</th>
       <th style="color: white" scope="col">Correo</th>
@@ -23,7 +23,7 @@
 
   <tbody *ngFor=" let listado of  messages; let i = index">
     <tr>
-      <td style="font-size: 130%">{{i+1}}</td>
+      
       <td style="font-size: 130%">{{listado.cedula}}</td>
       <td style="font-size: 130%">{{listado.nombre}} {{listado.apellido}}</td>
       <td style="font-size: 130%">{{listado.correo}}</td>

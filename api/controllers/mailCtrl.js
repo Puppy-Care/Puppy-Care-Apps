@@ -24,7 +24,7 @@ exports.sendEmail = function (req, res) {
             from: 'notificationspatitas@gmail.com',
             to: req.body.obj.receiver.correo + ',' + req.body.chofer.correo,
             
-            subject: 'Tienes nuevas notificaciones en tu APP "PATITAS',
+            subject: 'Tienes nuevas notificaciones en tu APP "DOGI',
             text: 'VIAJE CANCELADO POR EL CHOFER: El viaje del cliente ' + req.body.obj.receiver.nombre + ' ' + req.body.obj.receiver.apellido + ' en la fecha ' + req.body.obj.fech_salida + ' Hora de recogida ' + req.body.obj.horarioR + ' Hora de entrega ' + req.body.obj.horarioE + ' ha sido asignada, por favor para mas información revisa tu aplicación móvil.'
         };
         console.log('mailOptions >>>>>> ', mailOptions);
@@ -44,7 +44,7 @@ exports.sendEmail = function (req, res) {
             from: 'notificationspatitas@gmail.com',
             to: req.body.obj._id_chofer.correo + ',' + req.body.usuario.correo,
             
-            subject: 'Tienes nuevas notificaciones en tu APP "PATITAS',
+            subject: 'Tienes nuevas notificaciones en tu APP "DOGI',
             text: 'VIAJE CANCELADO POR EL USUARIO: El viaje del cliente ' + req.body.usuario.nombre + ' ' + req.body.usuario.apellido + ' en la fecha ' + req.body.obj.fech_salida + ' Hora de recogida ' + req.body.obj.horarioR + ' Hora de entrega ' + req.body.obj.horarioE + ' ha sido asignada, por favor para mas información revisa tu aplicación móvil.'
         };
         console.log('mailOptions >>>>>> ', mailOptions);
@@ -65,7 +65,7 @@ exports.sendEmail = function (req, res) {
             from: 'notificationspatitas@gmail.com',
             to: req.body.obj._id_chofer.correo + ',' + req.body.obj.receiver.correo,
             
-            subject: 'Tienes nuevas notificaciones en tu APP "PATITAS',
+            subject: 'Tienes nuevas notificaciones en tu APP "DOGI',
             text: 'VIAJE CANCELADO: El viaje del cliente ' + req.body.obj.receiver.nombre + ' ' + req.body.obj.receiver.apellido + ' en la fecha ' + req.body.obj.fech_salida + ' Hora de recogida ' + req.body.obj.horarioR + ' Hora de entrega ' + req.body.obj.horarioE + ' ha sido asignada, por favor para mas información revisa tu aplicación móvil.'
         };
         console.log('mailOptions >>>>>> ', mailOptions);
@@ -102,7 +102,7 @@ exports.sendEmail = function (req, res) {
                     var mailOptions = {
                         from: 'notificationspatitas@gmail.com',
                         to: user.correo + ',' + req.body.obj.receiver.correo,//req.body.obj._id_chofer.correo,
-                        subject: 'Tienes nuevas notificaciones en tu APP "PATITAS"',
+                        subject: 'Tienes nuevas notificaciones en tu APP "DOGI"',
                         text: 'NUEVO PASEO: El viaje del cliente ' + req.body.obj.receiver.nombre + ' ' + req.body.obj.receiver.apellido + ' en la fecha ' + req.body.obj.fechaSalida + ' Hora de recogida ' + req.body.obj.horarioR + ' Hora de entrega ' + req.body.obj.horarioE + ' ha sido asignada, por favor para mas información revisa tu aplicación móvil.'
                     };
                     transporter.sendMail(mailOptions, function (error) {

@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Patitas</title>
+  <title>DOGI</title>
 </head>
 
 <div class="my-container">
@@ -18,7 +18,7 @@
 
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg  fixed-top " style="background-color:#D79357"  id="mainNav">
-    <i><a style="color: #070707" (click)="recargar()">Patitas</a></i>
+    <i><a style="color: #070707" (click)="recargar()">DOGI</a></i>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
     <span class="fa fa-bars"></span>
@@ -85,11 +85,11 @@
             <i class="fa fa-exclamation-circle"></i>
 
             <span class="d-lg-none"> Paseos Cancelados
-              <span class="badge badge-pill badge-warning">{{notViaje}} Nuevas</span>
+              <span class="badge badge-pill badge-warning">Nuevas</span>
             </span>
 
             <span class="indicator text-warning d-none d-lg-block">
-              <i class="fa fa-fw fa-circle">{{notViaje}}</i>
+            
             </span>
             Paseos cancelados
           </a>
@@ -214,6 +214,7 @@
               <th style="color: white" scope="col">Fecha salida</th>         
               <th style="color: white" scope="col">Paseador</th>
               <th style="color: white" scope="col">Celular</th>
+              <th style="color: white" scope="col">Cancelado por:</th>
               <th style="color: white" scope="col">Opción</th>
             </tr>
           </thead>
@@ -226,6 +227,8 @@
               <td style="font-size: 130%">{{ listado.fech_salida}}</td>
               <td style="font-size: 130%">{{listado._id_chofer.nombre }} {{listado._id_chofer.apellido}}</td>
               <td style="font-size: 130%">{{listado._id_chofer.tel_celular }} </td>
+              <td style="font-size: 130%" *ngIf="listado.estado=='3'">Paseador </td>
+              <td style="font-size: 130%" *ngIf="listado.estado=='2'">Usuario </td>
               <td>
                 <input class="btn btn-success " type="button" value="Revisado" (click)="RevisadaCancelacion(listado)">
               </td>

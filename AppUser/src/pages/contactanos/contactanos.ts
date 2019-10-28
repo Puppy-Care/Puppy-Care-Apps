@@ -22,7 +22,7 @@ export class ContactosPage {
      console.log("Selected Item", item);*/
 
   llama() {
-    this.callNumber.callNumber("0992452430", true)
+    this.callNumber.callNumber("0984210047", true)
       .then(res => console.log('Launched dialer!', res))
       .catch(err => console.log('Error launching dialer', err));
   }
@@ -38,8 +38,8 @@ export class ContactosPage {
     let email = {
       to: 'patitas@gmail.com',
       cc: '',
-      subject: 'Solicitud de Viaje Patitas',
-      body: 'Necesito solicitar un PATITAS a: ',
+      subject: 'Solicitud de Viaje DOGI',
+      body: 'Necesito solicitar un DOGI a: ',
       isHtml: true
     };
     this.emailComposer.open(email);
