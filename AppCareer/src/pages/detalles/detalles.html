@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="appcolr">
-    <ion-title>Detalles del Viaje</ion-title>
+    <ion-title>Detalles del Paseo</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -64,7 +64,7 @@
     </ion-card-content>
 
 
-    <ion-row>
+    <ion-row *ngIf="viajeDetalle.estado !='2'|| viajeDetalle.estado !='3'|| viajeDetalle.estado !='4'">
       <ion-col align-self-center text-center *ngIf="btnEnviar">
         <button (click)="showAlertCancelar()" ion-button color="colorapp" clear small icon-start>
           <ion-icon name='close'></ion-icon>
