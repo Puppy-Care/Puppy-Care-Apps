@@ -12,11 +12,11 @@ export class PrincipalPage {
 
   constructor(public menuCtrl: MenuController, public navCtrl: NavController, private _choferservice: ChoferService) {
     //BLOQUEAR MENU
-     if (this._choferservice.getIdentity() == null) {
-       this.menuCtrl.enable(false, 'myMenu');
-     } else {
-       this.menuCtrl.enable(true, 'myMenu');
-     }
+    if (this._choferservice.getIdentity() == null) {
+      this.menuCtrl.enable(false, 'myMenu');
+    } else {
+      this.menuCtrl.enable(true, 'myMenu');
+    }
 
     this.btnFinalizarViaje = true;
     this.btnFinalizarEncomiendas = true;
@@ -76,8 +76,7 @@ export class PrincipalPage {
       console.log('campana');
       this.listarNotificacionesCampana(estadoListar);
       this.verViajes();
-      
-    this.mostrarContenidoDinamico(tipoMostrar);
+      this.mostrarContenidoDinamico(tipoMostrar);
     }
     if (tipoMostrar == 'reloj') {
       this.objAnimacion.estadoListar = estadoListar;
@@ -85,8 +84,7 @@ export class PrincipalPage {
       console.log('reloj');
       this.listarNotificacionesReloj(estadoListar);
       this.verViajes();
-      
-    this.mostrarContenidoDinamico(tipoMostrar);
+      this.mostrarContenidoDinamico(tipoMostrar);
     }
     if (tipoMostrar == 'calendario') {
       this.objAnimacion.estadoListar = estadoListar;
@@ -94,8 +92,7 @@ export class PrincipalPage {
       console.log('calendario');
       this.listarNotificacionesCalendario(estadoListar);
       this.verViajes();
-      
-    this.mostrarContenidoDinamico(tipoMostrar);
+      this.mostrarContenidoDinamico(tipoMostrar);
     }
   }
 
@@ -118,7 +115,7 @@ export class PrincipalPage {
       }
     }, (err) => { console.log("Existen Complicaciones, intente más tarde", err) });
 
-   
+
   }
 
   listarNotificacionesCalendario(estadoListar) {
@@ -129,7 +126,7 @@ export class PrincipalPage {
         this.darvuelta();
       }
     }, (err) => { console.log("Existen Complicaciones, intente más tarde", err) });
-   
+
   }
 
   darvuelta() {
@@ -179,21 +176,20 @@ export class PrincipalPage {
       this.btnFinalizarViaje = true;
       this.btnFinalizarEncomiendas = true;
       this.verViajes();
-    } else {
-      if (tipoMostrar == 'calendario') {
-        this.titulo = "HISTORIAL";
-        this.btnFinalizarViaje = false;
-        this.btnFinalizarEncomiendas = false;
-        this.verViajes();
-      } else {
-        if (tipoMostrar == 'reloj') {
-          this.titulo = "PARA HOY";
-          this.btnFinalizarViaje = true;
-          this.btnFinalizarEncomiendas = true;
-          this.verViajes();
-        }
-      }
     }
+    if (tipoMostrar == 'calendario') {
+      this.titulo = "HISTORIAL";
+      this.btnFinalizarViaje = false;
+      this.btnFinalizarEncomiendas = false;
+      this.verViajes();
+    }
+    if (tipoMostrar == 'reloj') {
+      this.titulo = "PARA HOY";
+      this.btnFinalizarViaje = true;
+      this.btnFinalizarEncomiendas = true;
+      this.verViajes();
+    }
+
   }
 
   verViajes() {
@@ -227,19 +223,19 @@ export class PrincipalPage {
         this.verViajes();
         localStorage.removeItem('opcionesAnimacion');
       }
-     
+
       if (jsonAnimacion.estadoListar == "1" && jsonAnimacion.tipoMostrar == "calendario" && jsonAnimacion.boton == "viaje") {
         this.historial('1', 'calendario');
         this.verViajes();
         localStorage.removeItem('opcionesAnimacion');
       }
-      
+
       if (jsonAnimacion.estadoListar == "0" && jsonAnimacion.tipoMostrar == "reloj" && jsonAnimacion.boton == "viaje") {
         this.historial('0', 'reloj');
         this.verViajes();
         localStorage.removeItem('opcionesAnimacion');
       }
-      
+
     }
   }
 
@@ -249,7 +245,7 @@ export class PrincipalPage {
       console.log('irFInalizar ?>>>>>>>>>', JSON.stringify(this.objAnimacion));
       this._choferservice.FinalizarUpdateMessageChofer(this._choferservice.getToken(), NotificacionIndividual).subscribe(response => {
         this.navCtrl.push(PrincipalPage);
-      }, (err) => { console.log("Existen Complicaciones, intente más tarde", err) });   
+      }, (err) => { console.log("Existen Complicaciones, intente más tarde", err) });
     }
   }
 }
