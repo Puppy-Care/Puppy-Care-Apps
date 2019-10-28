@@ -60,13 +60,13 @@
             <p>
                 <b>Información: </b> {{viajeDetalle.informacion}}</p>
       <p>
-        <b>Precio: </b> {{viajeDetalle.precio}} dólares ($)</p>
+        <b>Precio: </b> {{viajeDetalle.estado}} dólares ($)</p>
     </ion-card-content>
 
-
-    <ion-row *ngIf="viajeDetalle.estado !='2'|| viajeDetalle.estado !='3'|| viajeDetalle.estado !='4'">
-      <ion-col align-self-center text-center *ngIf="btnEnviar">
-        <button (click)="showAlertCancelar()" ion-button color="colorapp" clear small icon-start>
+    
+    <ion-row >
+      <ion-col align-self-center text-center *ngIf="btnEnviar && viajeDetalle.estado != '3' && viajeDetalle.estado != '4' && viajeDetalle.estado != '2'">
+        <button   (click)="showAlertCancelar()" ion-button color="colorapp" clear small icon-start>
           <ion-icon name='close'></ion-icon>
           Cancelar
         </button>
@@ -78,7 +78,7 @@
           Aceptar
         </button>
       </ion-col>
-      <ion-col align-self-center text-center *ngIf="btnEnviar">
+      <ion-col align-self-center text-center *ngIf="btnEnviar && viajeDetalle.estado != '3' && viajeDetalle.estado != '4' && viajeDetalle.estado != '2'">
         <button (click)="terminarEnvio()" ion-button color="colorapp" clear small icon-start>
           <ion-icon name='stopwatch'></ion-icon>
           Finalizar

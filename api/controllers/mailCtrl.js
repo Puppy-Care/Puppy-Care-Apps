@@ -10,8 +10,8 @@ exports.sendEmail = function (req, res) {
     var transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-            user: 'notificationspatitas@gmail.com',
-            pass: 'Patitas123'
+            user: 'doginotificaciones@gmail.com',
+            pass: 'dogi12345.'
         }
     });
     // Definimos el email
@@ -21,7 +21,7 @@ exports.sendEmail = function (req, res) {
     if (req.body.variable == 'CVC') {
         console.log("entre a cancelar chofer",req.body.obj.receiver.correo + ',' + req.body.chofer.correo,)
         var mailOptions = {
-            from: 'notificationspatitas@gmail.com',
+            from: 'doginotificaciones@gmail.com',
             to: req.body.obj.receiver.correo + ',' + req.body.chofer.correo,
             
             subject: 'Tienes nuevas notificaciones en tu APP "DOGI',
@@ -41,11 +41,11 @@ exports.sendEmail = function (req, res) {
 
     if (req.body.variable == 'CVU') {
         var mailOptions = {
-            from: 'notificationspatitas@gmail.com',
+            from: 'doginotificaciones@gmail.com',
             to: req.body.obj._id_chofer.correo + ',' + req.body.usuario.correo,
             
             subject: 'Tienes nuevas notificaciones en tu APP "DOGI',
-            text: 'VIAJE CANCELADO POR EL USUARIO: El viaje del cliente ' + req.body.usuario.nombre + ' ' + req.body.usuario.apellido + ' en la fecha ' + req.body.obj.fech_salida + ' Hora de recogida ' + req.body.obj.horarioR + ' Hora de entrega ' + req.body.obj.horarioE + ' ha sido asignada, por favor para mas información revisa tu aplicación móvil.'
+            text: 'PASEO CANCELADO POR EL USUARIO: El viaje del cliente ' + req.body.usuario.nombre + ' ' + req.body.usuario.apellido + ' en la fecha ' + req.body.obj.fech_salida + ' Hora de recogida ' + req.body.obj.horarioR + ' Hora de entrega ' + req.body.obj.horarioE + ' ha sido asignada, por favor para mas información revisa tu aplicación móvil.'
         };
         console.log('mailOptions >>>>>> ', mailOptions);
         transporter.sendMail(mailOptions, function (error) {
@@ -62,11 +62,11 @@ exports.sendEmail = function (req, res) {
 
     if (req.body.variable == 'CV') {
         var mailOptions = {
-            from: 'notificationspatitas@gmail.com',
+            from: 'doginotificaciones@gmail.com',
             to: req.body.obj._id_chofer.correo + ',' + req.body.obj.receiver.correo,
             
             subject: 'Tienes nuevas notificaciones en tu APP "DOGI',
-            text: 'VIAJE CANCELADO: El viaje del cliente ' + req.body.obj.receiver.nombre + ' ' + req.body.obj.receiver.apellido + ' en la fecha ' + req.body.obj.fech_salida + ' Hora de recogida ' + req.body.obj.horarioR + ' Hora de entrega ' + req.body.obj.horarioE + ' ha sido asignada, por favor para mas información revisa tu aplicación móvil.'
+            text: 'PASEO CANCELADO: El viaje del cliente ' + req.body.obj.receiver.nombre + ' ' + req.body.obj.receiver.apellido + ' en la fecha ' + req.body.obj.fech_salida + ' Hora de recogida ' + req.body.obj.horarioR + ' Hora de entrega ' + req.body.obj.horarioE + ' ha sido asignada, por favor para mas información revisa tu aplicación móvil.'
         };
         console.log('mailOptions >>>>>> ', mailOptions);
         transporter.sendMail(mailOptions, function (error) {
@@ -100,7 +100,7 @@ exports.sendEmail = function (req, res) {
                 } else {
                     console.log("El CHofer", user);
                     var mailOptions = {
-                        from: 'notificationspatitas@gmail.com',
+                        from: 'doginotificaciones@gmail.com',
                         to: user.correo + ',' + req.body.obj.receiver.correo,//req.body.obj._id_chofer.correo,
                         subject: 'Tienes nuevas notificaciones en tu APP "DOGI"',
                         text: 'NUEVO PASEO: El viaje del cliente ' + req.body.obj.receiver.nombre + ' ' + req.body.obj.receiver.apellido + ' en la fecha ' + req.body.obj.fechaSalida + ' Hora de recogida ' + req.body.obj.horarioR + ' Hora de entrega ' + req.body.obj.horarioE + ' ha sido asignada, por favor para mas información revisa tu aplicación móvil.'
