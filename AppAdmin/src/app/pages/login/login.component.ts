@@ -17,6 +17,7 @@ export class LoginComponent {
   public token;
   public loading = false;
   public error = "";
+  public errorMessage;
   constructor(private _userService: UserService) {
   }
 
@@ -59,13 +60,13 @@ export class LoginComponent {
             },
             error => {
               this.loading = false;
-              var errorMessage = <any>error;
-              if (errorMessage) {
+              this.errorMessage = <any>error;
+              if (this.errorMessage) {
                 try {
                   var body = JSON.parse(error._body);
-                  errorMessage = body.message;
-                } catch{ errorMessage = "NO hay conexion intentelo Ms Tarde"; }
-                this.error = errorMessage;
+                  this.errorMessage = body.message;
+                } catch{ this.errorMessage = "NO hay conexion intentelo Ms Tarde"; }
+                this.error = this.errorMessage;
                 console.log(this.error);
               }
             }
@@ -75,13 +76,13 @@ export class LoginComponent {
       },
       error => {
         this.loading = false;
-        var errorMessage = <any>error;
-        if (errorMessage) {
+       this.errorMessage = <any>error;
+        if (this.errorMessage) {
           try {
             var body = JSON.parse(error._body);
-            errorMessage = body.message;
-          } catch{ errorMessage = "No hay conexión intentelo más tarde"; }
-          this.error = errorMessage;
+            this.errorMessage = body.message;
+          } catch{ this.errorMessage = "No hay conexión intentelo más tarde"; }
+          this.error = this.errorMessage;
           console.log(this.error);
         }
       });
