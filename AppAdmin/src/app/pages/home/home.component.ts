@@ -604,7 +604,7 @@ export class HomeComponent implements OnInit {
     this.viajesRealizadosDetalles = false;
 
     this.datosSecretarias = datosSecretarias;
-    console.log("hola tefo2" + this.datosSecretarias.nombre);
+    console.log("hola tefo2" + this.datosSecretarias);
   }
 
 
@@ -626,7 +626,7 @@ export class HomeComponent implements OnInit {
     this.ReporteTres = false;
     this.ReporteDos = false;
     this.ReporteUno = false;
-    this.primera = "Chofer";
+    this.primera = "Paseador";
     this.segunda = "Modificar";
     this.imagen = false;
     this.detalleSolicitudViaje = false;
@@ -635,7 +635,7 @@ export class HomeComponent implements OnInit {
     this.viajesCancelados= false;
     this.viajesRealizadosDetalles = false;
   
-
+    console.log(this.datosChoferes);
 
     if (this.datosChoferes.image == undefined) {
       this.url2 = '../assets/img/IngresarChofer.png';
