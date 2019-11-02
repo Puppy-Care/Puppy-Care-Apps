@@ -65,9 +65,11 @@ export class LoginComponent {
                 try {
                   var body = JSON.parse(error._body);
                   this.errorMessage = body.message;
-                } catch{ this.errorMessage = "NO hay conexion intentelo Ms Tarde"; }
+                  document.getElementById("openModalError").click();
+                } catch{ this.errorMessage = "No hay conexion intentelo Ms Tarde"; }
                 this.error = this.errorMessage;
                 console.log(this.error);
+                document.getElementById("openModalError").click();
               }
             }
           );
@@ -77,11 +79,14 @@ export class LoginComponent {
       error => {
         this.loading = false;
        this.errorMessage = <any>error;
+       
         if (this.errorMessage) {
           try {
             var body = JSON.parse(error._body);
             this.errorMessage = body.message;
+            document.getElementById("openModalError").click();
           } catch{ this.errorMessage = "No hay conexión intentelo más tarde"; }
+          document.getElementById("openModalError").click();
           this.error = this.errorMessage;
           console.log(this.error);
         }
