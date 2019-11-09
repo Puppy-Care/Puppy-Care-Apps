@@ -24,7 +24,7 @@ export class MiCuenta {
     
     this.url = GLOBAL.url;
     if (this.identity.image == undefined) {
-      this.url2 = '../assets/imgs/tituloRegistro.png';
+      this.url2 = 'assets/imgs/tituloRegistro.png';
 
     } else {
       this.url2 = this.url + 'get-image-user/' + this.identity.image;
@@ -91,6 +91,20 @@ export class MiCuenta {
             if (!response.user) {
               var errorMessage = "El usuario no se actualizo";
             } else {
+
+              if (this.filesToUpload) {
+            
+                console.log("nombre de archivo" + this.filesToUpload[0].name);
+                this.makeFileRequest(this.url + 'upload-image-user/' + response.user._id, [], this.filesToUpload).then(
+      
+                  (result: any) => {
+                    this.identity.image = result.image;
+                    this.url2 = this.url + 'get-image-user/' + this.identity.image;
+                    this.identity = this._userService.getIdentity();
+                  }
+                );
+              }
+
               setTimeout(() => {
                 this.showAlertCorrecto(
                   "Sus datos han sido actualizados correctamente"
@@ -218,4 +232,50 @@ export class MiCuenta {
     });
     alert.present();
   }
+
+
+  public filesToUpload: Array<File>;
+
+  readUrl(event: any) {
+
+    this.filesToUpload = <Array<File>>event.target.files;
+
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = (event: any) => {
+        this.url2 = event.target.result;
+       
+      }
+
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+
+  makeFileRequest(url: string, params: Array<string>, files: Array<File>) {
+    // var token = this.tpken;
+    return new Promise(function (resolve, reject) {
+      var fromData: any = new FormData();
+      var xhr = new XMLHttpRequest();
+
+      for (var i = 0; i < files.length; i++) {
+        fromData.append('image', files[i], files[i].name)
+      }
+
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status == 200) {
+            resolve(JSON.parse(xhr.response));
+          } else {
+            reject(xhr.response);
+          }
+        }
+      }
+
+      xhr.open('POST', url, true);
+      // xhr.setRequestHeader('Authorization', token);
+      xhr.send(fromData);
+    });
+  }
+
 }
