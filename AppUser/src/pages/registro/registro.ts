@@ -31,7 +31,7 @@ export class RegistroPage {
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController
   ) {
-    this.url2 = '../assets/imgs/tituloRegistro.png';
+    this.url2 = 'assets/imgs/tituloRegistro.png';
     this.url = GLOBAL.url;
     this.miModelo = {};
     this.user_register = new User("", "", "", "", "", "", "", "", "","");
