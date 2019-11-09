@@ -11,7 +11,7 @@ import { EnvioEmail } from '../../../services/correo.service';
   selector: 'app-detalle-solicitud-viaje',
   templateUrl: './detalle-solicitud-viaje.component.html',
   styleUrls: ['./detalle-solicitud-viaje.component.css']
-})
+});
 export class DetalleSolicitudViajeComponent implements DoCheck, OnDestroy {
 
   public mensajeerrormodals = 'Ingrese todos los datos antes de aceptar la solicitud';

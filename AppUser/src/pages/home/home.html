@@ -43,11 +43,16 @@
       <input type="submit" value="Ingresar"
         style="background-color: #D79357; padding-top:2%; padding-bottom:2%; font-size: 100%; font-weight: bold; justify-content: center;"
         class="form-control">
-    </div>
-  </form>
-  <br><br><br><br><br><br><br><br><br><br>
-  <div id="formLogin">
-    <br>
+
+        <ion-item *ngIf="this.error">
+          <ion-icon name="alert" item-start color="danger"></ion-icon>
+          <p ion-text color="danger">{{this.error}}</p>
+          
+        </ion-item>
+  
+  
+
+ 
     <!-- <input type="submit" src="assets/imgs/btnFaceboock.png" type="image" style="left:0; right:0;max-width:100%;  "> -->
     <button (click)="onCLick()" style="background: transparent; border: none; font-size: 110%; font-weight: bold "
       class="form-control">
@@ -59,6 +64,8 @@
       Términos y condiciones
     </button>
     <br>
-  </div>
 
+  </div>
+    
+</form>  
 </ion-content>

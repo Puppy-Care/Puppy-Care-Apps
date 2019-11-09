@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, DoCheck } from "@angular/core";
 import { NavController, LoadingController, AlertController, MenuController  } from "ionic-angular";
 
 import { RegistroPage } from "../registro/registro";
@@ -14,7 +14,7 @@ import { TerminosPage } from '../terminos/terminos';
   providers: [UserService]
 })
 
-export class HomePage implements OnInit {
+export class HomePage implements OnInit , DoCheck{
   isActiveToggleTextPassword: Boolean = true;
   splash = true;
  
@@ -37,7 +37,11 @@ export class HomePage implements OnInit {
   ) {
    //this.user = new User("", "", "", "", "", "", "", "","");
   }
-
+  public error;
+  ngDoCheck(){
+  this.error;
+    }
+  
   ngOnInit() {
     this.identity = this._userService.getIdentity();
     this.token = this._userService.getToken();
@@ -69,7 +73,7 @@ export class HomePage implements OnInit {
   // onContactanos() {
   //   this.navCtrl.push(ContactosPage);
   // }
-
+  
   public onSubmit() {
     //conseguir losdatos del usuario
     //animacion de carga del sistema
@@ -112,7 +116,7 @@ export class HomePage implements OnInit {
                   errorMessage = body.message;
                 } catch(e){ errorMessage = "No hay conexión intentelo más tarde."; }
                 setTimeout(() => {
-                  this.showAlert(errorMessage);
+                  this.error= errorMessage;
                 }, 2000);
                 console.log(errorMessage);
               }
@@ -129,7 +133,7 @@ export class HomePage implements OnInit {
             errorMessage = body.message;
           } catch(e){ errorMessage = "No hay conexión intentelo más tarde"; }
           setTimeout(() => {
-            this.showAlert(errorMessage);
+            this.error = errorMessage;
           }, 3000);
           console.log(errorMessage);
         }

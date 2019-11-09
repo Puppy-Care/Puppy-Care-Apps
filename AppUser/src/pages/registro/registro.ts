@@ -160,12 +160,12 @@ export class RegistroPage {
     var bool_apellidos = this.soloLetras(this.user_register.apellido);
     var bool_celular = this.soloNumeros(this.user_register.tel_celular);
     var bool_telefono = this.soloNumeros(this.user_register.tel_convencional);
-    var bool_cedula = this.validarCedula();
+    //var bool_cedula = this.validarCedula();
     //var confirmarContrasenia = JSON.parse(this.miModelo.confirmContrasena);
     // console.log("valor de miModelo: ", confirmarContrasenia);
 
     if (
-      this.user_register.cedula == "" ||
+     
       this.user_register.nombre == "" ||
       this.user_register.apellido == "" ||
       this.user_register.correo == "" ||
@@ -176,7 +176,7 @@ export class RegistroPage {
       bool_apellidos ||
       bool_celular ||
       bool_telefono ||
-      !bool_cedula ||
+     
       (this.user_register.contrasena != this.verificarPassword) ||
       this.verificarPassword == null
     ) {
@@ -188,7 +188,7 @@ export class RegistroPage {
     }
   }
 
-  validarCedula() {
+  /*validarCedula() {
     var cad: any = this.user_register.cedula;
     var i;
 
@@ -215,7 +215,7 @@ export class RegistroPage {
         return false;
       }
     }
-  }
+  }*/
 
   soloLetras(string) {
     //solo letras
