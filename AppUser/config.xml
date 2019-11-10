@@ -87,4 +87,5 @@
     <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
         <string>Necesitamos acceder a tu ubicación</string>
     </edit-config>
+    <engine name="ios" spec="5.0.1" />
 </widget>
