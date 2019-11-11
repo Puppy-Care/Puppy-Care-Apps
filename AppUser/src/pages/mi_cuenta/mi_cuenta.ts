@@ -150,7 +150,7 @@ export class MiCuenta {
     var bool_apellidos = this.soloLetras(this.identity.apellido);
     var bool_celular = this.soloNumeros(this.identity.tel_celular);
     var bool_telefono = this.soloNumeros(this.identity.tel_convencional);
-    var bool_cedula = this.validarCedula();
+    //var bool_cedula = this.validarCedula();
     if (
       this.identity.cedula == "" ||
       this.identity.nombre == "" ||
@@ -158,11 +158,12 @@ export class MiCuenta {
       this.identity.correo == "" ||
       this.identity.tel_celular == "" ||
       this.identity.tel_convencional == "" ||
+     // !bool_cedula||
       bool_nombres ||
       bool_apellidos ||
       bool_celular ||
-      bool_telefono ||
-      !bool_cedula) {
+      bool_telefono
+      ) {
       return false;
     } else {
       return true;
