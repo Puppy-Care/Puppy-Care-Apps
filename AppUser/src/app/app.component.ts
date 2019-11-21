@@ -10,7 +10,7 @@ import { UserService } from './services/user.services';
 import { ContactosPage } from '../pages/contactanos/contactanos';
  import { ContrasenaPage } from '../pages/contrasena/contrasena';
 // import { PagoOnlinePage } from '../pages/pagoOnline/pagoOnline';
-
+import { Home1Page } from '../pages/home1/home1';
 @Component({
   templateUrl: 'app.html',
   providers: [UserService]
@@ -18,7 +18,7 @@ import { ContactosPage } from '../pages/contactanos/contactanos';
 
 export class MyApp {
   //rootPage: any;
-  rootPage:any = HomePage;
+  rootPage:any = Home1Page;
   @ViewChild('NAV') nav: Nav;
   public pages: Array<{ titulo: string, component: any, icon: string }>;
 

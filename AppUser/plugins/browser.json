@@ -18,6 +18,9 @@
     },
     "cordova-plugin-device": {
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "call-number": {
+      "PACKAGE_NAME": "io.ionic.starter"
     }
   },
   "dependent_plugins": {}

@@ -1,194 +1,15 @@
 webpackJsonp([0],{
 
-/***/ 162:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__registro_registro__ = __webpack_require__(298);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_services_user_services__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__principal_principal__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__terminos_terminos__ = __webpack_require__(407);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-//import { User } from "../../app/models/user";
-
-//import { ContactosPage } from "../contactanos/contactanos";
-
-var HomePage = (function () {
-    function HomePage(navCtrl, _userService, alertCtrl, loadingCtrl, menuCtrl) {
-        this.navCtrl = navCtrl;
-        this._userService = _userService;
-        this.alertCtrl = alertCtrl;
-        this.loadingCtrl = loadingCtrl;
-        this.menuCtrl = menuCtrl;
-        this.isActiveToggleTextPassword = true;
-        this.splash = true;
-        this.obj = {
-            email: null,
-            password: null
-        };
-        //this.user = new User("", "", "", "", "", "", "", "","");
-    }
-    HomePage.prototype.ngDoCheck = function () {
-        this.error;
-    };
-    HomePage.prototype.ngOnInit = function () {
-        this.identity = this._userService.getIdentity();
-        this.token = this._userService.getToken();
-        console.log("las vaibles del Storage");
-        console.log(this.identity + this.token);
-        //  if(this.identity == null){
-        //    this.menuCtrl.enable(false, 'myMenu');
-        //  }else{
-        //    this.menuCtrl.enable(true, 'myMenu');
-        //  }
-    };
-    /*ionViewDidLoad() {
-      //this.tabBarElement.style.display = 'none';
-      setTimeout(() => {
-        this.splash = false;
-      }, 4000);
-      //this.tabBarElement.style.display = 'none';
-    }*/
-    HomePage.prototype.onCLick = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__registro_registro__["a" /* RegistroPage */]);
-    };
-    HomePage.prototype.onCLickTerminos = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__terminos_terminos__["a" /* TerminosPage */]);
-    };
-    // onContactanos() {
-    //   this.navCtrl.push(ContactosPage);
-    // }
-    HomePage.prototype.onSubmit = function () {
-        var _this = this;
-        //conseguir losdatos del usuario
-        //animacion de carga del sistema
-        this.verificarUsuario();
-        this._userService.singup(this.obj, "").subscribe(function (response) {
-            console.log(response + "esto viene en la respuesta");
-            var identity = response.user;
-            _this.identity = identity;
-            console.log(identity);
-            if (!_this.identity._id) {
-                console.log("el usuario no se ha logueado correctamente");
-                // aqui la alerta
-            }
-            else {
-                // crear local storage
-                localStorage.setItem("identity", JSON.stringify(identity));
-                _this._userService.singup(_this.obj, "true").subscribe(function (response) {
-                    var token = response.token;
-                    _this.token = token;
-                    if (_this.token.length <= 0) {
-                        // aqui mensaje
-                        console.log("el token nose ha generado");
-                    }
-                    else {
-                        localStorage.setItem("Token", token);
-                        setTimeout(function () {
-                            _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__principal_principal__["a" /* PrincipalPage */]);
-                        }, 2000);
-                    }
-                }, function (error) {
-                    var errorMessage = error;
-                    if (errorMessage) {
-                        try {
-                            var body = JSON.parse(error._body);
-                            errorMessage = body.message;
-                        }
-                        catch (e) {
-                            errorMessage = "No hay conexión intentelo más tarde.";
-                        }
-                        setTimeout(function () {
-                            _this.error = errorMessage;
-                        }, 2000);
-                        console.log(errorMessage);
-                    }
-                });
-                //fin
-            }
-        }, function (error) {
-            var errorMessage = error;
-            if (errorMessage) {
-                try {
-                    var body = JSON.parse(error._body);
-                    errorMessage = body.message;
-                }
-                catch (e) {
-                    errorMessage = "No hay conexión intentelo más tarde";
-                }
-                setTimeout(function () {
-                    _this.error = errorMessage;
-                }, 3000);
-                console.log(errorMessage);
-            }
-        });
-    };
-    HomePage.prototype.verificarUsuario = function () {
-        var loading = this.loadingCtrl.create({
-            content: "Verficando sus datos"
-        });
-        loading.present();
-        setTimeout(function () {
-            loading.dismiss();
-        }, 3000);
-    };
-    HomePage.prototype.toggleTextPassword = function () {
-        this.isActiveToggleTextPassword = (this.isActiveToggleTextPassword == true) ? false : true;
-    };
-    HomePage.prototype.getType = function () {
-        return this.isActiveToggleTextPassword ? 'password' : 'text';
-    };
-    HomePage.prototype.showAlert = function (errorr) {
-        var alert = this.alertCtrl.create({
-            title: 'Error',
-            subTitle: errorr,
-            buttons: ['OK']
-        });
-        alert.present();
-    };
-    HomePage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: "page-home",template:/*ion-inline-start:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\home\home.html"*/`<!--<div id="custom-overlay" [style.display]="splash ? \'flex\': \'none\'">\n\n  <div class="flb">\n\n    <div class="Aligner-item Aligner-item--top"></div>\n\n    <img src="assets/imgs/portada.png">\n\n    <div class="Aligner-item Aligner-item--bottom"></div>\n\n  </div>\n\n</div>-->\n\n\n\n<!-- ESTO VA EN ANDROID-->\n\n<ion-content>\n\n\n\n\n\n  <br><br><br><br>\n\n  <div class="Aligner-item Aligner-item--top"></div>\n\n  <img id="imganeTitulo" src="assets/imgs/titulo.png" style=" width: 30vh;margin-top: -5%">\n\n  <div class="Aligner-item Aligner-item--bottom"></div>\n\n  <br>\n\n\n\n  <form #Formulario="ngForm">\n\n    <div id="formLogin">\n\n      <div style="top:0; bottom: 0;" class="item item-block">\n\n        <ion-icon item-left style="  max-width:0.02%; margin-top:0%; margin-bottom:0; margin-right:5% ">\n\n          <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/Recurso3.png">\n\n        </ion-icon>\n\n        <input type="email" #email="ngModel" [(ngModel)]="obj.email" name="email" class="form-control" style="font-size:110%">\n\n      </div>\n\n      <br>\n\n      <div style="top:0; bottom: 0; " class="item item-block">\n\n        <ion-icon item-left style="  max-width:0.02%; margin-top:0%; margin-bottom:0; margin-right:5% ">\n\n          <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/Recurso2.png">\n\n        </ion-icon>\n\n        <input [type]="getType()" #password="ngModel" [(ngModel)]="obj.password" name="password" class="form-control" style="font-size:110%">\n\n      </div>\n\n      <br>\n\n      <!-- prueba de mostra contrase -->\n\n      <div class="checkbox" style="margin-left:10%">\n\n        <label>\n\n          <input type="checkbox" (click)="toggleTextPassword()"> Mostrar Contraseña</label>\n\n      </div>\n\n      <br>\n\n     \n\n      <!-- <input type="submit" src="assets/imgs/btnFaceboock.png" type="image" style="left:0; right:0;max-width:100%;  "> -->\n\n      <button (click)="onSubmit()" style="background-color: #D79357; padding-top:2%; padding-bottom:2%; font-size: 100%; font-weight: bold; justify-content: center;"\n\n        class="form-control">\n\n        Ingreso\n\n      </button>\n\n\n\n      <br>\n\n      <ion-item *ngIf="this.error">\n\n        <ion-icon name="alert" item-start color="danger"></ion-icon>\n\n        <p ion-text color="danger">{{this.error}}</p>\n\n\n\n      </ion-item>\n\n\n\n\n\n\n\n\n\n      <!-- <input type="submit" src="assets/imgs/btnFaceboock.png" type="image" style="left:0; right:0;max-width:100%;  "> -->\n\n      <button (click)="onCLick()" style="background: transparent; border: none; font-size: 110%; font-weight: bold " class="form-control">\n\n        Registrarse\n\n      </button>\n\n\n\n      <br>\n\n      <button (click)="onCLickTerminos()" style="background: transparent; border: none; font-size: 110%; font-weight: bold " class="form-control">\n\n        Términos y condiciones\n\n      </button>\n\n      <br>\n\n\n\n    </div>\n\n\n\n  </form>\n\n</ion-content>`/*ion-inline-end:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\home\home.html"*/,
-            providers: [__WEBPACK_IMPORTED_MODULE_3__app_services_user_services__["a" /* UserService */]]
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_3__app_services_user_services__["a" /* UserService */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* LoadingController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* MenuController */]])
-    ], HomePage);
-    return HomePage;
-}());
-
-//# sourceMappingURL=home.js.map
-
-/***/ }),
-
 /***/ 188:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HistorialPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_services_user_services__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_services_user_services__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_services_message_services__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_confirmacion_confirmacion__ = __webpack_require__(402);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_confirmacion_confirmacion__ = __webpack_require__(403);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__principal_principal__ = __webpack_require__(55);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -292,7 +113,7 @@ var HistorialPage = (function () {
     };
     HistorialPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: "historial",template:/*ion-inline-start:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\historial\historial.html"*/`<ion-header>\n\n  <ion-navbar hideBackButton color="colorapp">\n\n\n\n    <ion-buttons left>\n\n      <button class="back-button disable-hover bar-button bar-button-md back-button-md bar-button-default bar-button-default-md show-back-button"\n\n        (click)="goBack();" style="padding: 0;">\n\n        <ion-icon style="font-size: 170%; color:rgb(255, 255, 255);" name="arrow-back"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n\n\n    <!-- IOS //////////////////////////////////////////// -->\n\n      <ion-title style="padding-right: 0; padding-left: 20px;"><label left>Notificaciones</label>\n\n      <!-- <button (click)="aparecerViaje()" style="background: transparent; left:0; right:0; max-width:50%; float: right; margin-right: 5%; display: block; max-height:100%;">\n\n        <ion-icon name="ios-car" style="cursor:pointer; font-size: 140%; color:rgb(255, 255, 255);"></ion-icon>\n\n      </button> -->\n\n    </ion-title> -\n\n    \n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content style="background-image: url(\'assets/imgs/Registro.png\')" class="getstarContactos">\n\n  <div id="solicituViaje" *ngIf="viaje">\n\n    <br>\n\n    <div style="text-align: center;">\n\n      <h3>\n\n        <font style="font-size: 90%">NOTIFICACIONES RECIBIDAS</font>\n\n      </h3>\n\n      <h3>\n\n        <font style="font-size: 90%">Paseos</font>\n\n      </h3>\n\n    </div>\n\n    <hr>\n\n    <div style="text-align: left;">\n\n      <h4>\n\n        <font>&nbsp;Notificaciones</font>\n\n      </h4>\n\n    </div>\n\n    <ion-list>\n\n      <ion-item *ngFor=" let listado of  vectorViajes">\n\n        <!-- <ion-thumbnail item-start>\n\n          <ion-icon name="ios-car" style="cursor:pointer; font-size: 400%; color: #4266AE;   margin-left: auto;margin-right: auto; display: block; margin-top: 10px;"></ion-icon>\n\n\n\n        </ion-thumbnail> -->\n\n        <p>\n\n          <b>Raza: </b> {{listado.raza}}</p>\n\n        <p>\n\n          <b>Fecha de Salida: </b> {{listado.fech_salida}}</p>\n\n        <p>\n\n          <b>Hora de Recogida: </b> {{listado.horarioR}}</p>\n\n          <p>\n\n            <b>Hora de Entrega: </b> {{listado.horarioE}}</p>  \n\n        <p>\n\n          <b>Recibida: </b> {{listado.fech_solicitud}}</p>\n\n          <button ion-button clear item-end color="danger" *ngIf="listado.estado == \'2\' || listado.estado == \'3\'|| listado.estado == \'4\'">Cancelado</button>\n\n          <button ion-button clear item-end (click)="irDetalles(listado)">Ver</button>\n\n      </ion-item>\n\n    </ion-list>\n\n  </div>\n\n</ion-content>\n\n`/*ion-inline-end:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\historial\historial.html"*/
+            selector: "historial",template:/*ion-inline-start:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/historial/historial.html"*/'<ion-header>\n  <ion-navbar hideBackButton color="colorapp">\n\n    <ion-buttons left>\n      <button class="back-button disable-hover bar-button bar-button-md back-button-md bar-button-default bar-button-default-md show-back-button"\n        (click)="goBack();" style="padding: 0;">\n        <ion-icon style="font-size: 170%; color:rgb(255, 255, 255);" name="arrow-back"></ion-icon>\n      </button>\n    </ion-buttons>\n\n    <!-- IOS //////////////////////////////////////////// -->\n      <ion-title style="padding-right: 0; padding-left: 20px;"><label left>Notificaciones</label>\n      <!-- <button (click)="aparecerViaje()" style="background: transparent; left:0; right:0; max-width:50%; float: right; margin-right: 5%; display: block; max-height:100%;">\n        <ion-icon name="ios-car" style="cursor:pointer; font-size: 140%; color:rgb(255, 255, 255);"></ion-icon>\n      </button> -->\n    </ion-title> -\n    \n  </ion-navbar>\n</ion-header>\n\n<ion-content style="background-image: url(\'assets/imgs/Registro.png\')" class="getstarContactos">\n  <div id="solicituViaje" *ngIf="viaje">\n    <br>\n    <div style="text-align: center;">\n      <h3>\n        <font style="font-size: 90%">NOTIFICACIONES RECIBIDAS</font>\n      </h3>\n      <h3>\n        <font style="font-size: 90%">Paseos</font>\n      </h3>\n    </div>\n    <hr>\n    <div style="text-align: left;">\n      <h4>\n        <font>&nbsp;Notificaciones</font>\n      </h4>\n    </div>\n    <ion-list>\n      <ion-item *ngFor=" let listado of  vectorViajes">\n        <!-- <ion-thumbnail item-start>\n          <ion-icon name="ios-car" style="cursor:pointer; font-size: 400%; color: #4266AE;   margin-left: auto;margin-right: auto; display: block; margin-top: 10px;"></ion-icon>\n\n        </ion-thumbnail> -->\n        <p>\n          <b>Raza: </b> {{listado.raza}}</p>\n        <p>\n          <b>Fecha de Salida: </b> {{listado.fech_salida}}</p>\n        <p>\n          <b>Hora de Recogida: </b> {{listado.horarioR}}</p>\n          <p>\n            <b>Hora de Entrega: </b> {{listado.horarioE}}</p>  \n        <p>\n          <b>Recibida: </b> {{listado.fech_solicitud}}</p>\n          <button ion-button clear item-end color="danger" *ngIf="listado.estado == \'2\' || listado.estado == \'3\'|| listado.estado == \'4\'">Cancelado</button>\n          <button ion-button clear item-end (click)="irDetalles(listado)">Ver</button>\n      </ion-item>\n    </ion-list>\n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/historial/historial.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__app_services_user_services__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_3__app_services_message_services__["a" /* MessageService */]])
     ], HistorialPage);
@@ -309,10 +130,10 @@ var HistorialPage = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SolicitudesPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_services_user_services__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_services_user_services__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_services_notificaciones_services__ = __webpack_require__(70);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_cardsolicitud_cardsolicitud__ = __webpack_require__(406);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_cardsolicitud_cardsolicitud__ = __webpack_require__(407);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__principal_principal__ = __webpack_require__(55);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -389,7 +210,7 @@ var SolicitudesPage = (function () {
     };
     SolicitudesPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: "solicitudes",template:/*ion-inline-start:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\solicitudes\solicitudes.html"*/`<ion-header>\n\n  <ion-navbar hideBackButton color="colorapp">\n\n\n\n    <ion-buttons left>\n\n      <button\n\n        class="back-button disable-hover bar-button bar-button-md back-button-md bar-button-default bar-button-default-md show-back-button"\n\n        (click)="goBack();">\n\n        <ion-icon style="font-size: 170%; color:rgb(255, 255, 255);" name="arrow-back"></ion-icon>\n\n      </button>\n\n    </ion-buttons>\n\n\n\n\n\n    <!-- IOS //////////////////////////////////////////// -->\n\n    <ion-title style="padding-right: 0; padding-left: 20px;"><label left>Solicitud</label>\n\n      <!-- <button (click)="aparecerViaje()" style="background: transparent; left:0; right:0; max-width:50%; float: right; margin-right: 5%; display: block; max-height:100%;">\n\n        <ion-icon name="ios-car" style="cursor:pointer; font-size: 140%; color:rgb(255, 255, 255);"></ion-icon>\n\n      </button> -->\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content style="background-image: url(\'assets/imgs/Registro.png\')" class="getstarContactos">\n\n  <div id="solicituViaje" *ngIf="viaje">\n\n    <br>\n\n    <div style="text-align: center;">\n\n      <h3>\n\n        <font style="font-size: 90%"> SOLICITUDES REALIZADAS</font>\n\n      </h3>\n\n      <h3>\n\n        <font style="font-size: 90%">Recorridos</font>\n\n      </h3>\n\n    </div>\n\n    <hr>\n\n    <div style="text-align: left;">\n\n      <h4>\n\n        <font>&nbsp;Notificaciones</font>\n\n      </h4>\n\n    </div>\n\n    <ion-list>\n\n      <ion-item *ngFor=" let listado of vectorViajes">\n\n        <!-- <ion-thumbnail item-start>\n\n          <ion-icon name="ios-car" style="cursor:pointer; font-size: 400%; color: #4266AE;   margin-left: auto;margin-right: auto; display: block; margin-top: 10px;"></ion-icon>\n\n\n\n        </ion-thumbnail> -->\n\n        <p>\n\n          <b>Raza: </b> {{listado.raza}}</p>\n\n        <p>\n\n          <b>Fecha Salida: </b> {{listado.fechaSalida}}</p>\n\n        <p>\n\n          <b>Hora Recogida: </b> {{listado.horarioR}}</p>\n\n        <p>\n\n          <b>Hora Entrega: </b> {{listado.horarioE}}</p>\n\n        <button ion-button clear item-end (click)="irDetalles(listado)">Ver</button>\n\n      </ion-item>\n\n    </ion-list>\n\n  </div>\n\n</ion-content>`/*ion-inline-end:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\solicitudes\solicitudes.html"*/
+            selector: "solicitudes",template:/*ion-inline-start:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/solicitudes/solicitudes.html"*/'<ion-header>\n  <ion-navbar hideBackButton color="colorapp">\n\n    <ion-buttons left>\n      <button\n        class="back-button disable-hover bar-button bar-button-md back-button-md bar-button-default bar-button-default-md show-back-button"\n        (click)="goBack();">\n        <ion-icon style="font-size: 170%; color:rgb(255, 255, 255);" name="arrow-back"></ion-icon>\n      </button>\n    </ion-buttons>\n\n\n    <!-- IOS //////////////////////////////////////////// -->\n    <ion-title style="padding-right: 0; padding-left: 20px;"><label left>Solicitud</label>\n      <!-- <button (click)="aparecerViaje()" style="background: transparent; left:0; right:0; max-width:50%; float: right; margin-right: 5%; display: block; max-height:100%;">\n        <ion-icon name="ios-car" style="cursor:pointer; font-size: 140%; color:rgb(255, 255, 255);"></ion-icon>\n      </button> -->\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content style="background-image: url(\'assets/imgs/Registro.png\')" class="getstarContactos">\n  <div id="solicituViaje" *ngIf="viaje">\n    <br>\n    <div style="text-align: center;">\n      <h3>\n        <font style="font-size: 90%"> SOLICITUDES REALIZADAS</font>\n      </h3>\n      <h3>\n        <font style="font-size: 90%">Recorridos</font>\n      </h3>\n    </div>\n    <hr>\n    <div style="text-align: left;">\n      <h4>\n        <font>&nbsp;Notificaciones</font>\n      </h4>\n    </div>\n    <ion-list>\n      <ion-item *ngFor=" let listado of vectorViajes">\n        <!-- <ion-thumbnail item-start>\n          <ion-icon name="ios-car" style="cursor:pointer; font-size: 400%; color: #4266AE;   margin-left: auto;margin-right: auto; display: block; margin-top: 10px;"></ion-icon>\n\n        </ion-thumbnail> -->\n        <p>\n          <b>Raza: </b> {{listado.raza}}</p>\n        <p>\n          <b>Fecha Salida: </b> {{listado.fechaSalida}}</p>\n        <p>\n          <b>Hora Recogida: </b> {{listado.horarioR}}</p>\n        <p>\n          <b>Hora Entrega: </b> {{listado.horarioE}}</p>\n        <button ion-button clear item-end (click)="irDetalles(listado)">Ver</button>\n      </ion-item>\n    </ion-list>\n  </div>\n</ion-content>'/*ion-inline-end:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/solicitudes/solicitudes.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__app_services_user_services__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_3__app_services_notificaciones_services__["a" /* NotificacionesService */]])
     ], SolicitudesPage);
@@ -417,7 +238,7 @@ webpackEmptyAsyncContext.id = 209;
 
 /***/ }),
 
-/***/ 23:
+/***/ 22:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -427,8 +248,8 @@ webpackEmptyAsyncContext.id = 209;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__global__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__ = __webpack_require__(299);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_solicitud__ = __webpack_require__(506);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_geolocation__ = __webpack_require__(300);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_solicitud__ = __webpack_require__(508);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -614,12 +435,13 @@ webpackEmptyAsyncContext.id = 253;
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegistroPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_home__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_services_global__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_services_user_services__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_models_user__ = __webpack_require__(507);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ionic_native_camera_ngx__ = __webpack_require__(299);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_services_global__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_services_user_services__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_models_user__ = __webpack_require__(509);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -635,18 +457,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 //import { PrincipalPage } from "../principal/principal";
 var RegistroPage = (function () {
-    function RegistroPage(navCtrl, _userService, alertCtrl, loadingCtrl) {
+    function RegistroPage(camera, navCtrl, _userService, alertCtrl, loadingCtrl) {
+        this.camera = camera;
         this.navCtrl = navCtrl;
         this._userService = _userService;
         this.alertCtrl = alertCtrl;
         this.loadingCtrl = loadingCtrl;
         this.verificarPassword = "";
         this.url2 = 'assets/imgs/tituloRegistro.png';
-        this.url = __WEBPACK_IMPORTED_MODULE_2__app_services_global__["a" /* GLOBAL */].url;
+        this.url = __WEBPACK_IMPORTED_MODULE_3__app_services_global__["a" /* GLOBAL */].url;
         this.miModelo = {};
-        this.user_register = new __WEBPACK_IMPORTED_MODULE_5__app_models_user__["a" /* User */]("", "", "", "", "", "", "", "", "", "");
+        this.user_register = new __WEBPACK_IMPORTED_MODULE_6__app_models_user__["a" /* User */]("", "", "", "", "", "", "", "", "", "");
+        var options = {
+            quality: 100,
+            destinationType: this.camera.DestinationType.FILE_URI,
+            encodingType: this.camera.EncodingType.JPEG,
+            mediaType: this.camera.MediaType.PICTURE
+        };
     }
     RegistroPage.prototype.verificarContrasenas = function () {
         console.log('contrasena >>', this.user_register.contrasena);
@@ -682,7 +512,7 @@ var RegistroPage = (function () {
                     setTimeout(function () {
                         _this.showAlertCorrecto("El Usuario ha sido Registrado satisfactoriamente. Ingrese su correo y contraseña");
                     }, 3000);
-                    _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_1__home_home__["a" /* HomePage */]);
+                    _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__home_home__["a" /* HomePage */]);
                 }, function (err) {
                     var errorMessage = err;
                     if (errorMessage) {
@@ -846,7 +676,7 @@ var RegistroPage = (function () {
         }
     };
     RegistroPage.prototype.goBack = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_1__home_home__["a" /* HomePage */]);
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__home_home__["a" /* HomePage */]);
     };
     RegistroPage.prototype.readUrl = function (event) {
         var _this = this;
@@ -883,14 +713,15 @@ var RegistroPage = (function () {
         });
     };
     RegistroPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: "page-registro",template:/*ion-inline-start:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\registro\registro.html"*/`<!-- EL HEADER NO VA EN ANDROID -->\n\n <ion-header>\n\n    <ion-navbar color="colorapp">\n\n      <ion-title >Registro</ion-title>\n\n    </ion-navbar>\n\n  </ion-header>\n\n\n\n<ion-content padding style="background-image: url(\'assets/imgs/Registro.png\')" class="getstar">\n\n  <!-- ESTO ACTIVAR PARA ANDROID  \n\n    <button (click)="goBack();" style="border:0;" class="back-button disable-hover bar-button bar-button-md back-button-md bar-button-default bar-button-default-md show-back-button">\n\n    <ion-icon style="font-size: 190%; color: #4266AE;" name="arrow-back"></ion-icon>\n\n  </button>   -->\n\n  <!-- HASTA AQUI  -->\n\n\n\n\n\n  <div class="Aligner-item Aligner-item--top"></div>\n\n\n\n  \n\n  <label class=" form-control fileContainer" style="border: none; ">\n\n    <img id="imganeTitulo" [src]="url2" style="display: block; width: 40%; ">\n\n    <input type=\'file\' id="nuestroinput" class="btn btn-primary" (change)="readUrl($event)" />\n\n    <p id="Titulo">Seria genial una foto con tus mascotas</p>\n\n  </label>\n\n  <div class="Aligner-item Aligner-item--bottom"></div>\n\n\n\n  <form #FormularioRegistro="ngForm" id="formRegistro">\n\n    <div id="formRegister">\n\n      <div style="top:0; bottom: 0;" class="item item-block">\n\n\n\n        <ion-grid>\n\n          <ion-row>\n\n            <ion-item >\n\n              <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n\n                <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/registroNombre.png">\n\n              </ion-icon>\n\n              <ion-input id="A1" type="text" [(ngModel)]="user_register.nombre" name="nombres" #nombres="ngModel" placeholder="Nombres" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*"\n\n                required></ion-input>\n\n              <!-- (keyup)="convertirMayuscula(user_register.nombre)"  -->\n\n            </ion-item>\n\n            <ion-item *ngIf="nombres.errors && (nombres.dirty || nombres.touched)">\n\n              <ion-icon name="alert" item-start color="danger"></ion-icon>\n\n              <p ion-text color="danger" [hidden]="!nombres.errors.pattern">Ingrese sólo caracteres alfabéticos</p>\n\n              <p ion-text color="danger" [hidden]="!nombres.errors.required">Campo requerido</p>\n\n            </ion-item>\n\n          </ion-row>\n\n          <ion-row>\n\n            <ion-item>\n\n              <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n\n                <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/registroNombre.png">\n\n              </ion-icon>\n\n              <ion-input id="A1" placeholder="Apellidos" #apellidos="ngModel" [(ngModel)]="user_register.apellido" name="apellidos" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ  ]*"\n\n                required></ion-input>\n\n            </ion-item>\n\n            <ion-item *ngIf="apellidos.errors && (apellidos.dirty || apellidos.touched)">\n\n              <ion-icon name="alert" item-start color="danger"></ion-icon>\n\n              <p ion-text color="danger" [hidden]="!apellidos.errors.pattern">Ingrese sólo caracteres alfabéticos</p>\n\n              <p ion-text color="danger" [hidden]="!apellidos.errors.required">Campo requerido</p>\n\n            </ion-item>\n\n          </ion-row>\n\n\n\n          <ion-row>\n\n            <ion-item>\n\n              <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n\n                <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/cedulaRegistro.png">\n\n              </ion-icon>\n\n\n\n              <ion-input id="A1"  placeholder="Cédula/DNI" #cedula="ngModel" [(ngModel)]="user_register.cedula" name="cedula"  digits \n\n                ></ion-input>\n\n            </ion-item>\n\n            \n\n\n\n          </ion-row>\n\n\n\n          <ion-row>\n\n            <ion-item>\n\n\n\n              <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n\n                <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/correroRegistro.png">\n\n              </ion-icon>\n\n\n\n              <ion-input id="A1"  placeholder="Correo" #correo="ngModel" [(ngModel)]="user_register.correo" name="correo" required email pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></ion-input>\n\n            </ion-item>\n\n            <ion-item *ngIf="correo.errors && (correo.dirty || correo.touched)">\n\n              <ion-icon name="alert" item-start color="danger"></ion-icon>\n\n              <p ion-text color="danger" [hidden]="!correo.errors.required">Campo requerido &nbsp;</p>\n\n              <p ion-text color="danger" [hidden]="!correo.errors.email">Correo inválido</p>\n\n              <p ion-text color="danger" [hidden]="!correo.errors.pattern">Caracteres invalidos</p>\n\n            </ion-item>\n\n          </ion-row>\n\n\n\n\n\n          <ion-row>\n\n            <ion-item>\n\n              <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n\n                <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/contrasenaRegistro.png">\n\n              </ion-icon>\n\n              <ion-input id="A1"  type="password" placeholder="Contraseña" #contrasena="ngModel" [(ngModel)]="user_register.contrasena" name="contrasena"\n\n                required minlength="6"></ion-input>\n\n            </ion-item>\n\n            <ion-item *ngIf="contrasena.errors && (contrasena.dirty || contrasena.touched)">\n\n              <ion-icon name="alert" item-start color="danger"></ion-icon>\n\n              <p ion-text color="danger" [hidden]="!contrasena.errors.required">Campo requerido &nbsp;</p>\n\n              <p ion-text color="danger" [hidden]="!contrasena.errors.minlength">Contraseña minima de 6 caracteres</p>\n\n            </ion-item>\n\n          </ion-row>\n\n\n\n          <ion-row>\n\n            <ion-item>\n\n              <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n\n                <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/contrasenaRegistro.png">\n\n              </ion-icon>\n\n              <ion-input id="A1"  type="password" placeholder="Confirmar Contraseña" #confirmContrasena="ngModel" [(ngModel)]="verificarPassword"\n\n                name="confirmContrasena" required [equalTo]="contrasena"></ion-input>\n\n            </ion-item>\n\n            <ion-item *ngIf="confirmContrasena.errors && (confirmContrasena.dirty || confirmContrasena.touched)">\n\n              <ion-icon name="alert" item-start color="danger"></ion-icon>\n\n              <p ion-text color="danger" [hidden]="!confirmContrasena.errors.required">Campo requerido &nbsp;</p>\n\n              <p ion-text color="danger" [hidden]="!confirmContrasena.errors.equalTo">La contraseña no coincide</p>\n\n            </ion-item>\n\n          </ion-row>\n\n\n\n          <ion-row>\n\n            <ion-item>\n\n              <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n\n                <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/telefonoCelRegistro.png">\n\n              </ion-icon>\n\n              <ion-input id="A1"  placeholder="Celular" #telefonoCel="ngModel" [(ngModel)]="user_register.tel_celular" name="telefonoCel" required\n\n                digits pattern="[0-9]*" minlength="10" maxlength="10"></ion-input>\n\n            </ion-item>\n\n            <ion-item *ngIf="telefonoCel.errors && (telefonoCel.dirty || telefonoCel.touched)">\n\n              <ion-icon name="alert" item-start color="danger"></ion-icon>\n\n              <p ion-text color="danger" [hidden]="!telefonoCel.errors.pattern">Ingrese sólo números</p>\n\n              <p ion-text color="danger" [hidden]="!telefonoCel.errors.minlength">Ingrese una número válido</p>\n\n              <p ion-text color="danger" [hidden]="!telefonoCel.errors.required">Campo requerido</p>\n\n            </ion-item>\n\n          </ion-row>\n\n\n\n          <ion-row>\n\n            <ion-item>\n\n              <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n\n                <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/telefonoCelRegistro.png">\n\n              </ion-icon>\n\n              <ion-input id="A1"  placeholder="Convencional" #convencional="ngModel" [(ngModel)]="user_register.tel_convencional" name="convencional"\n\n                 digits pattern="[0-9]*" minlength="6" maxlength="10"></ion-input>\n\n            </ion-item>\n\n            <ion-item *ngIf="convencional.errors && (convencional.dirty || convencional.touched)">\n\n              <ion-icon name="alert" item-start color="danger"></ion-icon>\n\n              <p ion-text color="danger" [hidden]="!convencional.errors.pattern">Ingrese sólo números</p>\n\n              <p ion-text color="danger" [hidden]="!convencional.errors.minlength">Ingrese un número válido</p>\n\n             \n\n            </ion-item>\n\n          </ion-row>\n\n        </ion-grid>\n\n      </div>\n\n      <br>\n\n      <button (click)="onRegister()" style="max-width: 100%; padding:0%; position:relative"><img src="assets/imgs/btnRegistro.png"\n\n        /></button>\n\n    </div>\n\n  </form>\n\n\n\n</ion-content>`/*ion-inline-end:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\registro\registro.html"*/,
-            providers: [__WEBPACK_IMPORTED_MODULE_4__app_services_user_services__["a" /* UserService */]]
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
+            selector: "page-registro",template:/*ion-inline-start:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/registro/registro.html"*/'<!-- EL HEADER NO VA EN ANDROID -->\n <ion-header>\n    <ion-navbar color="colorapp">\n      <ion-title >Registro</ion-title>\n    </ion-navbar>\n  </ion-header>\n\n<ion-content padding style="background-image: url(\'assets/imgs/Registro.png\')" class="getstar">\n  <!-- ESTO ACTIVAR PARA ANDROID  \n    <button (click)="goBack();" style="border:0;" class="back-button disable-hover bar-button bar-button-md back-button-md bar-button-default bar-button-default-md show-back-button">\n    <ion-icon style="font-size: 190%; color: #4266AE;" name="arrow-back"></ion-icon>\n  </button>   -->\n  <!-- HASTA AQUI  -->\n\n\n  <div class="Aligner-item Aligner-item--top"></div>\n\n  \n  <label class=" form-control fileContainer" style="border: none; ">\n    <img id="imganeTitulo" [src]="url2" style="display: block; width: 40%; ">\n    <input type=\'file\' id="nuestroinput" class="btn btn-primary" (change)="readUrl($event)" />\n    <p id="Titulo">Seria genial una foto con tus mascotas</p>\n  </label>\n  <div class="Aligner-item Aligner-item--bottom"></div>\n\n  <form #FormularioRegistro="ngForm" id="formRegistro">\n    <div id="formRegister">\n      <div style="top:0; bottom: 0;" class="item item-block">\n\n        <ion-grid>\n          <ion-row>\n            <ion-item >\n              <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n                <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/registroNombre.png">\n              </ion-icon>\n              <ion-input id="A1" type="text" [(ngModel)]="user_register.nombre" name="nombres" #nombres="ngModel" placeholder="Nombres" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*"\n                required></ion-input>\n              <!-- (keyup)="convertirMayuscula(user_register.nombre)"  -->\n            </ion-item>\n            <ion-item *ngIf="nombres.errors && (nombres.dirty || nombres.touched)">\n              <ion-icon name="alert" item-start color="danger"></ion-icon>\n              <p ion-text color="danger" [hidden]="!nombres.errors.pattern">Ingrese sólo caracteres alfabéticos</p>\n              <p ion-text color="danger" [hidden]="!nombres.errors.required">Campo requerido</p>\n            </ion-item>\n          </ion-row>\n          <ion-row>\n            <ion-item>\n              <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n                <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/registroNombre.png">\n              </ion-icon>\n              <ion-input id="A1" placeholder="Apellidos" #apellidos="ngModel" [(ngModel)]="user_register.apellido" name="apellidos" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚ  ]*"\n                required></ion-input>\n            </ion-item>\n            <ion-item *ngIf="apellidos.errors && (apellidos.dirty || apellidos.touched)">\n              <ion-icon name="alert" item-start color="danger"></ion-icon>\n              <p ion-text color="danger" [hidden]="!apellidos.errors.pattern">Ingrese sólo caracteres alfabéticos</p>\n              <p ion-text color="danger" [hidden]="!apellidos.errors.required">Campo requerido</p>\n            </ion-item>\n          </ion-row>\n\n          <ion-row>\n            <ion-item>\n              <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n                <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/cedulaRegistro.png">\n              </ion-icon>\n\n              <ion-input id="A1"  placeholder="Cédula/DNI" #cedula="ngModel" [(ngModel)]="user_register.cedula" name="cedula"  digits \n                ></ion-input>\n            </ion-item>\n            \n\n          </ion-row>\n\n          <ion-row>\n            <ion-item>\n\n              <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n                <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/correroRegistro.png">\n              </ion-icon>\n\n              <ion-input id="A1"  placeholder="Correo" #correo="ngModel" [(ngModel)]="user_register.correo" name="correo" required email pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"></ion-input>\n            </ion-item>\n            <ion-item *ngIf="correo.errors && (correo.dirty || correo.touched)">\n              <ion-icon name="alert" item-start color="danger"></ion-icon>\n              <p ion-text color="danger" [hidden]="!correo.errors.required">Campo requerido &nbsp;</p>\n              <p ion-text color="danger" [hidden]="!correo.errors.email">Correo inválido</p>\n              <p ion-text color="danger" [hidden]="!correo.errors.pattern">Caracteres invalidos</p>\n            </ion-item>\n          </ion-row>\n\n\n          <ion-row>\n            <ion-item>\n              <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n                <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/contrasenaRegistro.png">\n              </ion-icon>\n              <ion-input id="A1"  type="password" placeholder="Contraseña" #contrasena="ngModel" [(ngModel)]="user_register.contrasena" name="contrasena"\n                required minlength="6"></ion-input>\n            </ion-item>\n            <ion-item *ngIf="contrasena.errors && (contrasena.dirty || contrasena.touched)">\n              <ion-icon name="alert" item-start color="danger"></ion-icon>\n              <p ion-text color="danger" [hidden]="!contrasena.errors.required">Campo requerido &nbsp;</p>\n              <p ion-text color="danger" [hidden]="!contrasena.errors.minlength">Contraseña minima de 6 caracteres</p>\n            </ion-item>\n          </ion-row>\n\n          <ion-row>\n            <ion-item>\n              <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n                <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/contrasenaRegistro.png">\n              </ion-icon>\n              <ion-input id="A1"  type="password" placeholder="Confirmar Contraseña" #confirmContrasena="ngModel" [(ngModel)]="verificarPassword"\n                name="confirmContrasena" required [equalTo]="contrasena"></ion-input>\n            </ion-item>\n            <ion-item *ngIf="confirmContrasena.errors && (confirmContrasena.dirty || confirmContrasena.touched)">\n              <ion-icon name="alert" item-start color="danger"></ion-icon>\n              <p ion-text color="danger" [hidden]="!confirmContrasena.errors.required">Campo requerido &nbsp;</p>\n              <p ion-text color="danger" [hidden]="!confirmContrasena.errors.equalTo">La contraseña no coincide</p>\n            </ion-item>\n          </ion-row>\n\n          <ion-row>\n            <ion-item>\n              <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n                <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/telefonoCelRegistro.png">\n              </ion-icon>\n              <ion-input id="A1"  placeholder="Celular" #telefonoCel="ngModel" [(ngModel)]="user_register.tel_celular" name="telefonoCel" required\n                digits pattern="[0-9]*" minlength="10" maxlength="10"></ion-input>\n            </ion-item>\n            <ion-item *ngIf="telefonoCel.errors && (telefonoCel.dirty || telefonoCel.touched)">\n              <ion-icon name="alert" item-start color="danger"></ion-icon>\n              <p ion-text color="danger" [hidden]="!telefonoCel.errors.pattern">Ingrese sólo números</p>\n              <p ion-text color="danger" [hidden]="!telefonoCel.errors.minlength">Ingrese una número válido</p>\n              <p ion-text color="danger" [hidden]="!telefonoCel.errors.required">Campo requerido</p>\n            </ion-item>\n          </ion-row>\n\n          <ion-row>\n            <ion-item>\n              <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n                <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/telefonoCelRegistro.png">\n              </ion-icon>\n              <ion-input id="A1"  placeholder="Convencional" #convencional="ngModel" [(ngModel)]="user_register.tel_convencional" name="convencional"\n                 digits pattern="[0-9]*" minlength="6" maxlength="10"></ion-input>\n            </ion-item>\n            <ion-item *ngIf="convencional.errors && (convencional.dirty || convencional.touched)">\n              <ion-icon name="alert" item-start color="danger"></ion-icon>\n              <p ion-text color="danger" [hidden]="!convencional.errors.pattern">Ingrese sólo números</p>\n              <p ion-text color="danger" [hidden]="!convencional.errors.minlength">Ingrese un número válido</p>\n             \n            </ion-item>\n          </ion-row>\n        </ion-grid>\n      </div>\n      <br>\n      <button (click)="onRegister()" style="max-width: 100%; padding:0%; position:relative"><img src="assets/imgs/btnRegistro.png"\n        /></button>\n    </div>\n  </form>\n\n</ion-content>'/*ion-inline-end:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/registro/registro.html"*/,
+            providers: [__WEBPACK_IMPORTED_MODULE_5__app_services_user_services__["a" /* UserService */]]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["h" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_4__app_services_user_services__["a" /* UserService */],
-            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["a" /* AlertController */],
-            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["e" /* LoadingController */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__ionic_native_camera_ngx__["a" /* Camera */],
+            __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["h" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_5__app_services_user_services__["a" /* UserService */],
+            __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["a" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["e" /* LoadingController */]])
     ], RegistroPage);
     return RegistroPage;
 }());
@@ -899,18 +730,18 @@ var RegistroPage = (function () {
 
 /***/ }),
 
-/***/ 302:
+/***/ 303:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UbicacionInicioPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__agm_core__ = __webpack_require__(166);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_services_user_services__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ubicacion_final_ubicacion_final__ = __webpack_require__(400);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_models_paths_maps__ = __webpack_require__(401);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_services_user_services__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ubicacion_final_ubicacion_final__ = __webpack_require__(401);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_models_paths_maps__ = __webpack_require__(402);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1085,7 +916,7 @@ var UbicacionInicioPage = (function () {
     ], UbicacionInicioPage.prototype, "searchElementRef", void 0);
     UbicacionInicioPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: "page-ubicacion-inicio",template:/*ion-inline-start:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\ubicacion-inicio\ubicacion-inicio.html"*/`<ion-header>\n\n  <ion-navbar color="colorapp">\n\n    <ion-title>\n\n      Lugar de Salida\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content style="background-image: url(\'assets/imgs/fondo2.png\')" class="getstarUbicacionIn">\n\n\n\n  <br>\n\n\n\n  <ion-item (click)="detectarUbicacionInicio()" class="css-itemSelec">\n\n    <ion-icon name="locate"></ion-icon> Detectar Ubicación\n\n  </ion-item>\n\n\n\n  <ion-item class="css-txtAutocomplete">\n\n    <!-- <ion-label floating>Bus.car una dirección específica</ion-label> -->\n\n    <ion-input class="css-inputAutocomplete" id="txtHome" type="text" placeholder="¿Buscas una dirección en específico?" style="text-align: center;justify-content: center;"></ion-input>\n\n  </ion-item>\n\n\n\n  <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom" [zoomControl]="true" [mapTypeControl]="true"\n\n    (mapClick)="mapClicked($event)" (mapRightClick)="mapClicked($event)" (centerChange)="centrarMapa($event)">\n\n\n\n    <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true" [animation]="animation" (dragEnd)="markerDragEnd($event)">\n\n    </agm-marker>\n\n\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths1" strokeColor="#6E6E6E" [strokeOpacity]="0.6" [strokeWeight]="0"\n\n      [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n\n    </agm-polygon>\n\n\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths2" strokeColor="#6E6E6E" [strokeOpacity]="0.6" [strokeWeight]="0"\n\n      [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n\n    </agm-polygon>\n\n\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths3" strokeColor="#6E6E6E" [strokeOpacity]="0.6" [strokeWeight]="0"\n\n      [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n\n    </agm-polygon>\n\n\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths4" strokeColor="#6E6E6E" [strokeOpacity]="0.6" [strokeWeight]="0"\n\n      [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n\n    </agm-polygon>\n\n\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths5" strokeColor="#6E6E6E" [strokeOpacity]="0.6" [strokeWeight]="0"\n\n      [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n\n    </agm-polygon>\n\n\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths6" strokeColor="#6E6E6E" [strokeOpacity]="0.6" [strokeWeight]="0"\n\n      [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n\n    </agm-polygon>\n\n\n\n\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths6_1" strokeColor="#6E6E6E" [strokeOpacity]="0.6" [strokeWeight]="0"\n\n      [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n\n    </agm-polygon>\n\n\n\n  </agm-map>\n\n  <button ion-button color="colorapp" class="btnContinuar" (click)="irUbicacionFinal()">CONTINUAR</button>\n\n</ion-content>\n\n`/*ion-inline-end:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\ubicacion-inicio\ubicacion-inicio.html"*/,
+            selector: "page-ubicacion-inicio",template:/*ion-inline-start:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/ubicacion-inicio/ubicacion-inicio.html"*/'<ion-header>\n  <ion-navbar color="colorapp">\n    <ion-title>\n      Lugar de Salida\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content style="background-image: url(\'assets/imgs/fondo2.png\')" class="getstarUbicacionIn">\n\n  <br>\n\n  <ion-item (click)="detectarUbicacionInicio()" class="css-itemSelec">\n    <ion-icon name="locate"></ion-icon> Detectar Ubicación\n  </ion-item>\n\n  <ion-item class="css-txtAutocomplete">\n    <!-- <ion-label floating>Bus.car una dirección específica</ion-label> -->\n    <ion-input class="css-inputAutocomplete" id="txtHome" type="text" placeholder="¿Buscas una dirección en específico?" style="text-align: center;justify-content: center;"></ion-input>\n  </ion-item>\n\n  <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom" [zoomControl]="true" [mapTypeControl]="true"\n    (mapClick)="mapClicked($event)" (mapRightClick)="mapClicked($event)" (centerChange)="centrarMapa($event)">\n\n    <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true" [animation]="animation" (dragEnd)="markerDragEnd($event)">\n    </agm-marker>\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths1" strokeColor="#6E6E6E" [strokeOpacity]="0.6" [strokeWeight]="0"\n      [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n    </agm-polygon>\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths2" strokeColor="#6E6E6E" [strokeOpacity]="0.6" [strokeWeight]="0"\n      [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n    </agm-polygon>\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths3" strokeColor="#6E6E6E" [strokeOpacity]="0.6" [strokeWeight]="0"\n      [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n    </agm-polygon>\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths4" strokeColor="#6E6E6E" [strokeOpacity]="0.6" [strokeWeight]="0"\n      [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n    </agm-polygon>\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths5" strokeColor="#6E6E6E" [strokeOpacity]="0.6" [strokeWeight]="0"\n      [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n    </agm-polygon>\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths6" strokeColor="#6E6E6E" [strokeOpacity]="0.6" [strokeWeight]="0"\n      [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n    </agm-polygon>\n\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths6_1" strokeColor="#6E6E6E" [strokeOpacity]="0.6" [strokeWeight]="0"\n      [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n    </agm-polygon>\n\n  </agm-map>\n  <button ion-button color="colorapp" class="btnContinuar" (click)="irUbicacionFinal()">CONTINUAR</button>\n</ion-content>\n'/*ion-inline-end:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/ubicacion-inicio/ubicacion-inicio.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_4__app_services_user_services__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_6__app_models_paths_maps__["a" /* PathsMaps */]]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
@@ -1101,17 +932,17 @@ var UbicacionInicioPage = (function () {
 
 /***/ }),
 
-/***/ 400:
+/***/ 401:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UbicacionFinalPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__agm_core__ = __webpack_require__(166);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_services_user_services__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_models_paths_maps__ = __webpack_require__(401);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_services_user_services__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_models_paths_maps__ = __webpack_require__(402);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__principal_principal__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_services_notificaciones_services__ = __webpack_require__(70);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1318,7 +1149,7 @@ var UbicacionFinalPage = (function () {
     ], UbicacionFinalPage.prototype, "searchElementRef", void 0);
     UbicacionFinalPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: "page-ubicacion-final",template:/*ion-inline-start:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\ubicacion-final\ubicacion-final.html"*/`<ion-header>\n\n  <ion-navbar color="colorapp">\n\n    <ion-title>\n\n      Lugar de Llegada\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content style="background-image: url(\'assets/imgs/fondo2.png\')" class="getstarUbicacionIn">\n\n\n\n  <br>\n\n  <ion-item (click)="detectarUbicacionInicio()" class="css-itemSelec">\n\n    <ion-icon name="locate"></ion-icon> Detectar Ubicación\n\n  </ion-item>\n\n\n\n\n\n  <ion-item class="css-txtAutocomplete">\n\n    <!-- <ion-label floating>Buscar una dirección específica</ion-label> -->\n\n    <ion-input class="css-inputAutocomplete" id="txtHome1" type="text" placeholder="¿Buscas una dirección en específico?" style="text-align: center;justify-content: center;"></ion-input>\n\n  </ion-item>\n\n\n\n\n\n\n\n  <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom" [zoomControl]="true" (mapClick)="mapClicked($event)">\n\n    <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)" [animation]="animation">\n\n    </agm-marker>\n\n\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths1" strokeColor="#6E6E6E" [strokeOpacity]="0.6"\n\n      [strokeWeight]="0" [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n\n    </agm-polygon>\n\n\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths2" strokeColor="#6E6E6E" [strokeOpacity]="0.6"\n\n      [strokeWeight]="0" [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n\n    </agm-polygon>\n\n\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths3" strokeColor="#6E6E6E" [strokeOpacity]="0.6"\n\n      [strokeWeight]="0" [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n\n    </agm-polygon>\n\n\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths4" strokeColor="#6E6E6E" [strokeOpacity]="0.6"\n\n      [strokeWeight]="0" [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n\n    </agm-polygon>\n\n\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths5" strokeColor="#6E6E6E" [strokeOpacity]="0.6"\n\n      [strokeWeight]="0" [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n\n    </agm-polygon>\n\n\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths6" strokeColor="#6E6E6E" [strokeOpacity]="0.6"\n\n      [strokeWeight]="0" [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n\n    </agm-polygon>\n\n\n\n\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths6_1" strokeColor="#6E6E6E" [strokeOpacity]="0.6"\n\n      [strokeWeight]="0" [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n\n    </agm-polygon>\n\n\n\n  </agm-map>\n\n\n\n  <button ion-button color="colorapp" class="btnContinuar" (click)="showAlertEnviarViaje()">RESERVAR</button>\n\n</ion-content>`/*ion-inline-end:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\ubicacion-final\ubicacion-final.html"*/,
+            selector: "page-ubicacion-final",template:/*ion-inline-start:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/ubicacion-final/ubicacion-final.html"*/'<ion-header>\n  <ion-navbar color="colorapp">\n    <ion-title>\n      Lugar de Llegada\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content style="background-image: url(\'assets/imgs/fondo2.png\')" class="getstarUbicacionIn">\n\n  <br>\n  <ion-item (click)="detectarUbicacionInicio()" class="css-itemSelec">\n    <ion-icon name="locate"></ion-icon> Detectar Ubicación\n  </ion-item>\n\n\n  <ion-item class="css-txtAutocomplete">\n    <!-- <ion-label floating>Buscar una dirección específica</ion-label> -->\n    <ion-input class="css-inputAutocomplete" id="txtHome1" type="text" placeholder="¿Buscas una dirección en específico?" style="text-align: center;justify-content: center;"></ion-input>\n  </ion-item>\n\n\n\n  <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom" [zoomControl]="true" (mapClick)="mapClicked($event)">\n    <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true" (dragEnd)="markerDragEnd($event)" [animation]="animation">\n    </agm-marker>\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths1" strokeColor="#6E6E6E" [strokeOpacity]="0.6"\n      [strokeWeight]="0" [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n    </agm-polygon>\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths2" strokeColor="#6E6E6E" [strokeOpacity]="0.6"\n      [strokeWeight]="0" [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n    </agm-polygon>\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths3" strokeColor="#6E6E6E" [strokeOpacity]="0.6"\n      [strokeWeight]="0" [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n    </agm-polygon>\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths4" strokeColor="#6E6E6E" [strokeOpacity]="0.6"\n      [strokeWeight]="0" [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n    </agm-polygon>\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths5" strokeColor="#6E6E6E" [strokeOpacity]="0.6"\n      [strokeWeight]="0" [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n    </agm-polygon>\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths6" strokeColor="#6E6E6E" [strokeOpacity]="0.6"\n      [strokeWeight]="0" [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n    </agm-polygon>\n\n\n    <agm-polygon *ngIf="poligonoVer" fillColor="#6E6E6E" [fillOpacity]=0.6 [paths]="paths6_1" strokeColor="#6E6E6E" [strokeOpacity]="0.6"\n      [strokeWeight]="0" [visible]="true" [zIndex]="1" (polyClick)="polygonClicked($event)">\n    </agm-polygon>\n\n  </agm-map>\n\n  <button ion-button color="colorapp" class="btnContinuar" (click)="showAlertEnviarViaje()">RESERVAR</button>\n</ion-content>'/*ion-inline-end:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/ubicacion-final/ubicacion-final.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_4__app_services_user_services__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_5__app_models_paths_maps__["a" /* PathsMaps */], __WEBPACK_IMPORTED_MODULE_7__app_services_notificaciones_services__["a" /* NotificacionesService */]]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
@@ -1336,7 +1167,7 @@ var UbicacionFinalPage = (function () {
 
 /***/ }),
 
-/***/ 401:
+/***/ 402:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2461,20 +2292,20 @@ var PathsMaps = (function () {
 
 /***/ }),
 
-/***/ 402:
+/***/ 403:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConfirmacionPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_services_global__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__historial_historial__ = __webpack_require__(188);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_services_message_services__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_services_user_services__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_services_paypal_service__ = __webpack_require__(403);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_in_app_browser__ = __webpack_require__(404);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_services_correo_service__ = __webpack_require__(405);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_services_user_services__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_services_paypal_service__ = __webpack_require__(404);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_in_app_browser__ = __webpack_require__(405);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_services_correo_service__ = __webpack_require__(406);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2655,7 +2486,7 @@ var ConfirmacionPage = (function () {
     };
     ConfirmacionPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: "page-confirmacion",template:/*ion-inline-start:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\confirmacion\confirmacion.html"*/`<ion-header>\n\n  <ion-navbar color="colorapp">\n\n    <ion-title style="text-align: center;">\n\n      Confirmación de Paseo\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content style="background-image: url(\'assets/imgs/fondo2.png\')" class="principal">\n\n  <br>\n\n  <div class="container" style="width: 90%;">\n\n    <form class="form-principal">\n\n      <div>\n\n        <div>\n\n          <div class="col-lg-12 padre">\n\n            <img class="imagenes" [src]="url2">\n\n          </div>\n\n        </div>\n\n\n\n        <div class="princ_datos">\n\n\n\n          <div class="datos_chofer">\n\n            <ion-item style="padding: 0; margin: 0; ">\n\n              <ion-label style="font-size: 13px; font-weight: bold;">PASEADOR</ion-label>\n\n            </ion-item>\n\n\n\n            <hr style="padding: 0; margin: 0; border: 1px;">\n\n\n\n            <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">\n\n              <ion-item style="float: left; width:100%; background-color: transparent;">\n\n                <div style="width: 30%; font-size: 13px; color: #777777;">\n\n                  <label style="padding: 0; margin: 0;">Nombre:</label>\n\n                </div>\n\n                <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n\n                  <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{nombreChofer}}</label>\n\n                </div>\n\n              </ion-item>\n\n            </ion-list>\n\n            <hr style="padding: 0; margin: 0;">\n\n\n\n            <ion-item-divider style="font-size: 13px; background-color: transparent;">\n\n              Celular:\n\n              <div item-content style="padding-right: 5%;">\n\n                <label>{{celChofer}}</label>\n\n              </div>\n\n            </ion-item-divider>\n\n          </div>\n\n\n\n          <div class="datos_General">\n\n            <ion-item style="padding: 0; margin: 0; ">\n\n              <ion-label style="font-size: 13px; font-weight: bold;">DATOS GENERALES</ion-label>\n\n            </ion-item>\n\n            <hr style="padding: 0; margin: 0; border: 1px;">\n\n\n\n            <ion-list style="font-size: 13px; background-color: transparent; display:flex; width:100%; margin: 0; padding: 0;">\n\n              <ion-item style="float: left; width:100%; background-color: transparent;">\n\n                <div style="width: 30%; font-size: 13px; color: #777777;">\n\n                  <label style="padding: 0; margin: 0;">Nombre y Raza:</label>\n\n                </div>\n\n                <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n\n                  <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{raza}}</label>\n\n                </div>\n\n              </ion-item>\n\n            </ion-list>\n\n            <hr style="padding: 0; margin: 0;">\n\n\n\n            \n\n            <ion-list style="font-size: 13px; background-color: transparent; display:flex; width:100%; margin: 0; padding: 0;">\n\n              <ion-item style="float: left; width:100%; background-color: transparent;">\n\n                <div style="width: 30%; font-size: 13px; color: #777777;">\n\n                  <label style="padding: 0; margin: 0;">Edad:</label>\n\n                </div>\n\n                <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n\n                  <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{num_edad}}</label>\n\n                </div>\n\n              </ion-item>\n\n            </ion-list>\n\n            <hr style="padding: 0; margin: 0;">\n\n\n\n            <ion-list style="font-size: 13px; background-color: transparent; display:flex; width:100%; margin: 0; padding: 0;">\n\n              <ion-item style="float: left; width:100%; background-color: transparent;">\n\n                <div style="width: 30%; font-size: 13px; color: #777777;">\n\n                  <label style="padding: 0; margin: 0;">Fecha Salida:</label>\n\n                </div>\n\n                <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n\n                  <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{fechaSalida}}</label>\n\n                </div>\n\n              </ion-item>\n\n            </ion-list>\n\n            <hr style="padding: 0; margin: 0;">\n\n\n\n            <ion-list style="font-size: 13px; background-color: transparent; display:flex; width:100%; margin: 0; padding: 0;">\n\n              <ion-item style="float: left; width:100%; background-color: transparent;">\n\n                <div style="width: 30%; font-size: 13px; color: #777777;">\n\n                  <label style="padding: 0; margin: 0;">Hora Recogida:</label>\n\n                </div>\n\n                <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n\n                  <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{horarioR}}</label>\n\n                </div>\n\n              </ion-item>\n\n            </ion-list>\n\n            <hr style="padding: 0; margin: 0;">\n\n\n\n            <ion-list style="font-size: 13px; background-color: transparent; display:flex; width:100%; margin: 0; padding: 0;">\n\n              <ion-item style="float: left; width:100%; background-color: transparent;">\n\n                <div style="width: 30%; font-size: 13px; color: #777777;">\n\n                  <label style="padding: 0; margin: 0;">Hora Entrega:</label>\n\n                </div>\n\n                <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n\n                  <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{horarioE}}</label>\n\n                </div>\n\n              </ion-item>\n\n            </ion-list>\n\n            <hr style="padding: 0; margin: 0;">\n\n\n\n            <ion-list style="font-size: 13px; background-color: transparent; display:flex; width:100%; margin: 0; padding: 0;">\n\n              <ion-item style="float: left; width:100%; background-color: transparent;">\n\n                <div style="width: 30%; font-size: 13px; color: #777777;">\n\n                  <label style="padding: 0; margin: 0;">Precio:</label>\n\n                </div>\n\n                <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n\n                  <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{precio}}</label>\n\n                </div>\n\n              </ion-item>\n\n            </ion-list>\n\n            <hr style="padding: 0; margin: 0;">\n\n\n\n            <!-- <ion-item-divider style="font-size: 13px; background-color: transparent;">\n\n              Precio:\n\n              <div item-content style="padding-right: 5%;">\n\n                <label>$ {{precio}}</label>\n\n              </div>\n\n            </ion-item-divider>\n\n            <hr style="padding: 0; margin: 0;"> -->\n\n          </div>\n\n        </div>\n\n      </div>\n\n    </form>\n\n  </div>\n\n\n\n\n\n    <ion-row style="margin-left: 1%">\n\n      <ion-col  text-center>\n\n        <!-- <ion-note>Denunciar</ion-note> -->\n\n        <button style="padding: 5%; font-size: 80%"ion-button *ngIf=\'dirige\' (click)="calificar();" color="colorapp">\n\n          <ion-icon name=\'megaphone\'></ion-icon>&nbsp;&nbsp;&nbsp;Denunciar\n\n        </button>\n\n      </ion-col>\n\n      <ion-col  text-center>\n\n        <!-- <ion-note>Pago Online</ion-note> -->\n\n        <button style="padding: 5%; font-size: 80%" ion-button *ngIf=\'dirige\' (click)="confirmarPagoViaje();" color="colorapp">\n\n          <ion-icon name=\'cash\'></ion-icon>&nbsp;&nbsp;&nbsp;Pagar\n\n        </button>\n\n      </ion-col>\n\n      <ion-col  text-center>\n\n        <!-- <ion-note>Pago Online</ion-note> -->\n\n        <button  style=" padding: 5%; font-size: 80%" ion-button *ngIf=\'dirige\' (click)="showAlertCancelar();" color="colorapp">\n\n          <ion-icon name=\'close\'></ion-icon>&nbsp;&nbsp;&nbsp;Cancelar\n\n        </button>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-content>\n\n`/*ion-inline-end:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\confirmacion\confirmacion.html"*/,
+            selector: "page-confirmacion",template:/*ion-inline-start:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/confirmacion/confirmacion.html"*/'<ion-header>\n  <ion-navbar color="colorapp">\n    <ion-title style="text-align: center;">\n      Confirmación de Paseo\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content style="background-image: url(\'assets/imgs/fondo2.png\')" class="principal">\n  <br>\n  <div class="container" style="width: 90%;">\n    <form class="form-principal">\n      <div>\n        <div>\n          <div class="col-lg-12 padre">\n            <img class="imagenes" [src]="url2">\n          </div>\n        </div>\n\n        <div class="princ_datos">\n\n          <div class="datos_chofer">\n            <ion-item style="padding: 0; margin: 0; ">\n              <ion-label style="font-size: 13px; font-weight: bold;">PASEADOR</ion-label>\n            </ion-item>\n\n            <hr style="padding: 0; margin: 0; border: 1px;">\n\n            <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">\n              <ion-item style="float: left; width:100%; background-color: transparent;">\n                <div style="width: 30%; font-size: 13px; color: #777777;">\n                  <label style="padding: 0; margin: 0;">Nombre:</label>\n                </div>\n                <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n                  <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{nombreChofer}}</label>\n                </div>\n              </ion-item>\n            </ion-list>\n            <hr style="padding: 0; margin: 0;">\n\n            <ion-item-divider style="font-size: 13px; background-color: transparent;">\n              Celular:\n              <div item-content style="padding-right: 5%;">\n                <label>{{celChofer}}</label>\n              </div>\n            </ion-item-divider>\n          </div>\n\n          <div class="datos_General">\n            <ion-item style="padding: 0; margin: 0; ">\n              <ion-label style="font-size: 13px; font-weight: bold;">DATOS GENERALES</ion-label>\n            </ion-item>\n            <hr style="padding: 0; margin: 0; border: 1px;">\n\n            <ion-list style="font-size: 13px; background-color: transparent; display:flex; width:100%; margin: 0; padding: 0;">\n              <ion-item style="float: left; width:100%; background-color: transparent;">\n                <div style="width: 30%; font-size: 13px; color: #777777;">\n                  <label style="padding: 0; margin: 0;">Nombre y Raza:</label>\n                </div>\n                <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n                  <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{raza}}</label>\n                </div>\n              </ion-item>\n            </ion-list>\n            <hr style="padding: 0; margin: 0;">\n\n            \n            <ion-list style="font-size: 13px; background-color: transparent; display:flex; width:100%; margin: 0; padding: 0;">\n              <ion-item style="float: left; width:100%; background-color: transparent;">\n                <div style="width: 30%; font-size: 13px; color: #777777;">\n                  <label style="padding: 0; margin: 0;">Edad:</label>\n                </div>\n                <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n                  <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{num_edad}}</label>\n                </div>\n              </ion-item>\n            </ion-list>\n            <hr style="padding: 0; margin: 0;">\n\n            <ion-list style="font-size: 13px; background-color: transparent; display:flex; width:100%; margin: 0; padding: 0;">\n              <ion-item style="float: left; width:100%; background-color: transparent;">\n                <div style="width: 30%; font-size: 13px; color: #777777;">\n                  <label style="padding: 0; margin: 0;">Fecha Salida:</label>\n                </div>\n                <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n                  <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{fechaSalida}}</label>\n                </div>\n              </ion-item>\n            </ion-list>\n            <hr style="padding: 0; margin: 0;">\n\n            <ion-list style="font-size: 13px; background-color: transparent; display:flex; width:100%; margin: 0; padding: 0;">\n              <ion-item style="float: left; width:100%; background-color: transparent;">\n                <div style="width: 30%; font-size: 13px; color: #777777;">\n                  <label style="padding: 0; margin: 0;">Hora Recogida:</label>\n                </div>\n                <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n                  <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{horarioR}}</label>\n                </div>\n              </ion-item>\n            </ion-list>\n            <hr style="padding: 0; margin: 0;">\n\n            <ion-list style="font-size: 13px; background-color: transparent; display:flex; width:100%; margin: 0; padding: 0;">\n              <ion-item style="float: left; width:100%; background-color: transparent;">\n                <div style="width: 30%; font-size: 13px; color: #777777;">\n                  <label style="padding: 0; margin: 0;">Hora Entrega:</label>\n                </div>\n                <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n                  <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{horarioE}}</label>\n                </div>\n              </ion-item>\n            </ion-list>\n            <hr style="padding: 0; margin: 0;">\n\n            <ion-list style="font-size: 13px; background-color: transparent; display:flex; width:100%; margin: 0; padding: 0;">\n              <ion-item style="float: left; width:100%; background-color: transparent;">\n                <div style="width: 30%; font-size: 13px; color: #777777;">\n                  <label style="padding: 0; margin: 0;">Precio:</label>\n                </div>\n                <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n                  <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{precio}}</label>\n                </div>\n              </ion-item>\n            </ion-list>\n            <hr style="padding: 0; margin: 0;">\n\n            <!-- <ion-item-divider style="font-size: 13px; background-color: transparent;">\n              Precio:\n              <div item-content style="padding-right: 5%;">\n                <label>$ {{precio}}</label>\n              </div>\n            </ion-item-divider>\n            <hr style="padding: 0; margin: 0;"> -->\n          </div>\n        </div>\n      </div>\n    </form>\n  </div>\n\n\n    <ion-row style="margin-left: 1%">\n      <ion-col  text-center>\n        <!-- <ion-note>Denunciar</ion-note> -->\n        <button style="padding: 5%; font-size: 80%"ion-button *ngIf=\'dirige\' (click)="calificar();" color="colorapp">\n          <ion-icon name=\'megaphone\'></ion-icon>&nbsp;&nbsp;&nbsp;Denunciar\n        </button>\n      </ion-col>\n      <ion-col  text-center>\n        <!-- <ion-note>Pago Online</ion-note> -->\n        <button style="padding: 5%; font-size: 80%" ion-button *ngIf=\'dirige\' (click)="confirmarPagoViaje();" color="colorapp">\n          <ion-icon name=\'cash\'></ion-icon>&nbsp;&nbsp;&nbsp;Pagar\n        </button>\n      </ion-col>\n      <ion-col  text-center>\n        <!-- <ion-note>Pago Online</ion-note> -->\n        <button  style=" padding: 5%; font-size: 80%" ion-button *ngIf=\'dirige\' (click)="showAlertCancelar();" color="colorapp">\n          <ion-icon name=\'close\'></ion-icon>&nbsp;&nbsp;&nbsp;Cancelar\n        </button>\n      </ion-col>\n    </ion-row>\n  </ion-content>\n'/*ion-inline-end:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/confirmacion/confirmacion.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_7__ionic_native_in_app_browser__["a" /* InAppBrowser */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_4__app_services_message_services__["a" /* MessageService */], __WEBPACK_IMPORTED_MODULE_5__app_services_user_services__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_6__app_services_paypal_service__["a" /* PayPal */], __WEBPACK_IMPORTED_MODULE_8__app_services_correo_service__["a" /* EnvioEmail */]])
     ], ConfirmacionPage);
@@ -2666,7 +2497,7 @@ var ConfirmacionPage = (function () {
 
 /***/ }),
 
-/***/ 403:
+/***/ 404:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2712,7 +2543,7 @@ var PayPal = (function () {
 
 /***/ }),
 
-/***/ 405:
+/***/ 406:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2760,16 +2591,16 @@ var EnvioEmail = (function () {
 
 /***/ }),
 
-/***/ 406:
+/***/ 407:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CardsolicitudPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_solicitudes_solicitudes__ = __webpack_require__(189);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_services_message_services__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_services_user_services__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_services_user_services__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_services_notificaciones_services__ = __webpack_require__(70);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2854,7 +2685,7 @@ var CardsolicitudPage = (function () {
     };
     CardsolicitudPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: "page-cardsolicitud",template:/*ion-inline-start:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\cardsolicitud\cardsolicitud.html"*/`<ion-header>\n\n  <ion-navbar color="colorapp">\n\n    <ion-title style="text-align: center;">\n\n      Paseos Realizados\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding style="background-image: url(\'assets/imgs/fondo2.png\');" class="principal">\n\n  <div class="Aligner-item Aligner-item--top"></div>\n\n  <img id="imganeTitulo" src="assets/imgs/titulo.png" style=" width: 60%;">\n\n  <div class="Aligner-item Aligner-item--bottom"></div>\n\n  <ion-card>\n\n    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">\n\n      <ion-item style="float: left; width:100%; background-color: transparent;">\n\n        <div style="width: 30%; font-size: 13px;">\n\n          <label style="padding: 0; margin: 0;">Nombre y Raza:</label>\n\n        </div>\n\n        <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n\n          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{raza}}</label>\n\n        </div>\n\n      </ion-item>\n\n    </ion-list>\n\n\n\n    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">\n\n      <ion-item style="float: left; width:100%; background-color: transparent;">\n\n        <div style="width: 30%; font-size: 13px;">\n\n          <label style="padding: 0; margin: 0;">Edad:</label>\n\n        </div>\n\n        <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n\n          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{num_edad}}</label>\n\n        </div>\n\n      </ion-item>\n\n    </ion-list>\n\n\n\n    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">\n\n      <ion-item style="float: left; width:100%; background-color: transparent;">\n\n        <div style="width: 30%; font-size: 13px;">\n\n          <label style="padding: 0; margin: 0;">Fecha Salida:</label>\n\n        </div>\n\n        <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n\n          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{fechaSalida}}</label>\n\n        </div>\n\n      </ion-item>\n\n    </ion-list>\n\n\n\n    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">\n\n      <ion-item style="float: left; width:100%; background-color: transparent;">\n\n        <div style="width: 30%; font-size: 13px;">\n\n          <label style="padding: 0; margin: 0;">Hora Recogida:</label>\n\n        </div>\n\n        <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n\n          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{horarioR}}</label>\n\n        </div>\n\n      </ion-item>\n\n    </ion-list>\n\n\n\n    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">\n\n      <ion-item style="float: left; width:100%; background-color: transparent;">\n\n        <div style="width: 30%; font-size: 13px;">\n\n          <label style="padding: 0; margin: 0;">HorA Entrega:</label>\n\n        </div>\n\n        <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n\n          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{horarioE}}</label>\n\n        </div>\n\n      </ion-item>\n\n    </ion-list>\n\n\n\n    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">\n\n      <ion-item style="float: left; width:100%; background-color: transparent;">\n\n        <div style="width: 30%; font-size: 13px;">\n\n          <label style="padding: 0; margin: 0;">Estado:</label>\n\n        </div>\n\n        <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n\n          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{estado}}</label>\n\n        </div>\n\n      </ion-item>\n\n    </ion-list>\n\n\n\n    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">\n\n      <ion-item style="float: left; width:100%; background-color: transparent;">\n\n        <div style="width: 30%; font-size: 13px;">\n\n          <label style="padding: 0; margin: 0;">Información:</label>\n\n        </div>\n\n        <div item-content style="text-align: justify; float: left; width: 65%; font-size: 13px; color: #777777;">\n\n          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{informacion}}</label>\n\n        </div>\n\n      </ion-item>\n\n    </ion-list>\n\n\n\n    <ion-row>\n\n      <ion-col>\n\n        <button ion-button icon-start clear small>\n\n          <ion-icon name="checkmark"></ion-icon>\n\n          <div (click)="opciones();">Aceptar</div>\n\n        </button>\n\n      </ion-col>\n\n      <ion-col>\n\n        <button [disabled]="cancelarV" ion-button icon-start clear small>\n\n          <ion-icon name="close"></ion-icon>\n\n          <div (click)="CancelarSolicitud()">Cancelar Solicitud</div>\n\n        </button>\n\n      </ion-col>\n\n    </ion-row>\n\n  </ion-card>\n\n</ion-content>\n\n`/*ion-inline-end:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\cardsolicitud\cardsolicitud.html"*/,
+            selector: "page-cardsolicitud",template:/*ion-inline-start:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/cardsolicitud/cardsolicitud.html"*/'<ion-header>\n  <ion-navbar color="colorapp">\n    <ion-title style="text-align: center;">\n      Paseos Realizados\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding style="background-image: url(\'assets/imgs/fondo2.png\');" class="principal">\n  <div class="Aligner-item Aligner-item--top"></div>\n  <img id="imganeTitulo" src="assets/imgs/titulo.png" style=" width: 60%;">\n  <div class="Aligner-item Aligner-item--bottom"></div>\n  <ion-card>\n    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">\n      <ion-item style="float: left; width:100%; background-color: transparent;">\n        <div style="width: 30%; font-size: 13px;">\n          <label style="padding: 0; margin: 0;">Nombre y Raza:</label>\n        </div>\n        <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{raza}}</label>\n        </div>\n      </ion-item>\n    </ion-list>\n\n    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">\n      <ion-item style="float: left; width:100%; background-color: transparent;">\n        <div style="width: 30%; font-size: 13px;">\n          <label style="padding: 0; margin: 0;">Edad:</label>\n        </div>\n        <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{num_edad}}</label>\n        </div>\n      </ion-item>\n    </ion-list>\n\n    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">\n      <ion-item style="float: left; width:100%; background-color: transparent;">\n        <div style="width: 30%; font-size: 13px;">\n          <label style="padding: 0; margin: 0;">Fecha Salida:</label>\n        </div>\n        <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{fechaSalida}}</label>\n        </div>\n      </ion-item>\n    </ion-list>\n\n    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">\n      <ion-item style="float: left; width:100%; background-color: transparent;">\n        <div style="width: 30%; font-size: 13px;">\n          <label style="padding: 0; margin: 0;">Hora Recogida:</label>\n        </div>\n        <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{horarioR}}</label>\n        </div>\n      </ion-item>\n    </ion-list>\n\n    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">\n      <ion-item style="float: left; width:100%; background-color: transparent;">\n        <div style="width: 30%; font-size: 13px;">\n          <label style="padding: 0; margin: 0;">HorA Entrega:</label>\n        </div>\n        <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{horarioE}}</label>\n        </div>\n      </ion-item>\n    </ion-list>\n\n    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">\n      <ion-item style="float: left; width:100%; background-color: transparent;">\n        <div style="width: 30%; font-size: 13px;">\n          <label style="padding: 0; margin: 0;">Estado:</label>\n        </div>\n        <div item-content style="text-align: right; float: left; width: 65%; font-size: 13px; color: #777777;">\n          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{estado}}</label>\n        </div>\n      </ion-item>\n    </ion-list>\n\n    <ion-list style="font-size: 13px; display:flex; width:100%; padding: 0; margin: 0;">\n      <ion-item style="float: left; width:100%; background-color: transparent;">\n        <div style="width: 30%; font-size: 13px;">\n          <label style="padding: 0; margin: 0;">Información:</label>\n        </div>\n        <div item-content style="text-align: justify; float: left; width: 65%; font-size: 13px; color: #777777;">\n          <label style="padding: 0; margin: 0; margin-top: 10px; margin-bottom: 10px;">{{informacion}}</label>\n        </div>\n      </ion-item>\n    </ion-list>\n\n    <ion-row>\n      <ion-col>\n        <button ion-button icon-start clear small>\n          <ion-icon name="checkmark"></ion-icon>\n          <div (click)="opciones();">Aceptar</div>\n        </button>\n      </ion-col>\n      <ion-col>\n        <button [disabled]="cancelarV" ion-button icon-start clear small>\n          <ion-icon name="close"></ion-icon>\n          <div (click)="CancelarSolicitud()">Cancelar Solicitud</div>\n        </button>\n      </ion-col>\n    </ion-row>\n  </ion-card>\n</ion-content>\n'/*ion-inline-end:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/cardsolicitud/cardsolicitud.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_3__app_services_message_services__["a" /* MessageService */], __WEBPACK_IMPORTED_MODULE_4__app_services_user_services__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_5__app_services_notificaciones_services__["a" /* NotificacionesService */]])
     ], CardsolicitudPage);
@@ -2865,7 +2696,7 @@ var CardsolicitudPage = (function () {
 
 /***/ }),
 
-/***/ 407:
+/***/ 408:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2886,7 +2717,7 @@ var TerminosPage = (function () {
     }
     TerminosPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-terminos',template:/*ion-inline-start:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\terminos\terminos.html"*/`<ion-header>\n\n  <ion-navbar color="colorapp">\n\n    <button *ngIf="identity" ion-button menuToggle icon-only>\n\n      <ion-icon name=\'menu\'></ion-icon>\n\n    </button>\n\n    <ion-title style="text-align: center">Términos y condiciones</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n<!-- prueba -->\n\n<ion-content class="getstarContactos">\n\n  <br>\n\n  <div class="container">\n\n    <p align="justify">\n\n      Dogi es un servicio encargado en paseos caninos.\n\n      Se caracteriza por la comodidad, seguridad y puntualidad que ofrecemos a nuestros usuarios y sus mascotas.\n\n      El principal objetivo es ejecutar satisfacción a los requerimientos de nuestros usuarios, cumpliendo con las\n\n      reservas establecidas,\n\n      optimización de tiempo y seguridad, y así generar una imagen de confianza. Léalo con atención\n\n    </p>\n\n    <br>\n\n    <h3>Generales</h3>\n\n\n\n    <br>\n\n    <h4>Datos de identificación</h4>\n\n\n\n    <br>\n\n\n\n    <dl align="justify">\n\n      <dd>\n\n        <strong>1.</strong> Para la utilización del servicio es necesario que el usuario se registre e inicie sesión.\n\n        Debe de llenarse con la cédula de identidad válida. </dd>\n\n      <dd>\n\n        <strong>2.</strong> El usuario está en total libertad de reservar su viaje de acuerdo a sus preferencias bajo\n\n        las opciones de horarios, rutas y cupos disponibles.</dd>\n\n      <dd>\n\n        <strong>3.</strong> El usuario tendrá un buzón de sugerencias en la cual podrá dejar sus observaciones o quejas\n\n        para ser atendidas de forma directa</dd>\n\n      <dd>\n\n        <strong>4.</strong> El mapa previsto para su reserva está delimitado, asegúrese que su ruta esté dentro de los\n\n        límites establecidos. </dd>\n\n      <dd>\n\n        <strong>5.</strong> Al momento de realizar la petición se encontrará un aviso de precios aproximados por hora de\n\n        paseo.</dd>\n\n      <dd>\n\n        <strong>6.</strong> El usuario deberá de llenar la información adicional sobre su mascota solicitada en su\n\n        perfil: enfermedades,\n\n        IMPORTANTE: la mascota debe de tener una placa con su nombre (mascota) y número de contacto.\n\n      </dd>\n\n    </dl>\n\n    <br>\n\n\n\n    <h3>Precio, duración y forma de pago </h3>\n\n\n\n    <br>\n\n\n\n    <dl align="justify">\n\n      <dd>\n\n        <strong>1.</strong> Si el usuario desea realizar una reserva a una hora específica deberá de reservar con\n\n        máximo una hora de anterioridad.</dd>\n\n      <dd>\n\n        <strong>&nbsp;&nbsp;1.1.</strong> De igual manera el usuario puede reservar las veces necesite el paseo de su\n\n        mascota.\n\n        Pues los servidores lograrán agendar el paseo para el día y la hora indicada.</dd>\n\n      <dd><strong>&nbsp;&nbsp;1.2.</strong> Si el usuario necesita el paseo el mismo día que solicita\n\n        se tendrá que efectuar con una hora de anterioridad.</dd>\n\n      <dd>\n\n        <strong>2.</strong> El pago del servicio podrá ser efectuado en efectivo o podrá utilizar medios\n\n        electrónicos como tarjeta de crédito/ débito mediante la cuenta PayPal.</dd>\n\n      <dd><strong>&nbsp;&nbsp;2.1.</strong> El usuario debe de crearse una cuenta en PayPal.com para el pago inmediato\n\n        vía\n\n        electrónica y asumir que se cobrará un dólar y veinte y cinco centavos de dólares americanos (1,25 $) adicional\n\n      </dd>\n\n      <dd>\n\n        <strong>3.</strong> La duración mínima de paseo es de una hora.</dd>\n\n    </dl>\n\n\n\n    <br>\n\n\n\n    <h3>Responsabilidades </h3>\n\n    <h4>Garantías</h4>\n\n\n\n    <br>\n\n\n\n    <dl align="justify">\n\n      <dd>\n\n        <strong>- Siniestros</strong><br>\n\n        Dogi garantiza la seguridad de su mascota desde el momento de su recogida\n\n        hasta su momento de llegada, sin embargo, no garantizamos la seguridad en\n\n        siniestros fortuitos como: terremotos, diluvios, explosiones, accidentes\n\n        de tránsito, robo, hurto incendios, lesiones.\n\n      </dd>\n\n\n\n      <dd>\n\n        <strong>- Paseadores:</strong>Dogers</dd>\n\n      <dd>\n\n        <strong>- </strong> [ ] Dogi garantiza el seguimiento de la ruta y duración establecida por el usuario,\n\n        además del estado del paseador psicológicamente. Dogi selecciona a los mejores perfiles de paseadores\n\n        para llevar seguro y confiable a su mascota en todo momento. Dogi utiliza métodos psicológicos para evaluar el\n\n        desempeño de nuestros dogers.\n\n        Además de una entrevista personalizada.\n\n      </dd>\n\n\n\n      <dd>\n\n        <strong>- </strong>Dogi verifica que los paseadores no hayan tenido antecedentes penales o haber tenido algún\n\n        inconveniente\n\n        relacionado con maltrato animal.\n\n      </dd>\n\n\n\n    </dl>\n\n\n\n\n\n  </div>\n\n  <br>\n\n  <br>\n\n</ion-content>`/*ion-inline-end:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\terminos\terminos.html"*/,
+            selector: 'page-terminos',template:/*ion-inline-start:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/terminos/terminos.html"*/'<ion-header>\n  <ion-navbar color="colorapp">\n    <button *ngIf="identity" ion-button menuToggle icon-only>\n      <ion-icon name=\'menu\'></ion-icon>\n    </button>\n    <ion-title style="text-align: center">Términos y condiciones</ion-title>\n  </ion-navbar>\n</ion-header>\n<!-- prueba -->\n<ion-content class="getstarContactos">\n  <br>\n  <div class="container">\n    <p align="justify">\n      Dogi es un servicio encargado en paseos caninos.\n      Se caracteriza por la comodidad, seguridad y puntualidad que ofrecemos a nuestros usuarios y sus mascotas.\n      El principal objetivo es ejecutar satisfacción a los requerimientos de nuestros usuarios, cumpliendo con las\n      reservas establecidas,\n      optimización de tiempo y seguridad, y así generar una imagen de confianza. Léalo con atención\n    </p>\n    <br>\n    <h3>Generales</h3>\n\n    <br>\n    <h4>Datos de identificación</h4>\n\n    <br>\n\n    <dl align="justify">\n      <dd>\n        <strong>1.</strong> Para la utilización del servicio es necesario que el usuario se registre e inicie sesión.\n        Debe de llenarse con la cédula de identidad válida. </dd>\n      <dd>\n        <strong>2.</strong> El usuario está en total libertad de reservar su viaje de acuerdo a sus preferencias bajo\n        las opciones de horarios, rutas y cupos disponibles.</dd>\n      <dd>\n        <strong>3.</strong> El usuario tendrá un buzón de sugerencias en la cual podrá dejar sus observaciones o quejas\n        para ser atendidas de forma directa</dd>\n      <dd>\n        <strong>4.</strong> El mapa previsto para su reserva está delimitado, asegúrese que su ruta esté dentro de los\n        límites establecidos. </dd>\n      <dd>\n        <strong>5.</strong> Al momento de realizar la petición se encontrará un aviso de precios aproximados por hora de\n        paseo.</dd>\n      <dd>\n        <strong>6.</strong> El usuario deberá de llenar la información adicional sobre su mascota solicitada en su\n        perfil: enfermedades,\n        IMPORTANTE: la mascota debe de tener una placa con su nombre (mascota) y número de contacto.\n      </dd>\n    </dl>\n    <br>\n\n    <h3>Precio, duración y forma de pago </h3>\n\n    <br>\n\n    <dl align="justify">\n      <dd>\n        <strong>1.</strong> Si el usuario desea realizar una reserva a una hora específica deberá de reservar con\n        máximo una hora de anterioridad.</dd>\n      <dd>\n        <strong>&nbsp;&nbsp;1.1.</strong> De igual manera el usuario puede reservar las veces necesite el paseo de su\n        mascota.\n        Pues los servidores lograrán agendar el paseo para el día y la hora indicada.</dd>\n      <dd><strong>&nbsp;&nbsp;1.2.</strong> Si el usuario necesita el paseo el mismo día que solicita\n        se tendrá que efectuar con una hora de anterioridad.</dd>\n      <dd>\n        <strong>2.</strong> El pago del servicio podrá ser efectuado en efectivo o podrá utilizar medios\n        electrónicos como tarjeta de crédito/ débito mediante la cuenta PayPal.</dd>\n      <dd><strong>&nbsp;&nbsp;2.1.</strong> El usuario debe de crearse una cuenta en PayPal.com para el pago inmediato\n        vía\n        electrónica y asumir que se cobrará un dólar y veinte y cinco centavos de dólares americanos (1,25 $) adicional\n      </dd>\n      <dd>\n        <strong>3.</strong> La duración mínima de paseo es de una hora.</dd>\n    </dl>\n\n    <br>\n\n    <h3>Responsabilidades </h3>\n    <h4>Garantías</h4>\n\n    <br>\n\n    <dl align="justify">\n      <dd>\n        <strong>- Siniestros</strong><br>\n        Dogi garantiza la seguridad de su mascota desde el momento de su recogida\n        hasta su momento de llegada, sin embargo, no garantizamos la seguridad en\n        siniestros fortuitos como: terremotos, diluvios, explosiones, accidentes\n        de tránsito, robo, hurto incendios, lesiones.\n      </dd>\n\n      <dd>\n        <strong>- Paseadores:</strong>Dogers</dd>\n      <dd>\n        <strong>- </strong> [ ] Dogi garantiza el seguimiento de la ruta y duración establecida por el usuario,\n        además del estado del paseador psicológicamente. Dogi selecciona a los mejores perfiles de paseadores\n        para llevar seguro y confiable a su mascota en todo momento. Dogi utiliza métodos psicológicos para evaluar el\n        desempeño de nuestros dogers.\n        Además de una entrevista personalizada.\n      </dd>\n\n      <dd>\n        <strong>- </strong>Dogi verifica que los paseadores no hayan tenido antecedentes penales o haber tenido algún\n        inconveniente\n        relacionado con maltrato animal.\n      </dd>\n\n    </dl>\n\n\n  </div>\n  <br>\n  <br>\n</ion-content>'/*ion-inline-end:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/terminos/terminos.html"*/,
         }),
         __metadata("design:paramtypes", [])
     ], TerminosPage);
@@ -2897,14 +2728,14 @@ var TerminosPage = (function () {
 
 /***/ }),
 
-/***/ 408:
+/***/ 409:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MiCuenta; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_services_user_services__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_services_user_services__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_services_global__ = __webpack_require__(42);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3041,18 +2872,18 @@ var MiCuenta = (function () {
         var bool_apellidos = this.soloLetras(this.identity.apellido);
         var bool_celular = this.soloNumeros(this.identity.tel_celular);
         var bool_telefono = this.soloNumeros(this.identity.tel_convencional);
-        var bool_cedula = this.validarCedula();
+        //var bool_cedula = this.validarCedula();
         if (this.identity.cedula == "" ||
             this.identity.nombre == "" ||
             this.identity.apellido == "" ||
             this.identity.correo == "" ||
             this.identity.tel_celular == "" ||
             this.identity.tel_convencional == "" ||
+            // !bool_cedula||
             bool_nombres ||
             bool_apellidos ||
             bool_celular ||
-            bool_telefono ||
-            !bool_cedula) {
+            bool_telefono) {
             return false;
         }
         else {
@@ -3156,7 +2987,7 @@ var MiCuenta = (function () {
     };
     MiCuenta = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-mi_cuenta',template:/*ion-inline-start:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\mi_cuenta\mi_cuenta.html"*/`<ion-header>\n\n  <ion-navbar color="colorapp">\n\n    <button ion-button menuToggle icon-only>\n\n      <ion-icon name=\'menu\'></ion-icon>\n\n    </button>\n\n    <ion-title style="float: left;">\n\n      Mi Cuenta\n\n    </ion-title>\n\n\n\n    <button (click)="toggleDisable()"\n\n    style="background: transparent; left:0; right:0; max-width:40px; float: right; margin-right: 15%; display: block; max-height:100%;">\n\n    <ion-icon  style="cursor:pointer; font-size: 140%; color:rgb(255, 255, 255);">  <img src="assets/imgs/lapizEditar.png"></ion-icon>\n\n  </button>\n\n\n\n\n\n    <!-- <button (click)="toggleDisable()" style="background: transparent; left:0; right:0; max-width:10%; float: right; margin-right: 5%; display: block; max-height:100%; display: flex;\n\n      align-items: center; justify-content: center;">\n\n      <ion-icon item-left>\n\n         <img src="assets/imgs/lapizEditar.png"> -->\n\n      <!-- </ion-icon> -->\n\n    <!--</button> -->\n\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content style="background-image: url(\'assets/imgs/Registro.png\')" class="getstarCuenta">\n\n  <br>\n\n  <h1 style="text-align: center">Mi cuenta</h1>\n\n  <br>\n\n  <label class=" form-control fileContainer" style="border: none; ">\n\n    <img id="imganeTitulo" [src]="url2" style="display: block; width: 40%; ">\n\n    <input type=\'file\' id="nuestroinput" class="btn btn-primary" (change)="readUrl($event)" />\n\n    \n\n  </label>\n\n  <form #FormularioUpdate="ngForm" (ngSubmit)="onUpdate()" id="formUpdate">\n\n\n\n\n\n    <ion-list>\n\n\n\n      <ion-item>\n\n        <ion-label fixed>Nombres:</ion-label>\n\n        <ion-input [disabled]=\'disableTextbox\' style="text-align: center;" #nombres="ngModel" [(ngModel)]="identity.nombre" name="nombres"\n\n          type="text" value="" pattern="[a-zA-Z ]*" required></ion-input>\n\n      </ion-item>\n\n      <ion-item *ngIf="nombres.errors && (nombres.dirty || nombres.touched)">\n\n        <ion-icon name="alert" item-start color="danger"></ion-icon>\n\n        <p ion-text color="danger" [hidden]="!nombres.errors.pattern">Ingrese sólo caracteres alfabéticos</p>\n\n        <p ion-text color="danger" [hidden]="!nombres.errors.required">Campo requerido</p>\n\n      </ion-item>\n\n\n\n      <ion-item>\n\n        <ion-label fixed>Apellidos:</ion-label>\n\n        <ion-input [disabled]=\'disableTextbox\' #apellidos="ngModel" [(ngModel)]="identity.apellido" name="apellidos" type="text"\n\n          value="" pattern="[a-zA-Z ]*" required></ion-input>\n\n      </ion-item>\n\n      <ion-item *ngIf="apellidos.errors && (apellidos.dirty || apellidos.touched)">\n\n        <ion-icon name="alert" item-start color="danger"></ion-icon>\n\n        <p ion-text color="danger" [hidden]="!apellidos.errors.pattern">Ingrese sólo caracteres alfabéticos</p>\n\n        <p ion-text color="danger" [hidden]="!apellidos.errors.required">Campo requerido</p>\n\n      </ion-item>\n\n\n\n      <ion-item>\n\n        <ion-label fixed>Cedula:</ion-label>\n\n        <ion-input [disabled]=\'disableCedula\' #cedula="ngModel" [(ngModel)]="identity.cedula" name="cedula" type="text" value=""\n\n          required digits pattern="[0-9]*" (keyup)="validarCedula()" minlength="10" maxlength="10"></ion-input>\n\n      </ion-item>\n\n      <ion-item *ngIf="cedula.errors && (cedula.dirty || cedula.touched)">\n\n        <ion-icon name="alert" item-start color="danger"></ion-icon>\n\n        <p ion-text color="danger" [hidden]="!cedula.errors.pattern">Ingrese sólo números</p>\n\n        <p ion-text color="danger" [hidden]="!cedula.errors.minlength">Ingrese una cedula válida</p>\n\n        <p ion-text color="danger" [hidden]="!cedula.errors.required">Campo requerido</p>\n\n      </ion-item>\n\n\n\n      <ion-item>\n\n        <ion-label fixed>Correo:</ion-label>\n\n        <ion-input [disabled]=\'disableTextbox\' #correo="ngModel" [(ngModel)]="identity.correo" name="correo" type="text" value="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"\n\n          required email></ion-input>\n\n      </ion-item>\n\n      <ion-item *ngIf="correo.errors && (correo.dirty || correo.touched)">\n\n        <ion-icon name="alert" item-start color="danger"></ion-icon>\n\n        <p ion-text color="danger" [hidden]="!correo.errors.required">Campo requerido &nbsp;</p>\n\n        <p ion-text color="danger" [hidden]="!correo.errors.email">Correo invalido</p>\n\n        <p ion-text color="danger" [hidden]="!correo.errors.pattern">Correo no mayusculas</p>\n\n      </ion-item>\n\n\n\n      <ion-item>\n\n        <ion-label fixed>Celular:</ion-label>\n\n        <ion-input [disabled]=\'disableTextbox\' #celular="ngModel" [(ngModel)]="identity.tel_celular" name="celular" type="text" value=""\n\n          required digits pattern="[0-9]*" minlength="10" maxlength="10"></ion-input>\n\n      </ion-item>\n\n      <ion-item *ngIf="celular.errors && (celular.dirty || celular.touched)">\n\n        <ion-icon name="alert" item-start color="danger"></ion-icon>\n\n        <p ion-text color="danger" [hidden]="!celular.errors.pattern">Ingrese sólo números</p>\n\n        <p ion-text color="danger" [hidden]="!celular.errors.minlength">Ingrese una número válido</p>\n\n        <p ion-text color="danger" [hidden]="!celular.errors.required">Campo requerido</p>\n\n      </ion-item>\n\n\n\n      <ion-item>\n\n        <ion-label fixed>Convencional:</ion-label>\n\n        <ion-input [disabled]=\'disableTextbox\' #convencional="ngModel" [(ngModel)]="identity.tel_convencional" name="convencional"\n\n          type="text" value="" required digits pattern="[0-9]*" minlength="6" maxlength="10"></ion-input>\n\n      </ion-item>\n\n      <ion-item *ngIf="convencional.errors && (convencional.dirty || convencional.touched)">\n\n        <ion-icon name="alert" item-start color="danger"></ion-icon>\n\n        <p ion-text color="danger" [hidden]="!convencional.errors.pattern">Ingrese sólo números</p>\n\n        <p ion-text color="danger" [hidden]="!convencional.errors.minlength">Ingrese un número válido</p>\n\n        <p ion-text color="danger" [hidden]="!convencional.errors.required">Campo requerido</p>\n\n      </ion-item>\n\n    </ion-list>\n\n    <input type="submit" src="assets/imgs/btnGuardarCambios.png" type="image" style="margin: auto; display: block ;max-width: 75%; display: block">\n\n  </form>\n\n</ion-content>`/*ion-inline-end:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\mi_cuenta\mi_cuenta.html"*/,
+            selector: 'page-mi_cuenta',template:/*ion-inline-start:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/mi_cuenta/mi_cuenta.html"*/'<ion-header>\n  <ion-navbar color="colorapp">\n    <button ion-button menuToggle icon-only>\n      <ion-icon name=\'menu\'></ion-icon>\n    </button>\n    <ion-title style="float: left;">\n      Mi Cuenta\n    </ion-title>\n\n    <button (click)="toggleDisable()"\n    style="background: transparent; left:0; right:0; max-width:40px; float: right; margin-right: 15%; display: block; max-height:100%;">\n    <ion-icon  style="cursor:pointer; font-size: 140%; color:rgb(255, 255, 255);">  <img src="assets/imgs/lapizEditar.png"></ion-icon>\n  </button>\n\n\n    <!-- <button (click)="toggleDisable()" style="background: transparent; left:0; right:0; max-width:10%; float: right; margin-right: 5%; display: block; max-height:100%; display: flex;\n      align-items: center; justify-content: center;">\n      <ion-icon item-left>\n         <img src="assets/imgs/lapizEditar.png"> -->\n      <!-- </ion-icon> -->\n    <!--</button> -->\n  </ion-navbar>\n</ion-header>\n<ion-content style="background-image: url(\'assets/imgs/Registro.png\')" class="getstarCuenta">\n  <br>\n  <h1 style="text-align: center">Mi cuenta</h1>\n  <br>\n  <label class=" form-control fileContainer" style="border: none; ">\n    <img id="imganeTitulo" [src]="url2" style="display: block; width: 40%; ">\n    <input type=\'file\' id="nuestroinput" class="btn btn-primary" (change)="readUrl($event)" />\n    \n  </label>\n  <form #FormularioUpdate="ngForm" (ngSubmit)="onUpdate()" id="formUpdate">\n\n\n    <ion-list>\n\n      <ion-item>\n        <ion-label fixed>Nombres:</ion-label>\n        <ion-input [disabled]=\'disableTextbox\' style="text-align: center;" #nombres="ngModel" [(ngModel)]="identity.nombre" name="nombres"\n          type="text" value="" pattern="[a-zA-Z ]*" required></ion-input>\n      </ion-item>\n      <ion-item *ngIf="nombres.errors && (nombres.dirty || nombres.touched)">\n        <ion-icon name="alert" item-start color="danger"></ion-icon>\n        <p ion-text color="danger" [hidden]="!nombres.errors.pattern">Ingrese sólo caracteres alfabéticos</p>\n        <p ion-text color="danger" [hidden]="!nombres.errors.required">Campo requerido</p>\n      </ion-item>\n\n      <ion-item>\n        <ion-label fixed>Apellidos:</ion-label>\n        <ion-input [disabled]=\'disableTextbox\' #apellidos="ngModel" [(ngModel)]="identity.apellido" name="apellidos" type="text"\n          value="" pattern="[a-zA-Z ]*" required></ion-input>\n      </ion-item>\n      <ion-item *ngIf="apellidos.errors && (apellidos.dirty || apellidos.touched)">\n        <ion-icon name="alert" item-start color="danger"></ion-icon>\n        <p ion-text color="danger" [hidden]="!apellidos.errors.pattern">Ingrese sólo caracteres alfabéticos</p>\n        <p ion-text color="danger" [hidden]="!apellidos.errors.required">Campo requerido</p>\n      </ion-item>\n\n      <ion-item>\n        <ion-label fixed>Cedula:</ion-label>\n        <ion-input [disabled]=\'disableCedula\' #cedula="ngModel" [(ngModel)]="identity.cedula" name="cedula" type="text" value=""\n          required digits pattern="[0-9]*" (keyup)="validarCedula()" minlength="10" maxlength="10"></ion-input>\n      </ion-item>\n      <ion-item *ngIf="cedula.errors && (cedula.dirty || cedula.touched)">\n        <ion-icon name="alert" item-start color="danger"></ion-icon>\n        <p ion-text color="danger" [hidden]="!cedula.errors.pattern">Ingrese sólo números</p>\n        <p ion-text color="danger" [hidden]="!cedula.errors.minlength">Ingrese una cedula válida</p>\n        <p ion-text color="danger" [hidden]="!cedula.errors.required">Campo requerido</p>\n      </ion-item>\n\n      <ion-item>\n        <ion-label fixed>Correo:</ion-label>\n        <ion-input [disabled]=\'disableTextbox\' #correo="ngModel" [(ngModel)]="identity.correo" name="correo" type="text" value="" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"\n          required email></ion-input>\n      </ion-item>\n      <ion-item *ngIf="correo.errors && (correo.dirty || correo.touched)">\n        <ion-icon name="alert" item-start color="danger"></ion-icon>\n        <p ion-text color="danger" [hidden]="!correo.errors.required">Campo requerido &nbsp;</p>\n        <p ion-text color="danger" [hidden]="!correo.errors.email">Correo invalido</p>\n        <p ion-text color="danger" [hidden]="!correo.errors.pattern">Correo no mayusculas</p>\n      </ion-item>\n\n      <ion-item>\n        <ion-label fixed>Celular:</ion-label>\n        <ion-input [disabled]=\'disableTextbox\' #celular="ngModel" [(ngModel)]="identity.tel_celular" name="celular" type="text" value=""\n          required digits pattern="[0-9]*" minlength="10" maxlength="10"></ion-input>\n      </ion-item>\n      <ion-item *ngIf="celular.errors && (celular.dirty || celular.touched)">\n        <ion-icon name="alert" item-start color="danger"></ion-icon>\n        <p ion-text color="danger" [hidden]="!celular.errors.pattern">Ingrese sólo números</p>\n        <p ion-text color="danger" [hidden]="!celular.errors.minlength">Ingrese una número válido</p>\n        <p ion-text color="danger" [hidden]="!celular.errors.required">Campo requerido</p>\n      </ion-item>\n\n      <ion-item>\n        <ion-label fixed>Convencional:</ion-label>\n        <ion-input [disabled]=\'disableTextbox\' #convencional="ngModel" [(ngModel)]="identity.tel_convencional" name="convencional"\n          type="text" value="" required digits pattern="[0-9]*" minlength="6" maxlength="10"></ion-input>\n      </ion-item>\n      <ion-item *ngIf="convencional.errors && (convencional.dirty || convencional.touched)">\n        <ion-icon name="alert" item-start color="danger"></ion-icon>\n        <p ion-text color="danger" [hidden]="!convencional.errors.pattern">Ingrese sólo números</p>\n        <p ion-text color="danger" [hidden]="!convencional.errors.minlength">Ingrese un número válido</p>\n        <p ion-text color="danger" [hidden]="!convencional.errors.required">Campo requerido</p>\n      </ion-item>\n    </ion-list>\n    <input type="submit" src="assets/imgs/btnGuardarCambios.png" type="image" style="margin: auto; display: block ;max-width: 75%; display: block">\n  </form>\n</ion-content>'/*ion-inline-end:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/mi_cuenta/mi_cuenta.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_2__app_services_user_services__["a" /* UserService */]]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
@@ -3171,15 +3002,15 @@ var MiCuenta = (function () {
 
 /***/ }),
 
-/***/ 409:
+/***/ 410:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContactosPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_services_user_services__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_call_number__ = __webpack_require__(410);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_email_composer__ = __webpack_require__(411);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_services_user_services__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_call_number__ = __webpack_require__(411);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_email_composer__ = __webpack_require__(412);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3224,7 +3055,7 @@ var ContactosPage = (function () {
     };
     ContactosPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-contacto',template:/*ion-inline-start:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\contactanos\contactanos.html"*/`<!-- <ion-header>\n\n  <ion-navbar color="colorapp">\n\n    <button *ngIf="identity" ion-button menuToggle icon-only>\n\n      <ion-icon name=\'menu\'></ion-icon>\n\n    </button>\n\n    <ion-title style="text-align: center;">Contáctanos</ion-title>\n\n  </ion-navbar>\n\n</ion-header> -->\n\n\n\n<ion-header>\n\n  <ion-navbar color="colorapp">\n\n      <button ion-button menuToggle icon-only>\n\n          <ion-icon name=\'menu\'></ion-icon>\n\n      </button>\n\n      <ion-title style="text-align: center;">Contáctanos</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content style="background-image: url(\'assets/imgs/Registro.png\')" class="getstarContactos">\n\n  <br>\n\n  <br>\n\n  <ion-list>\n\n    <button ion-item class="btn-cb" (click)="llama()">\n\n      <img src="assets/imgs/contactoTcel.png" style="width: 17% ;padding-right: 5%"> 0987791602\n\n    </button>\n\n   \n\n\n\n    \n\n    <button   (click)="enviarEmail()" ion-item class="btn-cb">\n\n      <img   src="assets/imgs/contactoCorreo.png" style="width: 17% ;padding-right: 5%"> E-mail\n\n    </button>\n\n  </ion-list>\n\n</ion-content>`/*ion-inline-end:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\contactanos\contactanos.html"*/,
+            selector: 'page-contacto',template:/*ion-inline-start:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/contactanos/contactanos.html"*/'<!-- <ion-header>\n  <ion-navbar color="colorapp">\n    <button *ngIf="identity" ion-button menuToggle icon-only>\n      <ion-icon name=\'menu\'></ion-icon>\n    </button>\n    <ion-title style="text-align: center;">Contáctanos</ion-title>\n  </ion-navbar>\n</ion-header> -->\n\n<ion-header>\n  <ion-navbar color="colorapp">\n      <button ion-button menuToggle icon-only>\n          <ion-icon name=\'menu\'></ion-icon>\n      </button>\n      <ion-title style="text-align: center;">Contáctanos</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content style="background-image: url(\'assets/imgs/Registro.png\')" class="getstarContactos">\n  <br>\n  <br>\n  <ion-list>\n    <button ion-item class="btn-cb" (click)="llama()">\n      <img src="assets/imgs/contactoTcel.png" style="width: 17% ;padding-right: 5%"> 0987791602\n    </button>\n   \n\n    \n    <button   (click)="enviarEmail()" ion-item class="btn-cb">\n      <img   src="assets/imgs/contactoCorreo.png" style="width: 17% ;padding-right: 5%"> E-mail\n    </button>\n  </ion-list>\n</ion-content>'/*ion-inline-end:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/contactanos/contactanos.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_1__app_services_user_services__["a" /* UserService */]]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__app_services_user_services__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_call_number__["a" /* CallNumber */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_email_composer__["a" /* EmailComposer */]])
@@ -3236,14 +3067,14 @@ var ContactosPage = (function () {
 
 /***/ }),
 
-/***/ 412:
+/***/ 413:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContrasenaPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_services_user_services__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_services_user_services__ = __webpack_require__(22);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3349,7 +3180,7 @@ var ContrasenaPage = (function () {
     };
     ContrasenaPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-contrasena',template:/*ion-inline-start:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\contrasena\contrasena.html"*/`<ion-header>\n\n    <ion-navbar color="colorapp">\n\n        <button ion-button menuToggle icon-only>\n\n            <ion-icon name=\'menu\'></ion-icon>\n\n        </button>\n\n        <ion-title style="text-align: center;">Cambiar contraseña</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content style=" background-image: url(\'assets/imgs/Registro.png\')" class="getstarContactos">\n\n    <form #FormularioRegistro="ngForm" id="formRegistro">\n\n        <div class="container" id="padre">\n\n            <div style="padding: 10%;" id="hijo">\n\n <!-- srsrtfsgsfs -->\n\n                <div class="Aligner-item Aligner-item--top"></div>\n\n                <img id="imganeTitulo" src="assets/imgs/titulo.png" style="width: 70%;">\n\n                <div style="margin-top: 40px;" class="Aligner-item Aligner-item--bottom"></div>\n\n                <ion-row>\n\n                    <ion-item>\n\n                        <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n\n                            <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/contrasenaRegistro.png">\n\n                        </ion-icon>\n\n                        <ion-input [type]="getType()" #ContrasenaNueva="ngModel" [(ngModel)]="contrasenaNueva" type="password" placeholder="Contraseña nueva"\n\n                            name="contrasena" required minlength="6"></ion-input>\n\n                    </ion-item>\n\n                    <ion-item *ngIf="ContrasenaNueva.errors && (ContrasenaNueva.dirty || ContrasenaNueva.touched)">\n\n                        <ion-icon name="alert" item-start color="danger"></ion-icon>\n\n                        <p ion-text color="danger" [hidden]="!ContrasenaNueva.errors.required">Campo requerido &nbsp;</p>\n\n                        <p ion-text color="danger" [hidden]="!ContrasenaNueva.errors.minlength">Contraseña minima de 6 caracteres</p>\n\n                    </ion-item>\n\n                </ion-row>\n\n                <ion-row>\n\n                    <ion-item>\n\n                        <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n\n                            <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/contrasenaRegistro.png">\n\n                        </ion-icon>\n\n                        <ion-input type="password" placeholder="Confirmar Contraseña nueva" name="confirmarContrasena" #ConfirmarContrasenaNueva="ngModel"\n\n                            [(ngModel)]="confirmarContrasenaNueva" required [equalTo]="ContrasenaNueva"></ion-input>\n\n                    </ion-item>\n\n                    <ion-item *ngIf="ConfirmarContrasenaNueva.errors && (ConfirmarContrasenaNueva.dirty || ConfirmarContrasenaNueva.touched)">\n\n                        <ion-icon name="alert" item-start color="danger"></ion-icon>\n\n                        <p ion-text color="danger" [hidden]="!ConfirmarContrasenaNueva.errors.required">Campo requerido &nbsp;</p>\n\n                        <p ion-text color="danger" [hidden]="!ConfirmarContrasenaNueva.errors.equalTo">La contraseña no coincide</p>\n\n                    </ion-item>\n\n                </ion-row>\n\n                <div class="checkbox">\n\n                    <label style="margin-top: 30px;">\n\n                        <input type="checkbox" (click)="toggleTextPassword()"> Mostrar Contraseña\n\n                    </label>\n\n                </div>\n\n\n\n            </div>\n\n        </div>\n\n        <button (click)="onUpdate()" type="submit" style="margin: auto; display: block; max-width: 75%; display: block; background-color: transparent;"><img\n\n                src="assets/imgs/btnGuardarCambios.png"></button>\n\n    </form>\n\n</ion-content>`/*ion-inline-end:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\contrasena\contrasena.html"*/
+            selector: 'page-contrasena',template:/*ion-inline-start:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/contrasena/contrasena.html"*/'<ion-header>\n    <ion-navbar color="colorapp">\n        <button ion-button menuToggle icon-only>\n            <ion-icon name=\'menu\'></ion-icon>\n        </button>\n        <ion-title style="text-align: center;">Cambiar contraseña</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content style=" background-image: url(\'assets/imgs/Registro.png\')" class="getstarContactos">\n    <form #FormularioRegistro="ngForm" id="formRegistro">\n        <div class="container" id="padre">\n            <div style="padding: 10%;" id="hijo">\n <!-- srsrtfsgsfs -->\n                <div class="Aligner-item Aligner-item--top"></div>\n                <img id="imganeTitulo" src="assets/imgs/titulo.png" style="width: 70%;">\n                <div style="margin-top: 40px;" class="Aligner-item Aligner-item--bottom"></div>\n                <ion-row>\n                    <ion-item>\n                        <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n                            <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/contrasenaRegistro.png">\n                        </ion-icon>\n                        <ion-input [type]="getType()" #ContrasenaNueva="ngModel" [(ngModel)]="contrasenaNueva" type="password" placeholder="Contraseña nueva"\n                            name="contrasena" required minlength="6"></ion-input>\n                    </ion-item>\n                    <ion-item *ngIf="ContrasenaNueva.errors && (ContrasenaNueva.dirty || ContrasenaNueva.touched)">\n                        <ion-icon name="alert" item-start color="danger"></ion-icon>\n                        <p ion-text color="danger" [hidden]="!ContrasenaNueva.errors.required">Campo requerido &nbsp;</p>\n                        <p ion-text color="danger" [hidden]="!ContrasenaNueva.errors.minlength">Contraseña minima de 6 caracteres</p>\n                    </ion-item>\n                </ion-row>\n                <ion-row>\n                    <ion-item>\n                        <ion-icon item-left style="  max-width:10%; margin-top:3%; margin-bottom:0; margin-right:0% ">\n                            <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/contrasenaRegistro.png">\n                        </ion-icon>\n                        <ion-input type="password" placeholder="Confirmar Contraseña nueva" name="confirmarContrasena" #ConfirmarContrasenaNueva="ngModel"\n                            [(ngModel)]="confirmarContrasenaNueva" required [equalTo]="ContrasenaNueva"></ion-input>\n                    </ion-item>\n                    <ion-item *ngIf="ConfirmarContrasenaNueva.errors && (ConfirmarContrasenaNueva.dirty || ConfirmarContrasenaNueva.touched)">\n                        <ion-icon name="alert" item-start color="danger"></ion-icon>\n                        <p ion-text color="danger" [hidden]="!ConfirmarContrasenaNueva.errors.required">Campo requerido &nbsp;</p>\n                        <p ion-text color="danger" [hidden]="!ConfirmarContrasenaNueva.errors.equalTo">La contraseña no coincide</p>\n                    </ion-item>\n                </ion-row>\n                <div class="checkbox">\n                    <label style="margin-top: 30px;">\n                        <input type="checkbox" (click)="toggleTextPassword()"> Mostrar Contraseña\n                    </label>\n                </div>\n\n            </div>\n        </div>\n        <button (click)="onUpdate()" type="submit" style="margin: auto; display: block; max-width: 75%; display: block; background-color: transparent;"><img\n                src="assets/imgs/btnGuardarCambios.png"></button>\n    </form>\n</ion-content>'/*ion-inline-end:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/contrasena/contrasena.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__app_services_user_services__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* LoadingController */]])
     ], ContrasenaPage);
@@ -3357,6 +3188,60 @@ var ContrasenaPage = (function () {
 }());
 
 //# sourceMappingURL=contrasena.js.map
+
+/***/ }),
+
+/***/ 414:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Home1Page; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_services_user_services__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(94);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var Home1Page = (function () {
+    function Home1Page(navCtrl, alertCtrl, loadingCtrl, menuCtrl) {
+        this.navCtrl = navCtrl;
+        this.alertCtrl = alertCtrl;
+        this.loadingCtrl = loadingCtrl;
+        this.menuCtrl = menuCtrl;
+    }
+    Home1Page.prototype.ngDoCheck = function () {
+    };
+    Home1Page.prototype.ngOnInit = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
+        }, 3000);
+    };
+    Home1Page = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: "page-home1",template:/*ion-inline-start:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/home1/home1.html"*/'<h1>Espere Por favor</h1>'/*ion-inline-end:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/home1/home1.html"*/,
+            providers: [__WEBPACK_IMPORTED_MODULE_2__app_services_user_services__["a" /* UserService */]]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* LoadingController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* MenuController */]])
+    ], Home1Page);
+    return Home1Page;
+}());
+
+//# sourceMappingURL=home1.js.map
 
 /***/ }),
 
@@ -3375,13 +3260,13 @@ var GLOBAL = {
 
 /***/ }),
 
-/***/ 457:
+/***/ 459:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(458);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(462);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(460);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(464);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -3389,51 +3274,54 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 462:
+/***/ 464:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(293);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__ = __webpack_require__(297);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_http__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__(505);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_home_home__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_registro_registro__ = __webpack_require__(298);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_mi_cuenta_mi_cuenta__ = __webpack_require__(408);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_principal_principal__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_ubicacion_inicio_ubicacion_inicio__ = __webpack_require__(302);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_ubicacion_final_ubicacion_final__ = __webpack_require__(400);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_historial_historial__ = __webpack_require__(188);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_solicitudes_solicitudes__ = __webpack_require__(189);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_cardsolicitud_cardsolicitud__ = __webpack_require__(406);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_confirmacion_confirmacion__ = __webpack_require__(402);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_terminos_terminos__ = __webpack_require__(407);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_contrasena_contrasena__ = __webpack_require__(412);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_contactanos_contactanos__ = __webpack_require__(409);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__services_user_services__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__services_message_services__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__services_notificaciones_services__ = __webpack_require__(70);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__services_paypal_service__ = __webpack_require__(403);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__services_correo_service__ = __webpack_require__(405);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__ionic_native_geolocation__ = __webpack_require__(299);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__agm_core__ = __webpack_require__(166);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__angular_forms__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_ng2_validation__ = __webpack_require__(790);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28_ng2_validation___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_28_ng2_validation__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29_mydatepicker__ = __webpack_require__(879);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__ionic_native_in_app_browser__ = __webpack_require__(404);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__ionic_native_call_number__ = __webpack_require__(410);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__ionic_native_email_composer__ = __webpack_require__(411);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_component__ = __webpack_require__(507);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_home_home__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_home1_home1__ = __webpack_require__(414);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_registro_registro__ = __webpack_require__(298);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_mi_cuenta_mi_cuenta__ = __webpack_require__(409);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_principal_principal__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_ubicacion_inicio_ubicacion_inicio__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_ubicacion_final_ubicacion_final__ = __webpack_require__(401);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_historial_historial__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_solicitudes_solicitudes__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_cardsolicitud_cardsolicitud__ = __webpack_require__(407);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_confirmacion_confirmacion__ = __webpack_require__(403);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_terminos_terminos__ = __webpack_require__(408);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_contrasena_contrasena__ = __webpack_require__(413);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_contactanos_contactanos__ = __webpack_require__(410);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__services_user_services__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__services_message_services__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__services_notificaciones_services__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__services_paypal_service__ = __webpack_require__(404);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__services_correo_service__ = __webpack_require__(406);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__ionic_native_geolocation__ = __webpack_require__(300);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__agm_core__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__angular_forms__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29_ng2_validation__ = __webpack_require__(792);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29_ng2_validation___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_29_ng2_validation__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30_mydatepicker__ = __webpack_require__(881);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__ionic_native_in_app_browser__ = __webpack_require__(405);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__ionic_native_call_number__ = __webpack_require__(411);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__ionic_native_email_composer__ = __webpack_require__(412);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__ionic_native_camera_ngx__ = __webpack_require__(299);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -3473,6 +3361,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 // e-mail
 
+
 var AppModule = (function () {
     function AppModule() {
     }
@@ -3481,18 +3370,19 @@ var AppModule = (function () {
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* MyApp */],
                 __WEBPACK_IMPORTED_MODULE_7__pages_home_home__["a" /* HomePage */],
-                __WEBPACK_IMPORTED_MODULE_8__pages_registro_registro__["a" /* RegistroPage */],
-                __WEBPACK_IMPORTED_MODULE_9__pages_mi_cuenta_mi_cuenta__["a" /* MiCuenta */],
-                __WEBPACK_IMPORTED_MODULE_10__pages_principal_principal__["a" /* PrincipalPage */],
-                __WEBPACK_IMPORTED_MODULE_11__pages_ubicacion_inicio_ubicacion_inicio__["a" /* UbicacionInicioPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_ubicacion_final_ubicacion_final__["a" /* UbicacionFinalPage */],
-                __WEBPACK_IMPORTED_MODULE_13__pages_historial_historial__["a" /* HistorialPage */],
-                __WEBPACK_IMPORTED_MODULE_14__pages_solicitudes_solicitudes__["a" /* SolicitudesPage */],
-                __WEBPACK_IMPORTED_MODULE_15__pages_cardsolicitud_cardsolicitud__["a" /* CardsolicitudPage */],
-                __WEBPACK_IMPORTED_MODULE_16__pages_confirmacion_confirmacion__["a" /* ConfirmacionPage */],
-                __WEBPACK_IMPORTED_MODULE_17__pages_terminos_terminos__["a" /* TerminosPage */],
-                __WEBPACK_IMPORTED_MODULE_18__pages_contrasena_contrasena__["a" /* ContrasenaPage */],
-                __WEBPACK_IMPORTED_MODULE_19__pages_contactanos_contactanos__["a" /* ContactosPage */]
+                __WEBPACK_IMPORTED_MODULE_9__pages_registro_registro__["a" /* RegistroPage */],
+                __WEBPACK_IMPORTED_MODULE_10__pages_mi_cuenta_mi_cuenta__["a" /* MiCuenta */],
+                __WEBPACK_IMPORTED_MODULE_11__pages_principal_principal__["a" /* PrincipalPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_ubicacion_inicio_ubicacion_inicio__["a" /* UbicacionInicioPage */],
+                __WEBPACK_IMPORTED_MODULE_13__pages_ubicacion_final_ubicacion_final__["a" /* UbicacionFinalPage */],
+                __WEBPACK_IMPORTED_MODULE_14__pages_historial_historial__["a" /* HistorialPage */],
+                __WEBPACK_IMPORTED_MODULE_15__pages_solicitudes_solicitudes__["a" /* SolicitudesPage */],
+                __WEBPACK_IMPORTED_MODULE_16__pages_cardsolicitud_cardsolicitud__["a" /* CardsolicitudPage */],
+                __WEBPACK_IMPORTED_MODULE_17__pages_confirmacion_confirmacion__["a" /* ConfirmacionPage */],
+                __WEBPACK_IMPORTED_MODULE_18__pages_terminos_terminos__["a" /* TerminosPage */],
+                __WEBPACK_IMPORTED_MODULE_19__pages_contrasena_contrasena__["a" /* ContrasenaPage */],
+                __WEBPACK_IMPORTED_MODULE_20__pages_contactanos_contactanos__["a" /* ContactosPage */],
+                __WEBPACK_IMPORTED_MODULE_8__pages_home1_home1__["a" /* Home1Page */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -3500,44 +3390,46 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* MyApp */], {}, {
                     links: []
                 }),
-                __WEBPACK_IMPORTED_MODULE_26__agm_core__["a" /* AgmCoreModule */].forRoot({
+                __WEBPACK_IMPORTED_MODULE_27__agm_core__["a" /* AgmCoreModule */].forRoot({
                     apiKey: 'AIzaSyARuGaeV-rD_M_ZP2uZT6d8SzFmywzAbRk',
                     libraries: ["places"]
                 }),
-                __WEBPACK_IMPORTED_MODULE_27__angular_forms__["FormsModule"],
-                __WEBPACK_IMPORTED_MODULE_28_ng2_validation__["CustomFormsModule"],
-                __WEBPACK_IMPORTED_MODULE_29_mydatepicker__["MyDatePickerModule"]
+                __WEBPACK_IMPORTED_MODULE_28__angular_forms__["FormsModule"],
+                __WEBPACK_IMPORTED_MODULE_29_ng2_validation__["CustomFormsModule"],
+                __WEBPACK_IMPORTED_MODULE_30_mydatepicker__["MyDatePickerModule"]
             ],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* IonicApp */]],
             entryComponents: [
                 __WEBPACK_IMPORTED_MODULE_6__app_component__["a" /* MyApp */],
                 __WEBPACK_IMPORTED_MODULE_7__pages_home_home__["a" /* HomePage */],
-                __WEBPACK_IMPORTED_MODULE_8__pages_registro_registro__["a" /* RegistroPage */],
-                __WEBPACK_IMPORTED_MODULE_9__pages_mi_cuenta_mi_cuenta__["a" /* MiCuenta */],
-                __WEBPACK_IMPORTED_MODULE_10__pages_principal_principal__["a" /* PrincipalPage */],
-                __WEBPACK_IMPORTED_MODULE_11__pages_ubicacion_inicio_ubicacion_inicio__["a" /* UbicacionInicioPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_ubicacion_final_ubicacion_final__["a" /* UbicacionFinalPage */],
-                __WEBPACK_IMPORTED_MODULE_13__pages_historial_historial__["a" /* HistorialPage */],
-                __WEBPACK_IMPORTED_MODULE_14__pages_solicitudes_solicitudes__["a" /* SolicitudesPage */],
-                __WEBPACK_IMPORTED_MODULE_15__pages_cardsolicitud_cardsolicitud__["a" /* CardsolicitudPage */],
-                __WEBPACK_IMPORTED_MODULE_16__pages_confirmacion_confirmacion__["a" /* ConfirmacionPage */],
-                __WEBPACK_IMPORTED_MODULE_17__pages_terminos_terminos__["a" /* TerminosPage */],
-                __WEBPACK_IMPORTED_MODULE_18__pages_contrasena_contrasena__["a" /* ContrasenaPage */],
-                __WEBPACK_IMPORTED_MODULE_19__pages_contactanos_contactanos__["a" /* ContactosPage */]
+                __WEBPACK_IMPORTED_MODULE_9__pages_registro_registro__["a" /* RegistroPage */],
+                __WEBPACK_IMPORTED_MODULE_10__pages_mi_cuenta_mi_cuenta__["a" /* MiCuenta */],
+                __WEBPACK_IMPORTED_MODULE_11__pages_principal_principal__["a" /* PrincipalPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_ubicacion_inicio_ubicacion_inicio__["a" /* UbicacionInicioPage */],
+                __WEBPACK_IMPORTED_MODULE_13__pages_ubicacion_final_ubicacion_final__["a" /* UbicacionFinalPage */],
+                __WEBPACK_IMPORTED_MODULE_14__pages_historial_historial__["a" /* HistorialPage */],
+                __WEBPACK_IMPORTED_MODULE_15__pages_solicitudes_solicitudes__["a" /* SolicitudesPage */],
+                __WEBPACK_IMPORTED_MODULE_16__pages_cardsolicitud_cardsolicitud__["a" /* CardsolicitudPage */],
+                __WEBPACK_IMPORTED_MODULE_17__pages_confirmacion_confirmacion__["a" /* ConfirmacionPage */],
+                __WEBPACK_IMPORTED_MODULE_18__pages_terminos_terminos__["a" /* TerminosPage */],
+                __WEBPACK_IMPORTED_MODULE_19__pages_contrasena_contrasena__["a" /* ContrasenaPage */],
+                __WEBPACK_IMPORTED_MODULE_20__pages_contactanos_contactanos__["a" /* ContactosPage */],
+                __WEBPACK_IMPORTED_MODULE_8__pages_home1_home1__["a" /* Home1Page */]
             ],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_4__ionic_native_status_bar__["a" /* StatusBar */],
                 __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */],
-                __WEBPACK_IMPORTED_MODULE_20__services_user_services__["a" /* UserService */],
-                __WEBPACK_IMPORTED_MODULE_21__services_message_services__["a" /* MessageService */],
-                __WEBPACK_IMPORTED_MODULE_22__services_notificaciones_services__["a" /* NotificacionesService */],
+                __WEBPACK_IMPORTED_MODULE_21__services_user_services__["a" /* UserService */],
+                __WEBPACK_IMPORTED_MODULE_22__services_message_services__["a" /* MessageService */],
+                __WEBPACK_IMPORTED_MODULE_23__services_notificaciones_services__["a" /* NotificacionesService */],
                 { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ErrorHandler"], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicErrorHandler */] },
-                __WEBPACK_IMPORTED_MODULE_25__ionic_native_geolocation__["a" /* Geolocation */],
-                __WEBPACK_IMPORTED_MODULE_31__ionic_native_call_number__["a" /* CallNumber */],
-                __WEBPACK_IMPORTED_MODULE_32__ionic_native_email_composer__["a" /* EmailComposer */],
-                __WEBPACK_IMPORTED_MODULE_23__services_paypal_service__["a" /* PayPal */],
-                __WEBPACK_IMPORTED_MODULE_30__ionic_native_in_app_browser__["a" /* InAppBrowser */],
-                __WEBPACK_IMPORTED_MODULE_24__services_correo_service__["a" /* EnvioEmail */]
+                __WEBPACK_IMPORTED_MODULE_26__ionic_native_geolocation__["a" /* Geolocation */],
+                __WEBPACK_IMPORTED_MODULE_32__ionic_native_call_number__["a" /* CallNumber */],
+                __WEBPACK_IMPORTED_MODULE_33__ionic_native_email_composer__["a" /* EmailComposer */],
+                __WEBPACK_IMPORTED_MODULE_24__services_paypal_service__["a" /* PayPal */],
+                __WEBPACK_IMPORTED_MODULE_31__ionic_native_in_app_browser__["a" /* InAppBrowser */],
+                __WEBPACK_IMPORTED_MODULE_25__services_correo_service__["a" /* EnvioEmail */],
+                __WEBPACK_IMPORTED_MODULE_34__ionic_native_camera_ngx__["a" /* Camera */],
             ]
         })
     ], AppModule);
@@ -3548,21 +3440,22 @@ var AppModule = (function () {
 
 /***/ }),
 
-/***/ 505:
+/***/ 507:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(297);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(293);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_principal_principal__ = __webpack_require__(55);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_user_services__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_mi_cuenta_mi_cuenta__ = __webpack_require__(408);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_contactanos_contactanos__ = __webpack_require__(409);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_contrasena_contrasena__ = __webpack_require__(412);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_user_services__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_mi_cuenta_mi_cuenta__ = __webpack_require__(409);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_contactanos_contactanos__ = __webpack_require__(410);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_contrasena_contrasena__ = __webpack_require__(413);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_home1_home1__ = __webpack_require__(414);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3584,11 +3477,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 // import { PagoOnlinePage } from '../pages/pagoOnline/pagoOnline';
+
 var MyApp = (function () {
     function MyApp(platform, statusBar, splashScreen, _userService) {
         this._userService = _userService;
         //rootPage: any;
-        this.rootPage = __WEBPACK_IMPORTED_MODULE_4__pages_home_home__["a" /* HomePage */];
+        this.rootPage = __WEBPACK_IMPORTED_MODULE_10__pages_home1_home1__["a" /* Home1Page */];
         platform.ready().then(function () {
             statusBar.styleDefault();
             splashScreen.hide();
@@ -3620,7 +3514,7 @@ var MyApp = (function () {
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Nav */])
     ], MyApp.prototype, "nav", void 0);
     MyApp = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\app\app.html"*/`<ion-menu [content]="NAV" id=\'myMenu\'>\n\n    <ion-header>\n\n    </ion-header>\n\n    <ion-content style="background-image: url(\'assets/imgs/Registro.png\')" class="getstarToggle">\n\n      <img style="background: transparent; width: 120%;" src="assets/imgs/portadaToglle.png" alt="">\n\n      <br>\n\n      <br>\n\n      <ion-list>\n\n        <button class="btn-cb" ion-item *ngFor="let page of pages" (click)="goToPage(page.component)" menuClose>\n\n          <img src="assets/imgs/{{ page.icon }}" style="width: 17% ;padding-right: 5%"> {{ page.titulo }}\n\n        </button>\n\n  \n\n        <button class="btn-cb" ion-item (click)="Logout()" menuClose>\n\n          <img src="assets/imgs/salir.png" style="width: 17% ;padding-right: 5%"> Cerrar Sesión\n\n        </button>\n\n      </ion-list>\n\n    </ion-content>\n\n  </ion-menu>\n\n  \n\n  <ion-nav id="nav" #NAV [root]="rootPage"></ion-nav>\n\n  `/*ion-inline-end:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\app\app.html"*/,
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/app/app.html"*/'<ion-menu [content]="NAV" id=\'myMenu\'>\n    <ion-header>\n    </ion-header>\n    <ion-content style="background-image: url(\'assets/imgs/Registro.png\')" class="getstarToggle">\n      <img style="background: transparent; width: 120%;" src="assets/imgs/portadaToglle.png" alt="">\n      <br>\n      <br>\n      <ion-list>\n        <button class="btn-cb" ion-item *ngFor="let page of pages" (click)="goToPage(page.component)" menuClose>\n          <img src="assets/imgs/{{ page.icon }}" style="width: 17% ;padding-right: 5%"> {{ page.titulo }}\n        </button>\n  \n        <button class="btn-cb" ion-item (click)="Logout()" menuClose>\n          <img src="assets/imgs/salir.png" style="width: 17% ;padding-right: 5%"> Cerrar Sesión\n        </button>\n      </ion-list>\n    </ion-content>\n  </ion-menu>\n  \n  <ion-nav id="nav" #NAV [root]="rootPage"></ion-nav>\n  '/*ion-inline-end:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/app/app.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_6__services_user_services__["a" /* UserService */]]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */], __WEBPACK_IMPORTED_MODULE_6__services_user_services__["a" /* UserService */]])
@@ -3632,7 +3526,7 @@ var MyApp = (function () {
 
 /***/ }),
 
-/***/ 506:
+/***/ 508:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3652,7 +3546,7 @@ var Solicitud = (function () {
 
 /***/ }),
 
-/***/ 507:
+/***/ 509:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3683,12 +3577,12 @@ var User = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PrincipalPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_services_user_services__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_services_user_services__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_services_message_services__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_services_notificaciones_services__ = __webpack_require__(70);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ubicacion_inicio_ubicacion_inicio__ = __webpack_require__(302);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ubicacion_inicio_ubicacion_inicio__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_historial_historial__ = __webpack_require__(188);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_solicitudes_solicitudes__ = __webpack_require__(189);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -3800,7 +3694,7 @@ var PrincipalPage = (function () {
     };
     PrincipalPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: "page-principal",template:/*ion-inline-start:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\principal\principal.html"*/`<ion-header>\n\n  <ion-navbar hideBackButton color="colorapp">\n\n    <button ion-button menuToggle icon-only>\n\n      <ion-icon name=\'menu\'></ion-icon>\n\n    </button>\n\n\n\n    <!-- es es ios  ////////////// -->\n\n    <ion-title style="padding-right: 0%;"><label left>Menú Principal</label>\n\n       <button (click)="solicitudes()"\n\n        style="background: transparent; left:0; right:0; max-width:2%; float: right; margin-right: 15%; display: block; max-height:100%;">\n\n        <ion-icon name="calendar" style="cursor:pointer; font-size: 140%; color:rgb(255, 255, 255);"></ion-icon>\n\n      </button>\n\n\n\n      <button (click)="historial()"\n\n        style="background: transparent; left:0; right:0; max-width:2%; float: right; margin-right: 15%; display: block; max-height:100%;">\n\n        <ion-icon name="notifications" style="cursor:pointer; font-size: 150%; color:rgb(255, 255, 255);"></ion-icon>\n\n      </button>\n\n    </ion-title>\n\n\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content style="background-image: url(\'assets/imgs/fondo2.png\')" class="getstarPrincipal">\n\n  <br>\n\n  <form #myForm="ngForm" novalidate class="form_princi">\n\n\n\n    <!-- ESTE ES EL PEDIDO PATITA -->\n\n    <div id="page_principal" *ngIf="menuprincipal">\n\n      <div id="hijo">\n\n        <ion-item class="css-btn" *ngIf="VarPatita">\n\n            <br><br><br><br>\n\n          <div id="icon-item" *ngIf="VarPatita" value="VIAJES" (click)="activaV()">\n\n            <ion-icon style="cursor:pointer; font-size: 780%;">\n\n              <img src="assets/imgs/patita.png" style=" margin: 0; padding: 0;">\n\n            </ion-icon>\n\n          </div>\n\n          <input type="button" class="btn1" *ngIf="VarPatita" value="SOLICITAR" (click)="activaV()">\n\n        </ion-item>\n\n      </div>\n\n    </div>\n\n\n\n    <ion-list class="Lista_Menu_Viaje">\n\n      <!-- AQUI EMPIEZA LA SOLICITUD -->\n\n      <div class="list_1" *ngIf="bander">\n\n        <ion-label class="title_menu">Nombre y Raza:</ion-label>\n\n        <ion-item class="css-itemSelec">\n\n          <ion-input placeholder="ej. Bobby - Bulldog" #raza="ngModel" [(ngModel)]="Raza" name="raza" required></ion-input>\n\n        </ion-item>\n\n      </div>\n\n      <hr *ngIf="bander" />\n\n\n\n      <div class="list_1" *ngIf="bander">\n\n        <ion-label class="title_menu">Edad:</ion-label>\n\n        <ion-item class="css-itemSelec">\n\n          <ion-input placeholder="Edad: ej. 1 mes" #edad="ngModel" [(ngModel)]="num_edad" name="edad" required></ion-input>\n\n        </ion-item>\n\n      </div>\n\n      <hr *ngIf="bander" />\n\n\n\n      <div class="list_3" *ngIf="bander">\n\n        <ion-label class="title_menu">Fecha Salida:</ion-label>\n\n        <div class="picker">\n\n          <my-date-picker required placeholder="Fecha Salida" [options]="myDatePickerOptions" name="mydate"\n\n            #mydate="ngModel" [(ngModel)]="fecha_salida" required></my-date-picker>\n\n        </div>\n\n      </div>\n\n      <hr *ngIf="bander" />\n\n\n\n      <div class="list_2" *ngIf="bander">\n\n        <ion-label class="title_menu">Hora Recogida:</ion-label>\n\n        <ion-item class="css-itemSelec css-datetime">\n\n          <ion-datetime required placeholder="Seleccione hora de recogida" displayFormat="hh:mm A" #dateR="ngModel"\n\n            [(ngModel)]="horarioR" name="dateE"></ion-datetime>\n\n        </ion-item>\n\n      </div>\n\n      <hr *ngIf="bander" />\n\n\n\n      <div class="list_2" *ngIf="bander">\n\n        <ion-label class="title_menu">Hora Entrega:</ion-label>\n\n        <ion-item class="css-itemSelec css-datetime">\n\n          <ion-datetime required placeholder="Seleccione hora de entrega" displayFormat="hh:mm A" #dateE="ngModel"\n\n            [(ngModel)]="horarioE" name="dateE"></ion-datetime>\n\n        </ion-item>\n\n      </div>\n\n      <hr *ngIf="bander" />\n\n\n\n      <div class="DetalleEnc" *ngIf="bander">\n\n        <ion-label class="title_menu">Información Adicional:</ion-label>\n\n        <ion-item class="css-TextArea">\n\n          <ion-textarea required rows="8" class="textare" #informacion="ngModel" [(ngModel)]="inf_adicional"\n\n            name="informacion"\n\n            placeholder="Detalle toda la información adicional que usted desee proporcionar, como enfermedades.">\n\n          </ion-textarea>\n\n        </ion-item>\n\n      </div>\n\n\n\n      <br *ngIf="solicita">\n\n      <button *ngIf="solicita" class="rutasGeol" style="background: transparent;" (click)="irUbicacionInicio();">\n\n        <img src="assets/imgs/solicitar.png" style=" margin: 0; padding: 0;">\n\n      </button>\n\n      <br *ngIf="solicita">\n\n    </ion-list>\n\n  </form>\n\n</ion-content>`/*ion-inline-end:"C:\Users\sttef\Documents\GitHub\Puppy-Care-App-User\AppUser\src\pages\principal\principal.html"*/,
+            selector: "page-principal",template:/*ion-inline-start:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/principal/principal.html"*/'<ion-header>\n  <ion-navbar hideBackButton color="colorapp">\n    <button ion-button menuToggle icon-only>\n      <ion-icon name=\'menu\'></ion-icon>\n    </button>\n\n    <!-- es es ios  ////////////// -->\n    <ion-title style="padding-right: 0%;"><label left>Menú Principal</label>\n       <button (click)="solicitudes()"\n        style="background: transparent; left:0; right:0; max-width:2%; float: right; margin-right: 15%; display: block; max-height:100%;">\n        <ion-icon name="calendar" style="cursor:pointer; font-size: 140%; color:rgb(255, 255, 255);"></ion-icon>\n      </button>\n\n      <button (click)="historial()"\n        style="background: transparent; left:0; right:0; max-width:2%; float: right; margin-right: 15%; display: block; max-height:100%;">\n        <ion-icon name="notifications" style="cursor:pointer; font-size: 150%; color:rgb(255, 255, 255);"></ion-icon>\n      </button>\n    </ion-title>\n\n  </ion-navbar>\n</ion-header>\n\n<ion-content style="background-image: url(\'assets/imgs/fondo2.png\')" class="getstarPrincipal">\n  <br>\n  <form #myForm="ngForm" novalidate class="form_princi">\n\n    <!-- ESTE ES EL PEDIDO PATITA -->\n    <div id="page_principal" *ngIf="menuprincipal">\n      <div id="hijo">\n        <ion-item class="css-btn" *ngIf="VarPatita">\n            <br><br><br><br>\n          <div id="icon-item" *ngIf="VarPatita" value="VIAJES" (click)="activaV()">\n            <ion-icon style="cursor:pointer; font-size: 780%;">\n              <img src="assets/imgs/patita.png" style=" margin: 0; padding: 0;">\n            </ion-icon>\n          </div>\n          <input type="button" class="btn1" *ngIf="VarPatita" value="SOLICITAR" (click)="activaV()">\n        </ion-item>\n      </div>\n    </div>\n\n    <ion-list class="Lista_Menu_Viaje">\n      <!-- AQUI EMPIEZA LA SOLICITUD -->\n      <div class="list_1" *ngIf="bander">\n        <ion-label class="title_menu">Nombre y Raza:</ion-label>\n        <ion-item class="css-itemSelec">\n          <ion-input placeholder="ej. Bobby - Bulldog" #raza="ngModel" [(ngModel)]="Raza" name="raza" required></ion-input>\n        </ion-item>\n      </div>\n      <hr *ngIf="bander" />\n\n      <div class="list_1" *ngIf="bander">\n        <ion-label class="title_menu">Edad:</ion-label>\n        <ion-item class="css-itemSelec">\n          <ion-input placeholder="Edad: ej. 1 mes" #edad="ngModel" [(ngModel)]="num_edad" name="edad" required></ion-input>\n        </ion-item>\n      </div>\n      <hr *ngIf="bander" />\n\n      <div class="list_3" *ngIf="bander">\n        <ion-label class="title_menu">Fecha Salida:</ion-label>\n        <div class="picker">\n          <my-date-picker required placeholder="Fecha Salida" [options]="myDatePickerOptions" name="mydate"\n            #mydate="ngModel" [(ngModel)]="fecha_salida" required></my-date-picker>\n        </div>\n      </div>\n      <hr *ngIf="bander" />\n\n      <div class="list_2" *ngIf="bander">\n        <ion-label class="title_menu">Hora Recogida:</ion-label>\n        <ion-item class="css-itemSelec css-datetime">\n          <ion-datetime required placeholder="Seleccione hora de recogida" displayFormat="hh:mm A" #dateR="ngModel"\n            [(ngModel)]="horarioR" name="dateE"></ion-datetime>\n        </ion-item>\n      </div>\n      <hr *ngIf="bander" />\n\n      <div class="list_2" *ngIf="bander">\n        <ion-label class="title_menu">Hora Entrega:</ion-label>\n        <ion-item class="css-itemSelec css-datetime">\n          <ion-datetime required placeholder="Seleccione hora de entrega" displayFormat="hh:mm A" #dateE="ngModel"\n            [(ngModel)]="horarioE" name="dateE"></ion-datetime>\n        </ion-item>\n      </div>\n      <hr *ngIf="bander" />\n\n      <div class="DetalleEnc" *ngIf="bander">\n        <ion-label class="title_menu">Información Adicional:</ion-label>\n        <ion-item class="css-TextArea">\n          <ion-textarea required rows="8" class="textare" #informacion="ngModel" [(ngModel)]="inf_adicional"\n            name="informacion"\n            placeholder="Detalle toda la información adicional que usted desee proporcionar, como enfermedades.">\n          </ion-textarea>\n        </ion-item>\n      </div>\n\n      <br *ngIf="solicita">\n      <button *ngIf="solicita" class="rutasGeol" style="background: transparent;" (click)="irUbicacionInicio();">\n        <img src="assets/imgs/solicitar.png" style=" margin: 0; padding: 0;">\n      </button>\n      <br *ngIf="solicita">\n    </ion-list>\n  </form>\n</ion-content>'/*ion-inline-end:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/principal/principal.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_3__app_services_user_services__["a" /* UserService */]]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* MenuController */], __WEBPACK_IMPORTED_MODULE_2__angular_forms__["FormBuilder"], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */], __WEBPACK_IMPORTED_MODULE_3__app_services_user_services__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_4__app_services_message_services__["a" /* MessageService */], __WEBPACK_IMPORTED_MODULE_5__app_services_notificaciones_services__["a" /* NotificacionesService */]])
@@ -3819,7 +3713,7 @@ var PrincipalPage = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MessageService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(508);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__(510);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__global__ = __webpack_require__(42);
@@ -3988,7 +3882,183 @@ var NotificacionesService = (function () {
 
 //# sourceMappingURL=notificaciones.services.js.map
 
+/***/ }),
+
+/***/ 94:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__registro_registro__ = __webpack_require__(298);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_services_user_services__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__principal_principal__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__terminos_terminos__ = __webpack_require__(408);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+//import { User } from "../../app/models/user";
+
+//import { ContactosPage } from "../contactanos/contactanos";
+
+var HomePage = (function () {
+    function HomePage(navCtrl, _userService, alertCtrl, loadingCtrl, menuCtrl) {
+        this.navCtrl = navCtrl;
+        this._userService = _userService;
+        this.alertCtrl = alertCtrl;
+        this.loadingCtrl = loadingCtrl;
+        this.menuCtrl = menuCtrl;
+        this.isActiveToggleTextPassword = true;
+        this.splash = true;
+        this.obj = {
+            email: null,
+            password: null
+        };
+        //this.user = new User("", "", "", "", "", "", "", "","");
+    }
+    HomePage.prototype.ngOnInit = function () {
+        this.identity = this._userService.getIdentity();
+        this.token = this._userService.getToken();
+        console.log("las vaibles del Storage");
+        console.log(this.identity + this.token);
+        //  if(this.identity == null){
+        //    this.menuCtrl.enable(false, 'myMenu');
+        //  }else{
+        //    this.menuCtrl.enable(true, 'myMenu');
+        //  }
+    };
+    /*ionViewDidLoad() {
+      //this.tabBarElement.style.display = 'none';
+      setTimeout(() => {
+        this.splash = false;
+      }, 4000);
+      //this.tabBarElement.style.display = 'none';
+    }*/
+    HomePage.prototype.onCLick = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__registro_registro__["a" /* RegistroPage */]);
+    };
+    HomePage.prototype.onCLickTerminos = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__terminos_terminos__["a" /* TerminosPage */]);
+    };
+    // onContactanos() {
+    //   this.navCtrl.push(ContactosPage);
+    // }
+    HomePage.prototype.onSubmit = function () {
+        var _this = this;
+        //conseguir losdatos del usuario
+        //animacion de carga del sistema
+        this.verificarUsuario();
+        this._userService.singup(this.obj, "").subscribe(function (response) {
+            console.log(response + "esto viene en la respuesta");
+            var identity = response.user;
+            _this.identity = identity;
+            console.log(identity);
+            if (!_this.identity._id) {
+                console.log("el usuario no se ha logueado correctamente");
+                // aqui la alerta
+            }
+            else {
+                // crear local storage
+                localStorage.setItem("identity", JSON.stringify(identity));
+                _this._userService.singup(_this.obj, "true").subscribe(function (response) {
+                    var token = response.token;
+                    _this.token = token;
+                    if (_this.token.length <= 0) {
+                        // aqui mensaje
+                        console.log("el token nose ha generado");
+                    }
+                    else {
+                        localStorage.setItem("Token", token);
+                        setTimeout(function () {
+                            _this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__principal_principal__["a" /* PrincipalPage */]);
+                        }, 2000);
+                    }
+                }, function (error) {
+                    var errorMessage = error;
+                    if (errorMessage) {
+                        try {
+                            var body = JSON.parse(error._body);
+                            errorMessage = body.message;
+                        }
+                        catch (e) {
+                            errorMessage = "No hay conexión intentelo más tarde.";
+                        }
+                        setTimeout(function () {
+                            _this.showAlert(errorMessage);
+                        }, 2000);
+                        console.log(errorMessage);
+                    }
+                });
+                //fin
+            }
+        }, function (error) {
+            var errorMessage = error;
+            if (errorMessage) {
+                try {
+                    var body = JSON.parse(error._body);
+                    errorMessage = body.message;
+                }
+                catch (e) {
+                    errorMessage = "No hay conexión intentelo más tarde";
+                }
+                setTimeout(function () {
+                    _this.showAlert(errorMessage);
+                }, 3000);
+                console.log(errorMessage);
+            }
+        });
+    };
+    HomePage.prototype.verificarUsuario = function () {
+        var loading = this.loadingCtrl.create({
+            content: "Verficando sus datos"
+        });
+        loading.present();
+        setTimeout(function () {
+            loading.dismiss();
+        }, 3000);
+    };
+    HomePage.prototype.toggleTextPassword = function () {
+        this.isActiveToggleTextPassword = (this.isActiveToggleTextPassword == true) ? false : true;
+    };
+    HomePage.prototype.getType = function () {
+        return this.isActiveToggleTextPassword ? 'password' : 'text';
+    };
+    HomePage.prototype.showAlert = function (errorr) {
+        var alert = this.alertCtrl.create({
+            title: 'Error',
+            subTitle: errorr,
+            buttons: ['OK']
+        });
+        alert.present();
+    };
+    HomePage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: "page-home",template:/*ion-inline-start:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/home/home.html"*/'<!--<div id="custom-overlay" [style.display]="splash ? \'flex\': \'none\'">\n  <div class="flb">\n    <div class="Aligner-item Aligner-item--top"></div>\n    <img src="assets/imgs/portada.png">\n    <div class="Aligner-item Aligner-item--bottom"></div>\n  </div>\n</div>-->\n\n<!-- ESTO VA EN ANDROID-->\n<ion-content padding class="getstart">\n</ion-content> \n\n\n\n<br>\n<br>\n<div class="Aligner-item Aligner-item--top"></div>\n<img  id="imganeTitulo" src="assets/imgs/titulo.png" style=" width: 50%;">\n<div class="Aligner-item Aligner-item--bottom"></div>\n<br>\n\n<form  #Formulario="ngForm" (ngSubmit)="onSubmit()">\n  <div id="formLogin">\n    <div style="top:0; bottom: 0;" class="item item-block">\n      <ion-icon item-left style="  max-width:0.02%; margin-top:0%; margin-bottom:0; margin-right:5% ">\n        <img style=" max-width:90%;left: 0;right: 0; " src="assets/imgs/Recurso3.png">\n      </ion-icon>\n      <input type="email" #email="ngModel" [(ngModel)]="obj.email" name="email" class="form-control" style="font-size:110%">\n    </div>\n    <br>\n    <div style="top:0; bottom: 0; " class="item item-block">\n      <ion-icon item-left style="  max-width:0.02%; margin-top:0%; margin-bottom:0; margin-right:5% ">\n        <img style=" max-width:80%;left: 0;right: 0; " src="assets/imgs/Recurso2.png">\n      </ion-icon>\n      <input [type]="getType()" #password="ngModel" [(ngModel)]="obj.password" name="password" class="form-control" style="font-size:110%">\n    </div>\n    <br>\n    <!-- prueba de mostra contrase -->\n    <div class="checkbox" style="margin-left:10%">\n      <label>\n        <input type="checkbox" (click)="toggleTextPassword()"> Mostrar Contraseña</label>\n    </div>\n    <br>\n    <input type="submit" value="Ingresar" style="background-color: #ABCA4A; padding-top:2%; padding-bottom:2%; font-size: 100%; font-weight: bold" class="form-control">\n  </div>\n</form>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<br>\n<div id="formLogin">\n  <!-- <input type="submit" src="assets/imgs/btnFaceboock.png" type="image" style="left:0; right:0;max-width:100%;  "> -->\n  <button (click)="onCLick()" style="background: transparent; border: none; font-size: 110%; font-weight: bold " class="form-control">\n    Registrarse\n  </button>\n  <br>\n  <button (click)="onCLickTerminos()" style="background: transparent; border: none; font-size: 110%; font-weight: bold " class="form-control">\n    Términos y condiciones\n  </button>\n  <br>\n  <button (click)="onContactanos()" style="background: transparent; border: none; font-size: 110%; font-weight: bold " class="form-control">\n    Contáctanos\n  </button>\n</div>'/*ion-inline-end:"/Users/vanessafreire/Documents/GitHub/Puppy-Care-Apps/AppUser/src/pages/home/home.html"*/,
+            providers: [__WEBPACK_IMPORTED_MODULE_3__app_services_user_services__["a" /* UserService */]]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_3__app_services_user_services__["a" /* UserService */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* LoadingController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* MenuController */]])
+    ], HomePage);
+    return HomePage;
+}());
+
+//# sourceMappingURL=home.js.map
+
 /***/ })
 
-},[457]);
+},[459]);
 //# sourceMappingURL=main.js.map

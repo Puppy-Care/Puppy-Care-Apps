@@ -6,6 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { Home1Page } from '../pages/home1/home1';
+
 
 import { RegistroPage } from '../pages/registro/registro';
 import { MiCuenta } from '../pages/mi_cuenta/mi_cuenta';
@@ -43,6 +45,8 @@ import { CallNumber } from '@ionic-native/call-number';
 // e-mail
 import { EmailComposer } from '@ionic-native/email-composer';
 
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -58,7 +62,8 @@ import { EmailComposer } from '@ionic-native/email-composer';
     ConfirmacionPage,
     TerminosPage,
     ContrasenaPage,
-    ContactosPage
+    ContactosPage,
+    Home1Page
   ],
   imports: [
     BrowserModule,
@@ -87,7 +92,8 @@ import { EmailComposer } from '@ionic-native/email-composer';
     ConfirmacionPage,
     TerminosPage,
     ContrasenaPage,
-    ContactosPage
+    ContactosPage,
+    Home1Page
   ],
   providers: [
     StatusBar,
@@ -101,7 +107,10 @@ import { EmailComposer } from '@ionic-native/email-composer';
     EmailComposer,
     PayPal,
     InAppBrowser,
-    EnvioEmail
+    EnvioEmail,
+    Camera,
+    
+    
   ]
 })
 export class AppModule {}

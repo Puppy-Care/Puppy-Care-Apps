@@ -1,3 +1,4 @@
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Component } from "@angular/core";
 import { HomePage } from "../home/home";
 import { GLOBAL } from "../../app/services/global";
@@ -26,6 +27,7 @@ export class RegistroPage {
   verificarPassword = "";
 
   constructor(
+    private camera: Camera,
     public navCtrl: NavController,
     private _userService: UserService,
     public alertCtrl: AlertController,
@@ -35,8 +37,21 @@ export class RegistroPage {
     this.url = GLOBAL.url;
     this.miModelo = {};
     this.user_register = new User("", "", "", "", "", "", "", "", "","");
+
+    const options: CameraOptions = {
+  quality: 100,
+  destinationType: this.camera.DestinationType.FILE_URI,
+  encodingType: this.camera.EncodingType.JPEG,
+  mediaType: this.camera.MediaType.PICTURE
+}
+
+
   }
 
+
+
+
+  
   public verificarContrasenas() {
     console.log('contrasena >>', this.user_register.contrasena);
     console.log('contrasena a verificar>>', this.verificarPassword);
