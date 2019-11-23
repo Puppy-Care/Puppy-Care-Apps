@@ -43,6 +43,7 @@ export class HomePage implements OnInit {
     } else {
       this.menuCtrl.enable(true, 'myMenu');
     }
+    this.showAlertAviso();
   }
 
   ionViewDidLoad() {
@@ -142,4 +143,15 @@ export class HomePage implements OnInit {
     });
     alert.present();
   }
+
+  showAlertAviso() {
+    let alert = this.alertCtrl.create({
+      title: 'Aviso',
+      subTitle: 'Para formar parte de la familia de  dogi entra al siguinte link y llena los datos despues espera un correo de confirmación con tu usuario y contraseña',
+      message:'<a href=https://forms.gle/jzi1uAqNtGUzp31V6>https://forms.gle/jzi1uAqNtGUzp31V6</a>',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  
 }
